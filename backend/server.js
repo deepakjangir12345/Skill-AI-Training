@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const authRoutes = require("./routes/auth.routes");
-const courseRoutes = require("./routes/course.Routes");
+const courseRoutes = require("./routes/course.routes");
 const courseController = require("./controllers/course.Controller");
 const configRoutes = require("./routes/config.routes");
 const supportRoutes = require("./routes/support.routes");
