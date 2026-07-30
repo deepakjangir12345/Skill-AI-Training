@@ -1,0 +1,87 @@
+.enrollment-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.enrollment-main {
+  flex: 1;
+  padding: 40px 20px;
+  background: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.enrollment-card {
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  max-width: 600px;
+  width: 100%;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.enrollment-card h1 {
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #333;
+  text-align: center;
+}
+
+.enrollment-course-info {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.enrollment-course-info h2 {
+  font-size: 24px;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.course-price {
+  font-size: 28px;
+  font-weight: 700;
+  color: #667eea;
+}
+
+.enrollment-summary {
+  margin-bottom: 30px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+  font-size: 18px;
+}
+
+.summary-row.total {
+  font-size: 24px;
+  font-weight: 700;
+  border-top: 2px solid #e0e0e0;
+  margin-top: 15px;
+  padding-top: 20px;
+}
+
+@media (max-width: 768px) {
+  .enrollment-main {
+    padding: 20px 15px;
+  }
+
+  .enrollment-card {
+    padding: 30px 20px;
+  }
+
+  .enrollment-card h1 {
+    font-size: 28px;
+  }
+
+  .enrollment-course-info h2 {
+    font-size: 20px;
+  }
+}
+
+

@@ -1,0 +1,155 @@
+.faculty-layout {
+  display: flex;
+  min-height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.faculty-sidebar {
+  width: 250px;
+  background-color: #8e44ad;
+  color: white;
+  position: fixed;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.faculty-logo {
+  padding: 20px;
+  border-bottom: 1px solid #9b59b6;
+}
+
+.faculty-logo h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: #f39c12;
+}
+
+.faculty-nav {
+  padding: 20px 0;
+}
+
+.faculty-nav-item {
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  color: #ecf0f1;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.faculty-nav-item:hover {
+  background-color: #9b59b6;
+}
+
+.faculty-nav-item.active {
+  background-color: #f39c12;
+}
+
+.faculty-nav-icon {
+  margin-right: 10px;
+  font-size: 1.2rem;
+}
+
+.faculty-nav-label {
+  font-size: 0.95rem;
+}
+
+.faculty-main {
+  flex: 1;
+  margin-left: 250px;
+}
+
+.faculty-header {
+  background-color: white;
+  padding: 20px 30px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.faculty-header h1 {
+  margin: 0;
+  color: #2c3e50;
+  font-size: 1.8rem;
+}
+
+.faculty-header-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.faculty-user-name {
+  font-weight: 500;
+  color: #2c3e50;
+}
+
+.faculty-logout-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease;
+}
+
+.faculty-logout-btn:hover {
+  background-color: #c0392b;
+}
+
+.faculty-content {
+  padding: 30px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .faculty-sidebar {
+    width: 200px;
+  }
+  
+  .faculty-main {
+    margin-left: 200px;
+  }
+  
+  .faculty-header {
+    padding: 15px 20px;
+  }
+  
+  .faculty-content {
+    padding: 20px;
+  }
+  
+  .faculty-nav-label {
+    display: none;
+  }
+  
+  .faculty-nav-icon {
+    margin-right: 0;
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .faculty-sidebar {
+    width: 60px;
+  }
+  
+  .faculty-main {
+    margin-left: 60px;
+  }
+  
+  .faculty-logo h2 {
+    font-size: 1rem;
+  }
+  
+  .faculty-header h1 {
+    font-size: 1.4rem;
+  }
+  
+  .faculty-user-name {
+    display: none;
+  }
+}

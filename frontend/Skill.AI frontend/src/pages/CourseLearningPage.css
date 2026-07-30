@@ -1,0 +1,148 @@
+.course-learning-page {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.course-learning-main {
+  flex: 1;
+  padding: 40px 20px;
+  background: #f5f5f5;
+}
+
+.learning-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 30px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.modules-sidebar {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  height: fit-content;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 100px;
+}
+
+.modules-sidebar h3 {
+  font-size: 20px;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.modules-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.module-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 15px;
+  background: #f9f9f9;
+  border: 2px solid transparent;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s;
+  text-align: left;
+}
+
+.module-item:hover {
+  background: #f0f0f0;
+  border-color: #667eea;
+}
+
+.module-item.active {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border-color: #667eea;
+}
+
+.module-number {
+  font-weight: 700;
+  min-width: 30px;
+}
+
+.module-title {
+  flex: 1;
+}
+
+.learning-content {
+  background: white;
+  border-radius: 12px;
+  padding: 40px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.learning-content .module-title {
+  font-size: 32px;
+  margin-bottom: 30px;
+  color: #333;
+}
+
+.video-container {
+  margin-bottom: 30px;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.video-container video {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.module-content {
+  font-size: 18px;
+  line-height: 1.8;
+  color: #666;
+  margin-bottom: 30px;
+}
+
+.no-content {
+  text-align: center;
+  padding: 60px 20px;
+  color: #666;
+}
+
+.learning-actions {
+  margin-top: 30px;
+  padding-top: 30px;
+  border-top: 2px solid #e0e0e0;
+}
+
+@media (max-width: 1024px) {
+  .learning-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .modules-sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 768px) {
+  .course-learning-main {
+    padding: 20px 15px;
+  }
+
+  .learning-content {
+    padding: 25px 20px;
+  }
+
+  .learning-content .module-title {
+    font-size: 24px;
+  }
+
+  .modules-sidebar {
+    padding: 20px;
+  }
+}
+
+
