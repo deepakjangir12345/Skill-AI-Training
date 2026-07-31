@@ -46,7 +46,7 @@ const LoginPage = () => {
       setGoogleLoading(true)
       
       // Get Google auth URL
-      const response = await api.get('/api/auth/google')
+      const response = await api.get('/auth/google')
       const { authUrl } = response.data
       
       // Redirect to Google OAuth

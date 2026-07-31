@@ -13,7 +13,7 @@ const AdminEnrollments = () => {
   const fetchEnrollments = async () => {
     try {
       const token = localStorage.getItem('token')
-      const response = await api.get('/api/admin/enrollments', {
+      const response = await api.get('/admin/enrollments', {
         headers: {
           'Authorization': `Bearer ${token}`
         }

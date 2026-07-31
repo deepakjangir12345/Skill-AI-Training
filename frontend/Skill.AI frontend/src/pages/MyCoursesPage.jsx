@@ -57,7 +57,7 @@ const MyCoursesPage = () => {
     try {
       setLoading(true)
       // Fetch enrollment data from backend
-      const response = await api.get('/api/enrollments/my')
+      const response = await api.get('/enrollments/my')
       const enrollments = response.data.enrollments || []
       
       // Map enrollment data with course details

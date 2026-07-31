@@ -24,7 +24,7 @@ const FacultyManage = () => {
   const fetchMyCourses = async () => {
     try {
       const token = localStorage.getItem('token')
-      const response = await api.get('/api/faculty/my-courses', {
+      const response = await api.get('/faculty/my-courses', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -40,7 +40,7 @@ const FacultyManage = () => {
   const fetchCourseVideos = async (courseId) => {
     try {
       const token = localStorage.getItem('token')
-      const response = await api.get(`/api/faculty/course/${courseId}/videos`, {
+      const response = await api.get(`/faculty/course/${courseId}/videos`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }

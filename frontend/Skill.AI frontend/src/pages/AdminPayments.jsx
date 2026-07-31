@@ -13,7 +13,7 @@ const AdminPayments = () => {
   const fetchPayments = async () => {
     try {
       const token = localStorage.getItem('token')
-      const response = await api.get('/api/admin/payments', {
+      const response = await api.get('/admin/payments', {
         headers: {
           'Authorization': `Bearer ${token}`
         }

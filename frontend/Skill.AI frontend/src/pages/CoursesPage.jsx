@@ -25,7 +25,7 @@ const CoursesPage = () => {
   const fetchCourses = async () => {
     try {
       setLoading(true)
-      const response = await api.get('/api/courses')
+      const response = await api.get('/courses')
       setCourses(response.data.courses || [])
     } catch (error) {
       console.error('Error fetching courses:', error)

@@ -31,7 +31,7 @@ const AdminSupportPage = () => {
         ...(statusFilter && { status: statusFilter })
       })
       
-      const response = await api.get(`/api/support/queries?${params}`)
+      const response = await api.get(`/support/queries?${params}`)
       
       if (response.data.success) {
         setQueries(response.data.queries)
@@ -50,7 +50,7 @@ const AdminSupportPage = () => {
   const handleStatusChange = async (queryId, newStatus) => {
     try {
       setUpdatingId(queryId)
-      const response = await api.put(`/api/support/queries/${queryId}`, {
+      const response = await api.put(`/support/queries/${queryId}`, {
         status: newStatus
       })
       

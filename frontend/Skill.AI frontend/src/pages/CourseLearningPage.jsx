@@ -19,7 +19,7 @@ const CourseLearningPage = () => {
   const fetchCourseContent = async () => {
     try {
       setLoading(true)
-      const response = await api.get(`/api/courses/${courseId}/content`)
+      const response = await api.get(`/courses/${courseId}/content`)
       setCourse(response.data.course)
       setModules(response.data.modules || [])
       if (response.data.modules && response.data.modules.length > 0) {

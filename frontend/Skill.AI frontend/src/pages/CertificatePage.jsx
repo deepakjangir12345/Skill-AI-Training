@@ -23,7 +23,7 @@ const CertificatePage = () => {
     try {
       setLoading(true)
       // Check if certificate exists (course completed)
-      const response = await api.get(`/api/certificates/${courseId}`)
+      const response = await api.get(`/certificates/${courseId}`)
       
       if (response.data.success) {
         // Certificate exists - course is completed

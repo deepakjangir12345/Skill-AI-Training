@@ -22,7 +22,7 @@ const ContactPage = () => {
 
   const fetchSupportConfig = async () => {
     try {
-      const response = await api.get('/api/config')
+      const response = await api.get('/config')
       setSupportConfig(response.data.config.support)
     } catch (error) {
       console.error('Error fetching support config:', error)
@@ -54,7 +54,7 @@ const ContactPage = () => {
     setSubmitting(true)
 
     try {
-      const response = await api.post('/api/support/query', formData)
+      const response = await api.post('/support/query', formData)
       
       if (response.data.success) {
         toast.success(response.data.message)

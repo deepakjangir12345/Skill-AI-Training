@@ -11,7 +11,7 @@ const WhatsAppFloating = () => {
 
   const fetchWhatsAppConfig = async () => {
     try {
-      const response = await api.get('/api/config')
+      const response = await api.get('/config')
       setConfig(response.data.config.whatsapp)
     } catch (error) {
       console.error('Error fetching WhatsApp config:', error)

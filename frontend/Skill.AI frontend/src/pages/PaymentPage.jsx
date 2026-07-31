@@ -23,7 +23,7 @@ const PaymentPage = () => {
   const fetchCourseDetails = async () => {
     try {
       setLoading(true)
-      const response = await api.get(`/api/courses/${courseId}`)
+      const response = await api.get(`/courses/${courseId}`)
       setCourse(response.data.course)
     } catch (error) {
       console.error('Error fetching course details:', error)
@@ -74,7 +74,7 @@ const PaymentPage = () => {
       const coursePrice = course.price || 599
 
       // Create order on backend
-      const orderResponse = await api.post('/api/payment/create-order', {
+      const orderResponse = await api.post('/payment/create-order', {
         courseId,
         amount: coursePrice,
       })
@@ -99,7 +99,7 @@ const PaymentPage = () => {
         handler: async (response) => {
           // Verify payment on backend
           try {
-            const verifyResponse = await api.post('/api/payment/verify', {
+            const verifyResponse = await api.post('/payment/verify', {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,

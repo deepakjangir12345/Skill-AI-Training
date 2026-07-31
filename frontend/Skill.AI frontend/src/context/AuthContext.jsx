@@ -32,7 +32,7 @@ export const AuthProvider = ({ children }) => {
 
   const verifyToken = async (token) => {
     try {
-      const response = await api.get('/api/auth/verify', {
+      const response = await api.get('/auth/verify', {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (email, password) => {
     try {
-      const response = await api.post('/api/auth/login', { email, password })
+      const response = await api.post('/auth/login', { email, password })
       const { token, user } = response.data
       
       localStorage.setItem('token', token)
@@ -69,7 +69,7 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (userData) => {
     try {
-      const response = await api.post('/api/auth/register', userData)
+      const response = await api.post('/auth/register', userData)
       const { token, user } = response.data
       
       localStorage.setItem('token', token)

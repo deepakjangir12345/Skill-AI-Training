@@ -28,7 +28,7 @@ const EnrollmentPage = () => {
   const fetchCourseDetails = async () => {
     try {
       setLoading(true)
-      const response = await api.get(`/api/courses/${courseId}`)
+      const response = await api.get(`/courses/${courseId}`)
       setCourse(response.data.course)
     } catch (error) {
       console.error('Error fetching course:', error)
