@@ -4,6 +4,7 @@ const bcrypt = require("bcryptjs");
 const { OAuth2Client } = require("google-auth-library");
 const crypto = require("crypto");
 const nodemailer = require("nodemailer");
+const axios = require("axios");
 
 // Google OAuth client
 const googleClient = new OAuth2Client({
@@ -15,12 +16,31 @@ const googleClient = new OAuth2Client({
 // Email transporter
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST,
-  port: process.env.EMAIL_PORT,
-  secure: process.env.EMAIL_SECURE === 'true', // true for 465, false for other ports
+  port: Number(process.env.EMAIL_PORT),
+  secure: process.env.EMAIL_SECURE === "true",
+  requireTLS: true,
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
+});
+(async () => {
+  try {
+    await transporter.verify();
+    console.log("✅ SMTP VERIFIED");
+  } catch (err) {
+    console.error("❌ SMTP VERIFY FAILED");
+    console.error(err);
+  }
+})();
+
+transporter.verify(function (error, success) {
+  if (error) {
+    console.log("SMTP VERIFY FAILED");
+    console.log(error);
+  } else {
+    console.log("SMTP SERVER READY");
+  }
 });
 
 exports.register = async (req, res) => {
@@ -237,21 +257,41 @@ exports.googleCallback = async (req, res) => {
 // Forgot Password
 exports.forgotPassword = async (req, res) => {
   try {
+    console.log("========== FORGOT PASSWORD ==========");
+    console.log("STEP 1 - Request received");
+    
     const { email } = req.body;
+    console.log("STEP 2 - Email:", email);
     
     if (!email) {
       return res.status(400).json({ message: "Email is required" });
     }
     
+    // Validate email environment variables
+    console.log("STEP 3 - Validating email configuration");
+    if (!process.env.EMAIL_HOST || !process.env.EMAIL_PORT || !process.env.EMAIL_USER || !process.env.EMAIL_PASS || !process.env.EMAIL_FROM) {
+      console.error("STEP 3 FAILED - Missing email environment variables");
+      console.error("EMAIL_HOST:", !!process.env.EMAIL_HOST);
+      console.error("EMAIL_PORT:", !!process.env.EMAIL_PORT);
+      console.error("EMAIL_USER:", !!process.env.EMAIL_USER);
+      console.error("EMAIL_PASS:", !!process.env.EMAIL_PASS);
+      console.error("EMAIL_FROM:", !!process.env.EMAIL_FROM);
+      return res.status(500).json({ message: "Email service not configured" });
+    }
+    console.log("STEP 3 - Email configuration validated");
+    
     const user = await User.findOne({ email });
+    console.log("STEP 4 - User lookup result:", user ? "User found" : "User not found");
     
     if (!user) {
       // Always return success message for security
+      console.log("STEP 5 - User not found, returning success message for security");
       return res.json({ message: "If an account with that email exists, a password reset link has been sent." });
     }
     
     // Generate reset token
     const resetToken = crypto.randomBytes(32).toString('hex');
+    console.log("STEP 6 - Reset token generated");
     const resetPasswordExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
     
     // Save reset token to database
@@ -259,10 +299,13 @@ exports.forgotPassword = async (req, res) => {
       resetPasswordToken: resetToken,
       resetPasswordExpires,
     });
+    console.log("STEP 7 - Token saved to database");
     
     // Send reset email
-        const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
-        const mailOptions = {
+    const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
+    console.log("STEP 8 - Reset URL:", resetUrl);
+    
+    const mailOptions = {
       from: process.env.EMAIL_FROM,
       to: email,
       subject: 'Password Reset - Skill.AI Training',
@@ -280,16 +323,58 @@ exports.forgotPassword = async (req, res) => {
       `,
     };
     
-    await transporter.sendMail(mailOptions);
-    
-    console.log('Password reset email sent:', { email });
-    
-    res.json({ message: "If an account with that email exists, a password reset link has been sent." });
-  } catch (error) {
-    console.error('Forgot password error:', error);
-    res.status(500).json({ message: "Failed to process password reset request" });
+    console.log("STEP 9 - Attempting to send email");
+    console.log("Email config:", {
+      host: process.env.EMAIL_HOST,
+      port: process.env.EMAIL_PORT,
+      secure: process.env.EMAIL_SECURE,
+      from: process.env.EMAIL_FROM,
+      to: email
+    });
+    await axios.post(
+  "https://api.brevo.com/v3/smtp/email",
+  {
+    sender: {
+      name: "Skill.AI Training",
+      email: process.env.EMAIL_FROM.replace(/^.*<|>$/g, ""),
+    },
+    to: [
+      {
+        email: email,
+        name: user.name,
+      },
+    ],
+    subject: "Password Reset - Skill.AI Training",
+    htmlContent: `
+      <div style="max-width:600px;margin:0 auto;font-family:Arial,sans-serif;">
+        <h2>Password Reset</h2>
+        <p>Hello ${user.name},</p>
+        <p>Click the button below to reset your password.</p>
+
+        <a href="${resetUrl}"
+           style="display:inline-block;
+                  padding:12px 20px;
+                  background:#2563eb;
+                  color:#fff;
+                  text-decoration:none;
+                  border-radius:6px;">
+          Reset Password
+        </a>
+
+        <p>This link expires in 10 minutes.</p>
+      </div>
+    `
+  },
+  {
+    headers: {
+      accept: "application/json",
+      "content-type": "application/json",
+      "api-key": process.env.BREVO_API_KEY,
+    },
   }
-};
+);
+
+console.log("✅ Brevo API Email Sent");
 
 // Reset Password
 exports.resetPassword = async (req, res) => {

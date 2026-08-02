@@ -41,6 +41,28 @@ app.use("/api/support", supportRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/faculty", facultyRoutes);
 
+const net = require("net");
+
+app.get("/api/test-smtp", (req, res) => {
+  const socket = net.createConnection(587, "smtp-relay.brevo.com");
+
+  socket.setTimeout(10000);
+
+  socket.on("connect", () => {
+    socket.end();
+    res.send("SMTP Port Reachable ✅");
+  });
+
+  socket.on("timeout", () => {
+    socket.destroy();
+    res.status(500).send("SMTP Timeout ❌");
+  });
+
+  socket.on("error", (err) => {
+    res.status(500).send(err.message);
+  });
+});
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
