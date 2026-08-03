@@ -11,6 +11,7 @@ const configRoutes = require("./routes/config.routes");
 const supportRoutes = require("./routes/support.routes");
 const adminRoutes = require("./routes/admin.routes");
 const facultyRoutes = require("./routes/faculty.routes");
+const dashboardRoutes = require("./routes/dashboard.routes");
 
 const app = express();
 app.use(
@@ -40,6 +41,7 @@ app.use("/api/config", configRoutes);
 app.use("/api/support", supportRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/faculty", facultyRoutes);
+app.use("/api/dashboard", dashboardRoutes);
 
 const net = require("net");
 
