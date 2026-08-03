@@ -4,6 +4,9 @@ const bcrypt = require("bcryptjs");
 const { OAuth2Client } = require("google-auth-library");
 const crypto = require("crypto");
 const axios = require("axios");
+const { Resend } = require("resend");
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Google OAuth client
 const googleClient = new OAuth2Client({
@@ -227,7 +230,7 @@ exports.googleCallback = async (req, res) => {
   }
 };
 
-// Forgot Password
+
 // Forgot Password
 exports.forgotPassword = async (req, res) => {
   try {
@@ -239,10 +242,19 @@ exports.forgotPassword = async (req, res) => {
       });
     }
 
-    // User check
+    const senderEmail = process.env.EMAIL_FROM;
+    const brevoApiKey = process.env.BREVO_API_KEY;
+
+    if (!senderEmail) {
+      return res.status(500).json({ message: "EMAIL_FROM is not configured" });
+    }
+
+    if (!brevoApiKey) {
+      return res.status(500).json({ message: "BREVO_API_KEY is not configured" });
+    }
+
     const user = await User.findOne({ email });
 
-    // Security purpose
     if (!user) {
       return res.json({
         message:
@@ -250,12 +262,8 @@ exports.forgotPassword = async (req, res) => {
       });
     }
 
-    // Generate token
     const resetToken = crypto.randomBytes(32).toString("hex");
-
-    const resetPasswordExpires = new Date(
-      Date.now() + 10 * 60 * 1000
-    );
+    const resetPasswordExpires = new Date(Date.now() + 10 * 60 * 1000);
 
     await User.findByIdAndUpdate(user._id, {
       resetPasswordToken: resetToken,
@@ -263,66 +271,106 @@ exports.forgotPassword = async (req, res) => {
     });
 
     const resetUrl = `${process.env.FRONTEND_URL}/reset-password?token=${resetToken}`;
-
-    // Send Email using Brevo API
-    await axios.post(
-      "https://api.brevo.com/v3/smtp/email",
-      {
-        sender: {
-          name: "Skill.AI Training",
-          email: process.env.EMAIL_FROM,
-        },
-        to: [
-          {
-            email: user.email,
-            name: user.name,
-          },
-        ],
-        subject: "Reset Your Password",
-        htmlContent: `
-          <h2>Password Reset</h2>
-
-          <p>Hello ${user.name},</p>
-
-          <p>Click below to reset your password.</p>
-
-          <a href="${resetUrl}"
-          style="
-          background:#4f46e5;
-          color:white;
-          padding:12px 25px;
-          text-decoration:none;
-          border-radius:6px;
-          display:inline-block;
-          ">
-          Reset Password
-          </a>
-
-          <p>This link will expire in 10 minutes.</p>
-        `,
+    const requestJson = {
+      sender: {
+        name: "Skill.AI Training",
+        email: senderEmail,
       },
-      {
-        headers: {
-          accept: "application/json",
-          "content-type": "application/json",
-          "api-key": process.env.BREVO_API_KEY,
+      to: [
+        {
+          email: user.email,
+          name: user.name,
         },
-      }
-    );
+      ],
+      subject: "Reset Your Password - Skill.AI Training",
+      htmlContent: `
+        <h2>Password Reset</h2>
+
+        <p>Hello ${user.name},</p>
+
+        <p>You requested to reset your password.</p>
+
+        <p>
+          <a href="${resetUrl}"
+             style="
+               background:#4f46e5;
+               color:#ffffff;
+               padding:12px 24px;
+               text-decoration:none;
+               border-radius:6px;
+               display:inline-block;">
+            Reset Password
+          </a>
+        </p>
+
+        <p>This link will expire in 10 minutes.</p>
+      `,
+    };
+
+    const headers = {
+      accept: "application/json",
+      "content-type": "application/json",
+      "api-key": brevoApiKey,
+    };
+
+    console.log("========== BREVO REQUEST ==========");
+    console.log("EMAIL_FROM:", senderEmail);
+    console.log("BREVO_API_KEY exists:", !!brevoApiKey);
+    console.log("sender.email:", requestJson.sender.email);
+    console.log("Request JSON:", JSON.stringify(requestJson, null, 2));
+    console.log("Headers:", JSON.stringify(headers, null, 2));
+
+  console.log("FINAL REQUEST:");
+console.log(requestJson);
+
+  await resend.emails.send({
+  from: "Skill.AI Training <onboarding@resend.dev>",
+  to: user.email,
+  subject: "Reset Your Password - Skill.AI Training",
+  html: `
+    <div style="font-family:Arial,sans-serif;max-width:600px;margin:auto;">
+      <h2>Password Reset</h2>
+
+      <p>Hello ${user.name},</p>
+
+      <p>You requested to reset your password.</p>
+
+      <a href="${resetUrl}"
+        style="
+        background:#4f46e5;
+        color:#fff;
+        padding:12px 24px;
+        border-radius:6px;
+        text-decoration:none;
+        display:inline-block;
+        ">
+        Reset Password
+      </a>
+
+      <p style="margin-top:20px;">
+        This link expires in 10 minutes.
+      </p>
+    </div>
+  `,
+});
+
+console.log("✅ Resend Email Sent");
 
     return res.json({
       message:
         "If an account with that email exists, a password reset link has been sent.",
     });
   } catch (error) {
-    console.error(error.response?.data || error);
+    console.log("❌ RESEND ERROR");
+    console.log("Status:", error.response?.status);
+    console.log("Response:", error.response?.data);
+    console.log("Message:", error.message);
 
     return res.status(500).json({
       message: "Failed to process password reset request",
     });
   }
 };
-
 
 // Reset Password
 exports.resetPassword = async (req, res) => {
