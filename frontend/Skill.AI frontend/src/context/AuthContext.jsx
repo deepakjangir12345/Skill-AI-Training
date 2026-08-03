@@ -18,16 +18,13 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const token = localStorage.getItem('token')
-    const storedUser = localStorage.getItem('user')
-    
-    if (token && storedUser) {
-      setUser(JSON.parse(storedUser))
-      // Verify token with backend
-      verifyToken(token)
-    } else {
-      setLoading(false)
-    }
+    const token = localStorage.getItem("token");
+
+if (token) {
+  verifyToken(token);
+} else {
+  setLoading(false);
+}
   }, [])
 
   const verifyToken = async (token) => {

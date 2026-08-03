@@ -10,7 +10,10 @@ const GoogleAuthSuccess = () => {
 
     if (token) {
       localStorage.setItem("token", token);
-      navigate("/dashboard"); // ya /my-courses
+
+setTimeout(() => {
+    window.location.href = "/courses";
+}, 500); // ya /my-courses
     } else {
       navigate("/login");
     }

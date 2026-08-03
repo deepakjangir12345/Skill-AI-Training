@@ -120,3 +120,65 @@ Lamrin Tech Skills University
 
 ---
 
+
+
+# 📸 Screenshots
+
+## Home
+
+![Home](screenshots/home.png)
+
+---
+
+## Courses
+
+![Courses](screenshots/courses.png)
+
+---
+
+## Course Details
+
+![Course Details](screenshots/course-details.png)
+
+---
+
+## Register
+
+![Register](screenshots/register.png)
+
+---
+
+## Login
+
+![Login](screenshots/login.png)
+
+---
+
+## Contact
+
+![Contact](screenshots/contact.png)
+
+---
+
+## Enrollment
+
+![Enrollment](screenshots/enrollment.png)
+
+---
+
+## Razorpay Payment
+
+![Payment](screenshots/payment.png)
+
+---
+
+## Payment Success
+
+![Payment Success](screenshots/payment-success.png)
+
+---
+
+## My Courses
+
+![My Courses](screenshots/my-courses.png)
+
