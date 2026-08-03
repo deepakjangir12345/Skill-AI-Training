@@ -1,30 +1,54 @@
+import { useEffect, useState } from "react";
+import api from "../../utils/api";
+
 const StatsCards = () => {
-  const stats = [
+  const [stats, setStats] = useState({
+    totalCourses: 0,
+    completedCourses: 0,
+    progress: 0,
+    certificates: 0,
+  });
+
+  useEffect(() => {
+    fetchDashboardStats();
+  }, []);
+
+  const fetchDashboardStats = async () => {
+    try {
+      const response = await api.get("/dashboard/stats");
+
+      setStats(response.data.stats);
+    } catch (error) {
+      console.error("Dashboard Stats Error:", error);
+    }
+  };
+
+  const cards = [
     {
       title: "My Courses",
-      value: "5",
+      value: stats.totalCourses,
       icon: "📚",
     },
     {
       title: "Completed",
-      value: "2",
+      value: stats.completedCourses,
       icon: "🎓",
     },
     {
       title: "Progress",
-      value: "40%",
+      value: `${stats.progress}%`,
       icon: "📈",
     },
     {
       title: "Certificates",
-      value: "1",
+      value: stats.certificates,
       icon: "🏆",
     },
   ];
 
   return (
     <div className="stats-grid">
-      {stats.map((item, index) => (
+      {cards.map((item, index) => (
         <div className="stat-card" key={index}>
           <h2>{item.icon}</h2>
 

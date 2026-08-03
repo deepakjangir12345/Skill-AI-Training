@@ -1,7 +1,10 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const Sidebar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { logout } = useAuth();
 
   const menu = [
     { name: "Dashboard", icon: "🏠", path: "/dashboard" },
@@ -9,6 +12,11 @@ const Sidebar = () => {
     { name: "My Courses", icon: "📚", path: "/dashboard/courses" },
     { name: "Settings", icon: "⚙️", path: "/dashboard/settings" },
   ];
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login", { replace: true });
+  };
 
   return (
     <div className="sidebar">
@@ -25,6 +33,13 @@ const Sidebar = () => {
             </Link>
           </li>
         ))}
+
+        <li
+          onClick={handleLogout}
+          style={{ cursor: "pointer" }}
+        >
+          🚪 Logout
+        </li>
       </ul>
     </div>
   );

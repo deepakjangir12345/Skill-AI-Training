@@ -1,9 +1,6 @@
+import { Outlet } from "react-router-dom";
 import "./DashboardPage.css";
-
 import Sidebar from "../components/dashboard/Sidebar";
-import Topbar from "../components/dashboard/Topbar";
-import ProfileCard from "../components/dashboard/ProfileCard";
-import StatsCards from "../components/dashboard/StatsCards";
 
 const DashboardPage = () => {
   return (
@@ -11,11 +8,7 @@ const DashboardPage = () => {
       <Sidebar />
 
       <div className="main-content">
-        <Topbar />
-
-        <StatsCards />
-
-        <ProfileCard />
+        <Outlet />
       </div>
     </div>
   );

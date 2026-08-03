@@ -23,6 +23,10 @@ import PromotionalPopup from './components/PromotionalPopup'
 import NotFound from "./pages/NotFound";
 import LoadingSpinner from "./components/LoadingSpinner";
 import DashboardPage from "./pages/DashboardPage";
+import DashboardHome from "./pages/dashboard/DashboardHome";
+import ProfilePage from "./pages/dashboard/ProfilePage";
+import MyCoursesDashboard from "./pages/dashboard/MyCoursesDashboard";
+import SettingsPage from "./pages/dashboard/SettingsPage";
 // Admin imports
 import AdminPlaceholder from './pages/AdminPlaceholder'
 import AdminLayout from './components/AdminLayout'
@@ -60,7 +64,22 @@ function App() {
               <Route path="/courses/:id" element={<CourseDetailPage />} />
               <Route path="/contact" element={<ContactPage />} />
               <Route path="*" element={<NotFound />} />
-              <Route path="/dashboard" element={<DashboardPage />} />
+              <Route
+  path="/dashboard"
+  element={
+    <ProtectedRoute>
+      <DashboardPage />
+    </ProtectedRoute>
+  }
+>
+  <Route index element={<DashboardHome />} />
+
+  <Route path="profile" element={<ProfilePage />} />
+
+  <Route path="courses" element={<MyCoursesDashboard />} />
+
+  <Route path="settings" element={<SettingsPage />} />
+</Route>
               <Route 
                 path="/admin" 
                 element={

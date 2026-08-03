@@ -5,27 +5,61 @@ const ProfileCard = () => {
 
   return (
     <div className="profile-card">
-      <h2>My Profile</h2>
+
+      <div className="profile-header">
+
+        <div className="profile-avatar">
+          {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
+        </div>
+
+        <div>
+          <h2>{user?.name || "User"}</h2>
+          <p>{user?.email}</p>
+        </div>
+
+      </div>
+
+      <hr />
 
       <div className="profile-item">
-        <strong>Name</strong>
+        <strong>👤 Full Name</strong>
         <span>{user?.name}</span>
       </div>
 
       <div className="profile-item">
-        <strong>Email</strong>
+        <strong>📧 Email</strong>
         <span>{user?.email}</span>
       </div>
 
       <div className="profile-item">
-        <strong>Role</strong>
+        <strong>🛡 Role</strong>
         <span>{user?.role || "User"}</span>
       </div>
 
       <div className="profile-item">
-        <strong>Login Method</strong>
+        <strong>🔐 Login Method</strong>
         <span>{user?.authProvider || "Email"}</span>
       </div>
+
+      <div className="profile-item">
+        <strong>📱 Phone</strong>
+        <span>Not Added</span>
+      </div>
+
+      <div className="profile-item">
+        <strong>🏫 College</strong>
+        <span>Not Added</span>
+      </div>
+
+      <div className="profile-item">
+        <strong>📝 Bio</strong>
+        <span>Learning Full Stack Development 🚀</span>
+      </div>
+
+      <button className="edit-btn">
+        ✏ Edit Profile
+      </button>
+
     </div>
   );
 };
