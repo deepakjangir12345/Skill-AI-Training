@@ -2,7 +2,7 @@ import { createContext, useContext, useState, useEffect } from 'react'
 import api from '../utils/api'
 import toast from 'react-hot-toast'
 import WhatsAppFloating from '../components/WhatsAppFloating'
-
+import LoadingSpinner from "../components/LoadingSpinner";
 const AuthContext = createContext()
 
 export const useAuth = () => {
@@ -88,6 +88,9 @@ if (token) {
     setUser(null)
     toast.success('Logged out successfully')
   }
+  if (loading) {
+  return <LoadingSpinner />;
+}
 
   const value = {
     user,

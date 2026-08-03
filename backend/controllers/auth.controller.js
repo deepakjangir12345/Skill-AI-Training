@@ -360,17 +360,21 @@ console.log("✅ Resend Email Sent");
       message:
         "If an account with that email exists, a password reset link has been sent.",
     });
-  } catch (error) {
-    console.log("❌ RESEND ERROR");
-    console.log("Status:", error.response?.status);
-    console.log("Response:", error.response?.data);
-    console.log("Message:", error.message);
+  } catch (error) {}
+  console.log("========== RESEND ERROR ==========");
+  console.log(error);
 
-    return res.status(500).json({
-      message: "Failed to process password reset request",
-    });
+  if (error.response) {
+    console.log(error.response.data);
   }
-};
+
+  console.log("Status:", error.statusCode);
+  console.log("Message:", error.message);
+
+  return res.status(500).json({
+    message: "Failed to process password reset request",
+  });
+}
 
 // Reset Password
 exports.resetPassword = async (req, res) => {

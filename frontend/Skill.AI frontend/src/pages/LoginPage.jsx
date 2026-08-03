@@ -35,8 +35,8 @@ const LoginPage = () => {
     const result = await login(formData.email, formData.password)
     
     if (result.success) {
-      navigate(from, { replace: true })
-    }
+  navigate("/dashboard", { replace: true });
+}
     
     setLoading(false)
   }

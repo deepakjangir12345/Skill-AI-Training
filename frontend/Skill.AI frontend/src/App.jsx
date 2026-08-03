@@ -20,6 +20,9 @@ import CertificatePage from './pages/CertificatePage'
 import ContactPage from './pages/ContactPage'
 import AdminSupportPage from './pages/AdminSupportPage'
 import PromotionalPopup from './components/PromotionalPopup'
+import NotFound from "./pages/NotFound";
+import LoadingSpinner from "./components/LoadingSpinner";
+import DashboardPage from "./pages/DashboardPage";
 // Admin imports
 import AdminPlaceholder from './pages/AdminPlaceholder'
 import AdminLayout from './components/AdminLayout'
@@ -46,6 +49,7 @@ function App() {
           <div className="app">
             <Toaster position="top-right" />
             <Routes>
+
               <Route path="/" element={<LandingPage />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/register" element={<RegisterPage />} />
@@ -55,6 +59,8 @@ function App() {
               <Route path="/courses" element={<CoursesPage />} />
               <Route path="/courses/:id" element={<CourseDetailPage />} />
               <Route path="/contact" element={<ContactPage />} />
+              <Route path="*" element={<NotFound />} />
+              <Route path="/dashboard" element={<DashboardPage />} />
               <Route 
                 path="/admin" 
                 element={
