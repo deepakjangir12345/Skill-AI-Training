@@ -13,7 +13,7 @@ const adminRoutes = require("./routes/admin.routes");
 const facultyRoutes = require("./routes/faculty.routes");
 const dashboardRoutes = require("./routes/dashboard.routes");
 const uploadRoutes = require("./routes/upload.routes");
-
+const profileRoutes = require("./routes/profile.routes");
 const app = express();
 app.use(
   cors({
@@ -44,7 +44,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/faculty", facultyRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/upload", uploadRoutes);
-
+app.use("/api/profile", profileRoutes);
 const net = require("net");
 
 app.get("/api/test-smtp", (req, res) => {
