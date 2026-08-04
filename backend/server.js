@@ -11,7 +11,6 @@ const configRoutes = require("./routes/config.routes");
 const supportRoutes = require("./routes/support.routes");
 const adminRoutes = require("./routes/admin.routes");
 const facultyRoutes = require("./routes/faculty.routes");
-const profileRoutes = require("./routes/profile.routes");
 const dashboardRoutes = require("./routes/dashboard.routes");
 const uploadRoutes = require("./routes/upload.routes");
 
@@ -44,7 +43,6 @@ app.use("/api/support", supportRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/faculty", facultyRoutes);
 app.use("/api/dashboard", dashboardRoutes);
-app.use("/api/profile", profileRoutes);
 app.use("/api/upload", uploadRoutes);
 
 const net = require("net");
