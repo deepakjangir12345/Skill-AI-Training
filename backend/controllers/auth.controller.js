@@ -134,14 +134,20 @@ exports.verifyToken = async (req, res) => {
       return res.status(401).json({ message: "User not found" });
     }
 
-    res.json({ 
-      message: "Token verified successfully",
-      user: {
-        id: user._id,
-        name: user.name,
-        email: user.email
-      }
-    });
+    res.json({
+  message: "Token verified successfully",
+  user: {
+    id: user._id,
+    name: user.name,
+    email: user.email,
+    role: user.role,
+    authProvider: user.authProvider,
+    phone: user.phone,
+    college: user.college,
+    bio: user.bio,
+    profileImage: user.profileImage,
+  }
+});
   } catch (error) {
     console.error('Token verification error:', error);
     if (error.name === 'JsonWebTokenError') {
