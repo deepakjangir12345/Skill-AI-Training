@@ -5,7 +5,9 @@ const Enrollment = require("../models/Enrollment");
 const Payment = require("../models/Payment");
 
 // Get My Enrollments
+
 router.get("/my", authMiddleware, async (req, res) => {
+  console.log("===== MY ENROLLMENTS API HIT =====");
   try {
     const userId = req.user._id;
 
@@ -13,12 +15,17 @@ router.get("/my", authMiddleware, async (req, res) => {
     const enrollments = await Enrollment.find({
       $or: [{ userId }, { user: userId }],
     })
+      .populate('course')
       .populate('paymentId', 'amount status createdAt')
       .sort({ enrolledAt: -1 });
+      console.log("Enrollments:", JSON.stringify(enrollments, null, 2));
+
+      console.log(enrollments);
 
     // Format the response
     const formattedEnrollments = enrollments.map((enrollment) => ({
-      courseId: enrollment.courseId || (enrollment.course ? enrollment.course.toString() : null),
+      course: enrollment.course,
+      courseId: enrollment.courseId,
       enrolledAt: enrollment.enrolledAt || enrollment.createdAt,
       payment: {
         amount: enrollment.paymentId?.amount,

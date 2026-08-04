@@ -18,9 +18,10 @@ exports.enrollCourse = async (req, res) => {
     }
 
     const enrollment = await Enrollment.create({
-      user: req.user.id,
-      course: courseId,
-    });
+  user: req.user.id,
+  course: courseId,
+  courseId: courseId,
+});
 
     res.status(201).json({
       message: "Enrolled successfully",

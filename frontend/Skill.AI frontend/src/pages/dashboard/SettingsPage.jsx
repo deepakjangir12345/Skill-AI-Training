@@ -144,10 +144,36 @@ console.log("User:", res.data.user);
     );
   }
 };
-  const handleChangePassword = (e) => {
+  const handleChangePassword = async (e) => {
   e.preventDefault();
 
-  alert("Password API will be connected in next step.");
+  if (password.newPassword !== password.confirmPassword) {
+    alert("New Password and Confirm Password do not match.");
+    return;
+  }
+
+  try {
+    const res = await api.put("/password/change", {
+      currentPassword: password.currentPassword,
+      newPassword: password.newPassword,
+    });
+
+    alert(res.data.message);
+
+    setPassword({
+      currentPassword: "",
+      newPassword: "",
+      confirmPassword: "",
+    });
+
+  } catch (err) {
+    console.error(err);
+
+    alert(
+      err.response?.data?.message ||
+      "Failed to change password."
+    );
+  }
 };
 
   return (

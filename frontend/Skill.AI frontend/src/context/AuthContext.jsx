@@ -47,22 +47,47 @@ if (token) {
   }
 
   const login = async (email, password) => {
-    try {
-      const response = await api.post('/auth/login', { email, password })
-      const { token, user } = response.data
-      
-      localStorage.setItem('token', token)
-      localStorage.setItem('user', JSON.stringify(user))
-      setUser(user)
-      
-      toast.success('Login successful!')
-      return { success: true }
-    } catch (error) {
-      const message = error.response?.data?.message || 'Login failed'
-      toast.error(message)
-      return { success: false, error: message }
-    }
+  try {
+    const response = await api.post("/auth/login", {
+      email,
+      password,
+    });
+
+    const { token } = response.data;
+
+    localStorage.setItem("token", token);
+
+    // Login ke turant baad full profile lao
+    const profileRes = await api.get("/profile", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const fullUser = profileRes.data.user;
+
+    localStorage.setItem("user", JSON.stringify(fullUser));
+
+    setUser(fullUser);
+
+    toast.success("Login successful!");
+
+    return { success: true };
+
+  } catch (error) {
+
+    const message =
+      error.response?.data?.message ||
+      "Login failed";
+
+    toast.error(message);
+
+    return {
+      success: false,
+      error: message,
+    };
   }
+};
 
   const register = async (userData) => {
     try {

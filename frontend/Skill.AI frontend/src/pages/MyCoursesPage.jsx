@@ -59,19 +59,25 @@ const MyCoursesPage = () => {
       // Fetch enrollment data from backend
       const response = await api.get('/enrollments/my')
       const enrollments = response.data.enrollments || []
+      console.log(enrollments);
       
       // Map enrollment data with course details
       const coursesWithDetails = enrollments.map(enrollment => {
-        const details = courseDetails[enrollment.courseId] || {}
-        return {
-          ...enrollment,
-          courseDetails: {
-            name: enrollment.courseId,
-            description: 'Course description available',
-            image: courseImages[enrollment.courseId] || courseImages['English & Personality Development'],
-            ...details
-          }
-        }
+        const details = courseDetails[enrollment.course?.title] || {};
+
+return {
+  ...enrollment,
+  courseDetails: {
+    name: enrollment.course?.title || "Untitled Course",
+    description:
+      enrollment.course?.description || "Course description available",
+    image:
+      enrollment.course?.thumbnail ||
+      courseImages[enrollment.course?.title] ||
+      courseImages["English & Personality Development"],
+    ...details,
+  },
+};
       })
       
       setEnrolledCourses(coursesWithDetails)
