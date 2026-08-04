@@ -94,6 +94,7 @@ if (token) {
 
   const value = {
     user,
+    setUser,
     loading,
     login,
     register,

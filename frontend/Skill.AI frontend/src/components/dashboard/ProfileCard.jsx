@@ -8,9 +8,17 @@ const ProfileCard = () => {
 
       <div className="profile-header">
 
-        <div className="profile-avatar">
-          {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
-        </div>
+        {user?.profileImage ? (
+          <img
+            src={user.profileImage}
+            alt="Profile"
+            className="profile-avatar"
+          />
+        ) : (
+          <div className="profile-avatar">
+            {user?.name ? user.name.charAt(0).toUpperCase() : "U"}
+          </div>
+        )}
 
         <div>
           <h2>{user?.name || "User"}</h2>
@@ -23,12 +31,12 @@ const ProfileCard = () => {
 
       <div className="profile-item">
         <strong>👤 Full Name</strong>
-        <span>{user?.name}</span>
+        <span>{user?.name || "Not Added"}</span>
       </div>
 
       <div className="profile-item">
         <strong>📧 Email</strong>
-        <span>{user?.email}</span>
+        <span>{user?.email || "Not Added"}</span>
       </div>
 
       <div className="profile-item">
@@ -43,17 +51,17 @@ const ProfileCard = () => {
 
       <div className="profile-item">
         <strong>📱 Phone</strong>
-        <span>Not Added</span>
+        <span>{user?.phone || "Not Added"}</span>
       </div>
 
       <div className="profile-item">
         <strong>🏫 College</strong>
-        <span>Not Added</span>
+        <span>{user?.college || "Not Added"}</span>
       </div>
 
       <div className="profile-item">
         <strong>📝 Bio</strong>
-        <span>Learning Full Stack Development 🚀</span>
+        <span>{user?.bio || "Not Added"}</span>
       </div>
 
       <button className="edit-btn">

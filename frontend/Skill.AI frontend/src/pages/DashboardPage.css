@@ -119,16 +119,19 @@ padding:20px;
 }
 
 .profile-avatar{
-    width:85px;
-    height:85px;
+    width:90px;
+    height:90px;
     border-radius:50%;
+    object-fit:cover;
     background:linear-gradient(135deg,#6C3BFF,#8A2BE2);
     color:white;
-    font-size:32px;
+    font-size:34px;
     font-weight:bold;
     display:flex;
     justify-content:center;
     align-items:center;
+    border:4px solid #fff;
+    box-shadow:0 5px 15px rgba(0,0,0,.15);
 }
 
 .profile-header h2{
