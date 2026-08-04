@@ -92,6 +92,7 @@ export const verifyPayment = async (req, res) => {
     // Enroll user
     const alreadyEnrolled = await Enrollment.findOne({ userId, courseId });
     if (!alreadyEnrolled) {
+      console.log("PAYMENT CONTROLLER CREATE ENROLLMENT");
       const newEnrollment=await Enrollment.create({
         
   userId,
