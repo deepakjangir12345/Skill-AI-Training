@@ -93,11 +93,13 @@ export const verifyPayment = async (req, res) => {
     const alreadyEnrolled = await Enrollment.findOne({ userId, courseId });
     if (!alreadyEnrolled) {
       await Enrollment.create({
-        userId,
-        courseId,
-        paymentId: razorpay_payment_id,
-        enrolledAt: new Date(),
-      });
+  userId,
+  user: userId,
+  courseId,
+  course: courseId,
+  paymentId: razorpay_payment_id,
+  enrolledAt: new Date(),
+});
     }
 
     return res.json({ message: "Payment verified & enrolled successfully" });
