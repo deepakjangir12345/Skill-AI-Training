@@ -148,6 +148,7 @@ router.post("/verify", authMiddleware, async (req, res) => {
   enrolledAt: new Date()
 });
       await enrollment.save();
+      console.log("NEW ENROLLMENT =", enrollment);
     } catch (enrollmentError) {
       // Handle duplicate enrollment error
       if (enrollmentError.code === 11000) {
