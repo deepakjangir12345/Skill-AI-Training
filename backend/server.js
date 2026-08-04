@@ -13,6 +13,7 @@ const adminRoutes = require("./routes/admin.routes");
 const facultyRoutes = require("./routes/faculty.routes");
 const profileRoutes = require("./routes/profile.routes");
 const dashboardRoutes = require("./routes/dashboard.routes");
+const uploadRoutes = require("./routes/upload.routes");
 
 const app = express();
 app.use(
@@ -35,6 +36,9 @@ app.use("/api/courses", courseRoutes);
 const paymentRoutes = require("./routes/payment.routes");
 app.use("/api/payment", paymentRoutes);
 
+const profileRoutes = require("./routes/profile.routes");
+app.use("/api/profile", profileRoutes);
+
 const enrollmentRoutes = require("./routes/enrollment.routes");
 app.use("/api/enrollments", enrollmentRoutes);
 
@@ -44,6 +48,7 @@ app.use("/api/admin", adminRoutes);
 app.use("/api/faculty", facultyRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/profile", profileRoutes);
+app.use("/api/upload", uploadRoutes);
 
 const net = require("net");
 
