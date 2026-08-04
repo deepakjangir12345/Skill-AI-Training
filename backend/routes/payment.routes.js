@@ -75,6 +75,7 @@ router.post("/create-order", authMiddleware, async (req, res) => {
 });
 
 // Verify Razorpay Payment
+console.log("======= PAYMENT VERIFY ROUTE HIT =======");
 router.post("/verify", authMiddleware, async (req, res) => {
   try {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature, courseId } = req.body;
@@ -148,6 +149,7 @@ router.post("/verify", authMiddleware, async (req, res) => {
   enrolledAt: new Date()
 });
       await enrollment.save();
+      console.log("SAVED ENROLLMENT:", enrollment);
       console.log("NEW ENROLLMENT =", enrollment);
     } catch (enrollmentError) {
       // Handle duplicate enrollment error
