@@ -138,10 +138,15 @@ router.post("/verify", authMiddleware, async (req, res) => {
     // Create enrollment
     try {
       const enrollment = new Enrollment({
-        userId,
-        courseId,
-        paymentId: payment._id
-      });
+  userId,
+  user: userId,
+
+  courseId,
+  course: courseId,
+
+  paymentId: payment._id,
+  enrolledAt: new Date()
+});
       await enrollment.save();
     } catch (enrollmentError) {
       // Handle duplicate enrollment error
