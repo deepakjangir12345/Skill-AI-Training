@@ -22,7 +22,6 @@ const getLessonsByCourse = async (req, res) => {
 };
 
 // COMPLETE LESSON
-const LessonProgress = require("../models/LessonProgress");
 
 const completeLesson = async (req, res) => {
   try {
