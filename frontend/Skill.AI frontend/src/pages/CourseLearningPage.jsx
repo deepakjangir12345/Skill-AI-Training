@@ -19,9 +19,24 @@ const CourseLearningPage = () => {
   const fetchCourseContent = async () => {
     try {
       setLoading(true)
-      const response = await api.get(`/courses/${courseId}/content`)
-      setCourse(response.data.course)
-      setModules(response.data.modules || [])
+      const response = await api.get(`/courses/${courseId}`)
+      setCourse(response.data.course);
+
+setModules([
+  {
+    _id: "intro",
+    title: response.data.course.name,
+    content: response.data.course.description,
+    videoUrl: null,
+  },
+]);
+
+setCurrentModule({
+  _id: "intro",
+  title: response.data.course.name,
+  content: response.data.course.description,
+  videoUrl: null,
+});
       if (response.data.modules && response.data.modules.length > 0) {
         setCurrentModule(response.data.modules[0])
       }
@@ -66,6 +81,19 @@ const CourseLearningPage = () => {
       <Navbar />
       <main className="course-learning-main">
         <div className="container">
+          {course && (
+  <div className="course-header-card">
+    <h1>{course.name}</h1>
+
+    <p>{course.description}</p>
+
+    <div className="course-info">
+      <span>💰 ₹{course.price}</span>
+
+      <span>👨‍🏫 Instructor Available</span>
+    </div>
+  </div>
+)}
           <div className="learning-layout">
             <div className="modules-sidebar">
               <h3>Course Modules</h3>

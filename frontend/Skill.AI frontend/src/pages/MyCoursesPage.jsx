@@ -63,17 +63,17 @@ const MyCoursesPage = () => {
       
       // Map enrollment data with course details
       const coursesWithDetails = enrollments.map(enrollment => {
-        const details = courseDetails[enrollment.course?.title] || {};
+        const details = courseDetails[enrollment.course?.name] || {};
 
 return {
   ...enrollment,
   courseDetails: {
-    name: enrollment.course?.title || "Untitled Course",
+    name: enrollment.course?.name || "Untitled Course",
     description:
       enrollment.course?.description || "Course description available",
     image:
       enrollment.course?.thumbnail ||
-      courseImages[enrollment.course?.title] ||
+      courseImages[enrollment.course?.name] ||
       courseImages["English & Personality Development"],
     ...details,
   },
@@ -155,7 +155,7 @@ return {
                     </div>
                     <div className="course-actions">
                       <Link
-                        to={`/learn/${enrollment.courseId}`}
+                        to={`/learn/${enrollment.course?._id || enrollment.courseId}`}
                         className="btn btn-primary btn-small"
                       >
                         Continue Learning
