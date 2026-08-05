@@ -22,18 +22,30 @@ const getLessonsByCourse = async (req, res) => {
 };
 
 // COMPLETE LESSON
+const LessonProgress = require("../models/LessonProgress");
+
 const completeLesson = async (req, res) => {
   try {
     const { lessonId } = req.body;
 
-    const progress = await LessonProgress.findOneAndUpdate(
+    const lesson = await Lesson.findById(lessonId);
+
+    if (!lesson) {
+      return res.status(404).json({
+        message: "Lesson not found",
+      });
+    }
+
+    await LessonProgress.findOneAndUpdate(
       {
         user: req.user._id,
         lesson: lessonId,
       },
       {
+        user: req.user._id,
+        lesson: lessonId,
+        course: lesson.course,
         completed: true,
-        completedAt: new Date(),
       },
       {
         upsert: true,
@@ -44,12 +56,11 @@ const completeLesson = async (req, res) => {
     res.json({
       success: true,
       message: "Lesson completed successfully",
-      progress,
     });
-
   } catch (error) {
+    console.error(error);
+
     res.status(500).json({
-      success: false,
       message: error.message,
     });
   }
