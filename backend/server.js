@@ -48,7 +48,7 @@ app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/upload", uploadRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/password", passwordRoutes);
-app.use("/api/lessons", lessonRoutes);
+app.use("/api/lessons", lessonroutes);
 const net = require("net");
 
 app.get("/api/test-smtp", (req, res) => {
