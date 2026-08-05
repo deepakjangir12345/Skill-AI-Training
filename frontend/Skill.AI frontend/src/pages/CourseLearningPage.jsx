@@ -11,6 +11,7 @@ const CourseLearningPage = () => {
   const [modules, setModules] = useState([])
   const [currentModule, setCurrentModule] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [progress, setProgress] = useState(0)
 
   useEffect(() => {
     fetchCourseContent()
@@ -21,6 +22,7 @@ const CourseLearningPage = () => {
       setLoading(true)
       const response = await api.get(`/courses/${courseId}`)
       setCourse(response.data.course);
+      setProgress(response.data.progress || 0)
 
 setModules([
   {
@@ -42,6 +44,7 @@ setCurrentModule({
       }
     } catch (error) {
       console.error('Error fetching course content:', error)
+      setProgress(0)
       // Fallback data
       setModules([
         {
@@ -93,7 +96,27 @@ setCurrentModule({
       <span>👨‍🏫 Instructor Available</span>
     </div>
   </div>
-)}
+)} 
+          <div className="progress-card">
+
+  <div className="progress-top">
+
+    <span>Course Progress</span>
+
+    <span>{progress}%</span>
+
+  </div>
+
+  <div className="progress-bar">
+
+    <div
+      className="progress-fill"
+      style={{ width: `${progress}%` }}
+    ></div>
+
+  </div>
+
+</div>
           <div className="learning-layout">
             <div className="modules-sidebar">
               <h3>Course Modules</h3>
