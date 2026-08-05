@@ -15,7 +15,7 @@ const dashboardRoutes = require("./routes/dashboard.routes");
 const uploadRoutes = require("./routes/upload.routes");
 const profileRoutes = require("./routes/profile.routes");
 const passwordRoutes = require("./routes/password.routes");
-const lessonRoutes = require("./routes/lessonRoutes");
+const lessonRoutes = require("./routes/lessonroutes");
 const app = express();
 app.use(
   cors({
