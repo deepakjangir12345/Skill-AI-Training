@@ -18,9 +18,13 @@ const lessonProgressSchema = new mongoose.Schema(
       required: true,
     },
     completed: {
-      type: Boolean,
-      default: true,
-    },
+  type: Boolean,
+  default: false,
+},
+
+completedAt: {
+  type: Date,
+},
   },
   { timestamps: true }
 );

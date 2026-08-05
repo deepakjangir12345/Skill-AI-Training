@@ -1,4 +1,5 @@
 const Lesson = require("../models/Lesson");
+const LessonProgress = require("../models/LessonProgress");
 
 // CREATE LESSON
 const createLesson = async (req, res) => {
@@ -24,12 +25,33 @@ const getLessonsByCourse = async (req, res) => {
 const completeLesson = async (req, res) => {
   try {
     const { lessonId } = req.body;
+
+    const progress = await LessonProgress.findOneAndUpdate(
+      {
+        user: req.user._id,
+        lesson: lessonId,
+      },
+      {
+        completed: true,
+        completedAt: new Date(),
+      },
+      {
+        upsert: true,
+        new: true,
+      }
+    );
+
     res.json({
-      message: "Lesson marked as completed",
-      lessonId
+      success: true,
+      message: "Lesson completed successfully",
+      progress,
     });
+
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
   }
 };
 

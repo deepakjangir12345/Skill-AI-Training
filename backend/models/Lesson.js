@@ -11,6 +11,15 @@ const lessonSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    videoUrl: {
+  type: String,
+  default: "",
+},
+
+pdfUrl: {
+  type: String,
+  default: "",
+},
     course: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Course",
