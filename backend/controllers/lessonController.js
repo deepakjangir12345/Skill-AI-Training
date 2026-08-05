@@ -25,36 +25,9 @@ const getLessonsByCourse = async (req, res) => {
 
 const completeLesson = async (req, res) => {
   try {
-    const { lessonId } = req.body;
-
-    const lesson = await Lesson.findById(lessonId);
-
-    if (!lesson) {
-      return res.status(404).json({
-        message: "Lesson not found",
-      });
-    }
-
-    await LessonProgress.findOneAndUpdate(
-      {
-        user: req.user._id,
-        lesson: lessonId,
-      },
-      {
-        user: req.user._id,
-        lesson: lessonId,
-        course: lesson.course,
-        completed: true,
-      },
-      {
-        upsert: true,
-        new: true,
-      }
-    );
-
     res.json({
       success: true,
-      message: "Lesson completed successfully",
+      message: "Lesson completed successfully (Test Mode)",
     });
   } catch (error) {
     console.error(error);
