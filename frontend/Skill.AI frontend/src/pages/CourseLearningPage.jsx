@@ -24,6 +24,8 @@ const CourseLearningPage = () => {
       setCourse(response.data.course);
       setProgress(response.data.progress || 0)
 
+      
+
 setModules([
   {
     _id: "intro",
@@ -64,6 +66,22 @@ setCurrentModule({
       setLoading(false)
     }
   }
+
+  const handleCompleteLesson = async () => {
+  try {
+    await api.post("/lessons/complete", {
+      lessonId: currentModule._id,
+    });
+
+    alert("Lesson Completed ✅");
+
+    fetchCourseContent();
+
+  } catch (error) {
+    console.error(error);
+    alert("Something went wrong");
+  }
+};
 
   if (loading) {
     return (
@@ -156,10 +174,22 @@ setCurrentModule({
                 </div>
               )}
               <div className="learning-actions">
-                <Link to="/my-courses" className="btn btn-secondary">
-                  Back to My Courses
-                </Link>
-              </div>
+
+  <button
+    className="btn btn-primary"
+    onClick={handleCompleteLesson}
+  >
+    ✅ Complete Lesson
+  </button>
+
+  <Link
+    to="/my-courses"
+    className="btn btn-secondary"
+  >
+    Back to My Courses
+  </Link>
+
+</div>
             </div>
           </div>
         </div>
