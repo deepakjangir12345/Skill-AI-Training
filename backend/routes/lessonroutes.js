@@ -7,7 +7,7 @@ const {
   completeLesson
 } = require("../controllers/lessonController");
 
-const authMiddleware = require("../middleware/authMiddleware");
+const authMiddleware = require("../middleware/auth.Middleware");
 
 // create lesson
 router.post("/", authMiddleware, createLesson);
