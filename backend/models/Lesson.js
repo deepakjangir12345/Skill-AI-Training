@@ -7,31 +7,46 @@ const lessonSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
-    content: {
+
+    description: {
       type: String,
+      default: "",
+    },
+
+    videoUrl: {
+      type: String,
+      default: "",
+    },
+
+    pdfUrl: {
+      type: String,
+      default: "",
+    },
+
+    duration: {
+      type: Number,
+      default: 0, // minutes
+    },
+
+    isPreview: {
+      type: Boolean,
+      default: false,
+    },
+
+    order: {
+      type: Number,
       required: true,
     },
-    videoUrl: {
-  type: String,
-  default: "",
-},
 
-pdfUrl: {
-  type: String,
-  default: "",
-},
     course: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Course",
       required: true,
     },
-    order: {
-      type: Number,
-      default: 1,
-    },
   },
-  { timestamps: true }
+  {
+    timestamps: true,
+  }
 );
 
 module.exports = mongoose.model("Lesson", lessonSchema);
-

@@ -10,7 +10,7 @@ const {
 const authMiddleware = require("../middleware/auth.Middleware");
 
 // create lesson
-router.post("/", authMiddleware, createLesson);
+router.post("/", createLesson);
 
 // get lessons by course
 router.get("/:courseId", authMiddleware, getLessonsByCourse);

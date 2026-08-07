@@ -4,20 +4,69 @@ const LessonProgress = require("../models/LessonProgress");
 // CREATE LESSON
 const createLesson = async (req, res) => {
   try {
-    const lesson = await Lesson.create(req.body);
-    res.status(201).json(lesson);
+    const {
+      title,
+      description,
+      videoUrl,
+      pdfUrl,
+      duration,
+      isPreview,
+      order,
+      course,
+    } = req.body;
+
+    if (!title || !course || !order) {
+      return res.status(400).json({
+        message: "Title, Course and Order are required",
+      });
+    }
+
+    const lesson = await Lesson.create({
+      title,
+      description,
+      videoUrl,
+      pdfUrl,
+      duration,
+      isPreview,
+      order,
+      course,
+    });
+
+    res.status(201).json({
+      success: true,
+      lesson,
+    });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error(error);
+
+    res.status(500).json({
+      message: error.message,
+    });
   }
 };
 
 // GET LESSONS BY COURSE
 const getLessonsByCourse = async (req, res) => {
   try {
-    const lessons = await Lesson.find({ course: req.params.courseId });
-    res.json(lessons);
+
+    const lessons = await Lesson.find({
+      course: req.params.courseId
+    }).sort({ order: 1 });
+
+    res.json({
+      success: true,
+      totalLessons: lessons.length,
+      lessons,
+    });
+
   } catch (error) {
-    res.status(500).json({ message: error.message });
+
+    console.error(error);
+
+    res.status(500).json({
+      message: error.message,
+    });
+
   }
 };
 
