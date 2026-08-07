@@ -35,6 +35,7 @@ import AdminCourses from './pages/AdminCourses'
 import AdminUsers from './pages/AdminUsers'
 import AdminEnrollments from './pages/AdminEnrollments'
 import AdminPayments from './pages/AdminPayments'
+import AdminLessons from "./pages/AdminLessons";
 // Faculty imports
 import FacultyLayout from './components/FacultyLayout'
 import FacultyDashboard from './pages/FacultyDashboard'
@@ -96,6 +97,14 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route
+  path="/admin/lessons"
+  element={
+    <ProtectedRoute>
+      <AdminLessons />
+    </ProtectedRoute>
+  }
+/>
               <Route
                 path="/enroll/:courseId"
                 element={

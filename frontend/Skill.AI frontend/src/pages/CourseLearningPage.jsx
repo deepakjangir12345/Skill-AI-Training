@@ -18,54 +18,39 @@ const CourseLearningPage = () => {
   }, [courseId])
 
   const fetchCourseContent = async () => {
-    try {
-      setLoading(true)
-      const response = await api.get(`/courses/${courseId}`)
-      setCourse(response.data.course);
-      setProgress(response.data.progress || 0)
+  try {
+    setLoading(true);
 
-      
+    const response = await api.get(`/courses/${courseId}`);
 
-setModules([
-  {
-    _id: "intro",
-    title: response.data.course.name,
-    content: response.data.course.description,
-    videoUrl: null,
-  },
-]);
+    setCourse(response.data.course);
+    setProgress(response.data.progress || 0);
 
-setCurrentModule({
-  _id: "intro",
-  title: response.data.course.name,
-  content: response.data.course.description,
-  videoUrl: null,
-});
-      if (response.data.modules && response.data.modules.length > 0) {
-        setCurrentModule(response.data.modules[0])
-      }
-    } catch (error) {
-      console.error('Error fetching course content:', error)
-      setProgress(0)
-      // Fallback data
-      setModules([
-        {
-          _id: 'module-1',
-          title: 'Introduction',
-          content: 'Welcome to the course! This is the introduction module.',
-          videoUrl: null,
-        },
-      ])
-      setCurrentModule({
-        _id: 'module-1',
-        title: 'Introduction',
-        content: 'Welcome to the course! This is the introduction module.',
-        videoUrl: null,
-      })
-    } finally {
-      setLoading(false)
-    }
+    const lessonRes = await api.get(`/lessons/${courseId}`);
+    console.log("Course ID =", courseId);
+console.log("Lesson API Response =", lessonRes.data);
+
+console.log("Lesson Response:", lessonRes.data);
+
+setModules(lessonRes.data.lessons || []);
+
+if (lessonRes.data.lessons?.length > 0) {
+  setCurrentModule(lessonRes.data.lessons[0]);
+} else {
+  setCurrentModule(null);
+}
+
+  } catch (error) {
+    console.error(error);
+
+    setProgress(0);
+    setModules([]);
+    setCurrentModule(null);
+
+  } finally {
+    setLoading(false);
   }
+};
 
   const handleCompleteLesson = async () => {
   try {
