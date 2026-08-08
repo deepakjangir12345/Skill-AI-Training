@@ -108,6 +108,17 @@ function App() {
     </AdminProtectedRoute>
   }
 />
+
+<Route
+  path="/admin/users"
+  element={
+    <AdminProtectedRoute>
+      <AdminLayout>
+        <AdminUsers />
+      </AdminLayout>
+    </AdminProtectedRoute>
+  }
+/>
               <Route
   path="/admin/lessons"
   element={
