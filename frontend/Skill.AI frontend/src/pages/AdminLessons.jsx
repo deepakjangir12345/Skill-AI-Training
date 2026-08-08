@@ -33,9 +33,11 @@ const AdminLessons = () => {
   const fetchLessons = async (courseId) => {
   try {
     const res = await api.get(`/lessons/${courseId}`);
-    setLessons(res.data || []);
+
+    setLessons(res.data.lessons || []);
   } catch (err) {
-    console.log(err);
+    console.log("Fetch lessons error:", err);
+    setLessons([]);
   }
 };
 
@@ -54,9 +56,13 @@ const AdminLessons = () => {
     try {
       await api.post("/lessons", {
   title: formData.title,
-  content: formData.description,
-  course: selectedCourse,
+  description: formData.description,
+  videoUrl: formData.videoUrl,
+  pdfUrl: formData.pdfUrl,
+  duration: Number(formData.duration) || 0,
   order: Number(formData.order),
+  isPreview: formData.isPreview,
+  course: selectedCourse,
 });
       fetchLessons(selectedCourse);
 

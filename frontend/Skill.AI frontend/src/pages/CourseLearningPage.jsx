@@ -139,25 +139,37 @@ if (lessonRes.data.lessons?.length > 0) {
               </div>
             </div>
             <div className="learning-content">
-              {currentModule ? (
-                <>
-                  <h2 className="module-title">{currentModule.title}</h2>
-                  {currentModule.videoUrl && (
-                    <div className="video-container">
-                      <video controls src={currentModule.videoUrl}>
-                        Your browser does not support the video tag.
-                      </video>
-                    </div>
-                  )}
-                  <div className="module-content">
-                    <p>{currentModule.content}</p>
-                  </div>
-                </>
-              ) : (
+              {currentModule && (
+  <>
+    <h2>{currentModule.title}</h2>
+
+    <p>{currentModule.description}</p>
+
+    {currentModule.videoUrl && (
+      <a
+        href={currentModule.videoUrl}
+        target="_blank"
+        rel="noreferrer"
+      >
+        ▶ Watch Video
+      </a>
+    )}
+
+    {currentModule.pdfUrl && (
+      <a
+        href={currentModule.pdfUrl}
+        target="_blank"
+        rel="noreferrer"
+      >
+        📄 Open PDF
+      </a>
+    )}
+  </>
+)} 
                 <div className="no-content">
                   <p>Select a module to start learning</p>
                 </div>
-              )}
+              
               <div className="learning-actions">
 
   <button
