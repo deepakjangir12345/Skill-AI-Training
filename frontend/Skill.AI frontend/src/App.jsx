@@ -97,6 +97,17 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+
+              <Route
+  path="/admin/courses"
+  element={
+    <AdminProtectedRoute>
+      <AdminLayout>
+        <AdminCourses />
+      </AdminLayout>
+    </AdminProtectedRoute>
+  }
+/>
               <Route
   path="/admin/lessons"
   element={
