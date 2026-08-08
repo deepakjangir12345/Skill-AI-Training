@@ -95,14 +95,24 @@ const AdminDashboard = () => {
         </div>
       </div>
         <div className="dashboard-actions">
-    <Link to="/admin/lessons" className="admin-action-card">
-      <div className="action-icon">📖</div>
-      <div>
-        <h3>Manage Lessons</h3>
-        <p>Add and manage course lessons</p>
-      </div>
-    </Link>
-  </div>
+
+  <Link to="/admin/courses" className="admin-action-card">
+    <div className="action-icon">📚</div>
+    <div>
+      <h3>Course Management</h3>
+      <p>Create and manage courses</p>
+    </div>
+  </Link>
+
+  <Link to="/admin/lessons" className="admin-action-card">
+    <div className="action-icon">📖</div>
+    <div>
+      <h3>Manage Lessons</h3>
+      <p>Add and manage course lessons</p>
+    </div>
+  </Link>
+
+</div>
 
       <div className="dashboard-info">
         <h3>Platform Overview</h3>

@@ -82,13 +82,13 @@ function App() {
   <Route path="settings" element={<SettingsPage />} />
 </Route>
               <Route 
-                path="/admin" 
-                element={
-                  <ProtectedRoute>
-                    <AdminPlaceholder />
-                  </ProtectedRoute>
-                } 
-              />
+  path="/admin" 
+  element={
+    <AdminProtectedRoute>
+      <AdminDashboard />
+    </AdminProtectedRoute>
+  } 
+/>
               <Route
                 path="/admin/support"
                 element={
