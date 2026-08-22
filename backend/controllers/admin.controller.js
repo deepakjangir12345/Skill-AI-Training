@@ -1,3 +1,4 @@
+const mongoose = require('mongoose');
 const Course = require('../models/Course');
 const User = require('../models/User');
 const Enrollment = require('../models/Enrollment');
@@ -51,11 +52,46 @@ exports.getAllUsers = async (req, res) => {
 // Get all enrollments (admin view)
 exports.getAllEnrollments = async (req, res) => {
   try {
-    const enrollments = await Enrollment.find()
-      .populate('userId', 'name email')
-      .populate('courseId', 'name price')
-      .sort({ createdAt: -1 });
-    res.json(enrollments);
+    let enrollmentQuery = Enrollment.find().sort({ createdAt: -1 });
+
+    if (Enrollment.schema.path('userId')) {
+      enrollmentQuery = enrollmentQuery.populate('userId', 'name email');
+    }
+    if (Enrollment.schema.path('user')) {
+      enrollmentQuery = enrollmentQuery.populate('user', 'name email');
+    }
+    if (Enrollment.schema.path('course')) {
+      enrollmentQuery = enrollmentQuery.populate('course', 'name price');
+    }
+
+    const enrollments = await enrollmentQuery;
+    const courseIds = enrollments
+      .map(enrollment => enrollment.courseId)
+      .filter(courseId => courseId && mongoose.isValidObjectId(courseId));
+
+    const courses = await Course.find({ _id: { $in: courseIds } })
+      .select('name price');
+    const courseMap = new Map(
+      courses.map(course => [course._id.toString(), course])
+    );
+
+    const formattedEnrollments = enrollments.map(enrollment => {
+      const enrollmentData = enrollment.toObject();
+      const populatedCourse = enrollmentData.course;
+      const storedCourseId = enrollmentData.courseId;
+      const fallbackCourse = storedCourseId
+        ? courseMap.get(storedCourseId.toString()) || null
+        : null;
+
+      return {
+        ...enrollmentData,
+        courseId: storedCourseId
+          ? fallbackCourse
+          : populatedCourse || null
+      };
+    });
+
+    res.json(formattedEnrollments);
   } catch (error) {
     console.error('Error fetching enrollments:', error);
     res.status(500).json({ message: 'Failed to fetch enrollments' });
@@ -67,9 +103,30 @@ exports.getAllPayments = async (req, res) => {
   try {
     const payments = await Payment.find()
       .populate('userId', 'name email')
-      .populate('courseId', 'name price')
       .sort({ createdAt: -1 });
-    res.json(payments);
+    const courseIds = payments
+      .map(payment => payment.courseId)
+      .filter(courseId => courseId && mongoose.isValidObjectId(courseId));
+
+    const courses = await Course.find({ _id: { $in: courseIds } })
+      .select('name price');
+    const courseMap = new Map(
+      courses.map(course => [course._id.toString(), course])
+    );
+
+    const formattedPayments = payments.map(payment => {
+      const paymentData = payment.toObject();
+      const courseId = paymentData.courseId;
+
+      return {
+        ...paymentData,
+        courseId: courseId
+          ? courseMap.get(courseId.toString()) || null
+          : null
+      };
+    });
+
+    res.json(formattedPayments);
   } catch (error) {
     console.error('Error fetching payments:', error);
     res.status(500).json({ message: 'Failed to fetch payments' });

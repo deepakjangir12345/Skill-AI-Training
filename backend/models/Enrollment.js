@@ -15,8 +15,9 @@ const enrollmentSchema = new mongoose.Schema(
       ref: "User",
     },
     courseId: {
-      type: String,
-    },
+  type: mongoose.Schema.Types.ObjectId,
+  ref: "Course",
+},
     paymentId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Payment",
