@@ -75,7 +75,7 @@ const AdminPayments = () => {
                   {payment.courseId?.name || 'Unknown Course'}
                 </td>
                 <td className="payment-amount">
-                  {formatCurrency(payment.amount)}
+                  {formatCurrency(payment.amount / 100)}
                 </td>
                 <td className="payment-status">
                   <span className={`status-badge ${payment.status}`}>
