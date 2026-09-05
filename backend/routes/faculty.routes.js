@@ -43,6 +43,11 @@ router.use(facultyOnly);
 
 // Get faculty's assigned courses
 router.get('/my-courses', facultyController.getMyCourses);
+// Get modules for a specific assigned course
+router.get(
+  '/course/:courseId/modules',
+  facultyController.getCourseModules
+);
 
 // Get videos for a specific course
 router.get('/course/:courseId/videos', facultyController.getCourseVideos);

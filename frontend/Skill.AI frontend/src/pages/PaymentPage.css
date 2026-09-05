@@ -329,4 +329,73 @@
   }
 }
 
+@media (max-width: 480px) {
+  .payment-main {
+    padding: 16px 12px;
+  }
+
+  .payment-card {
+    padding: 24px 16px;
+    border-radius: 12px;
+  }
+
+  .payment-course-info,
+  .user-details,
+  .payment-summary {
+    padding: 16px;
+  }
+
+  .user-detail-item,
+  .summary-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .payment-button {
+    width: 100%;
+    padding: 15px 16px;
+  }
+}
+/* Payment Error Message */
+.payment-error-message {
+  margin: 20px 0 14px;
+  padding: 14px 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  background: linear-gradient(
+    135deg,
+    rgba(254, 242, 242, 0.98),
+    rgba(255, 247, 247, 0.98)
+  );
+
+  border: 1px solid rgba(239, 68, 68, 0.22);
+  border-left: 4px solid #ef4444;
+  border-radius: 12px;
+
+  color: #b91c1c;
+  font-size: 14px;
+  font-weight: 600;
+
+  box-shadow:
+    0 8px 24px rgba(239, 68, 68, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.8);
+
+  animation: paymentErrorSlide 0.3s ease-out;
+}
+
+@keyframes paymentErrorSlide {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 

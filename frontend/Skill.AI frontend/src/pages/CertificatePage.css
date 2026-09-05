@@ -298,4 +298,46 @@
   }
 }
 
+.certificate-signature {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  min-width: 180px;
+}
+
+.certificate-signature-image {
+  width: 140px;
+  height: 65px;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.certificate-signature p {
+  margin: 5px 0 0;
+  font-weight: 600;
+}
+
+.certificate-signature small {
+  display: block;
+  margin-top: 2px;
+  color: #666;
+  text-align: center;
+}
+
+.certificate-logo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.certificate-logo-image {
+  width: 90px;
+  height: 60px;
+  object-fit: contain;
+  display: block;
+  margin-bottom: 6px;
+}
 

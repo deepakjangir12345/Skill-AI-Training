@@ -1,11 +1,14 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 import Footer from '../components/Footer'
+import api from '../utils/api'
 import './LandingPage.css'
 
 const LandingPage = () => {
   const [openFAQ, setOpenFAQ] = useState(null)
+  const [liveClasses, setLiveClasses] = useState([])
+const [loadingLiveClasses, setLoadingLiveClasses] = useState(true)
   const courses = [
     { title: 'English & Personality Development' },
     { title: 'Basic Computer' },
@@ -16,10 +19,63 @@ const LandingPage = () => {
     { title: 'Python Programming' },
   ]
 
+  useEffect(() => {
+  fetchLiveClasses()
+}, [])
+
+const fetchLiveClasses = async () => {
+  try {
+    setLoadingLiveClasses(true)
+
+    const response = await api.get("/live-classes")
+
+    const classes = response.data.liveClasses || []
+
+    // Sirf currently LIVE classes
+    const activeLiveClasses = classes.filter(
+      (liveClass) => liveClass.status === "live"
+    )
+
+    setLiveClasses(activeLiveClasses)
+  } catch (error) {
+    console.error("Error fetching live classes:", error)
+    setLiveClasses([])
+  } finally {
+    setLoadingLiveClasses(false)
+  }
+}
+
   return (
     <div className="landing-page">
       <Navbar />
       <main>
+        {!loadingLiveClasses && liveClasses.length > 0 && (
+  <section className="live-alert-section">
+    <div className="container">
+      {liveClasses.map((liveClass) => (
+        <div className="live-alert" key={liveClass._id}>
+          <div className="live-alert-content">
+            <span className="live-alert-badge">🔴 NOW LIVE</span>
+
+            <div>
+              <h2>{liveClass.title} is Live Now!</h2>
+              <p>
+                Join your live class now and grab knowledge from your instructor.
+              </p>
+            </div>
+          </div>
+
+          <Link
+            to="/live-classes"
+            className="btn btn-primary"
+          >
+            Join Now →
+          </Link>
+        </div>
+      ))}
+    </div>
+  </section>
+)}
         <section className="hero">
           <div className="container">
             <h1 className="hero-title">Welcome to Skill.AI Training</h1>

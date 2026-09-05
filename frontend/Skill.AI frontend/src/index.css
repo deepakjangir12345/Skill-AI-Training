@@ -4,6 +4,13 @@
   box-sizing: border-box;
 }
 
+html,
+body {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -15,6 +22,12 @@ body {
 
 #root {
   min-height: 100vh;
+  width: 100%;
+  min-width: 0;
+}
+
+.app img {
+  max-width: 100%;
 }
 
 button {

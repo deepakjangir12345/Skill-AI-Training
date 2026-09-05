@@ -12,7 +12,9 @@ const coursePrices = {
   'Basic Computer': 599,
   'AI Technology': 599,
   'Digital Marketing': 599,
-  'Full Stack Development': 999
+  'Full Stack Development': 999,
+  'Data Science': 599,
+  'Python Programming': 599,
 }
 
 // Course details mapping (frontend only for additional info)
@@ -36,7 +38,15 @@ const courseDetails = {
   'Full Stack Development': {
     duration: '6 months',
     level: 'Intermediate to Advanced'
-  }
+  },
+  'Data Science' : {
+    duration: '4 months',
+    level: 'Intermediate to Advanced'
+  },
+  'Python Programming' : {
+  duration: '4 months',
+  level: 'Intermediate to Advanced'
+},
 }
 
 const CourseDetailPage = () => {

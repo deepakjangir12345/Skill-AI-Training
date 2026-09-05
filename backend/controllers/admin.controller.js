@@ -132,3 +132,44 @@ exports.getAllPayments = async (req, res) => {
     res.status(500).json({ message: 'Failed to fetch payments' });
   }
 };
+
+// ======================
+// UPDATE USER ROLE
+// ======================
+
+exports.updateUserRole = async (req, res) => {
+  try {
+    const { role } = req.body;
+
+    // Only valid roles allowed
+    if (!['user', 'faculty', 'admin'].includes(role)) {
+      return res.status(400).json({
+        message: 'Invalid role'
+      });
+    }
+
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).json({
+        message: 'User not found'
+      });
+    }
+
+    user.role = role;
+
+    await user.save();
+
+    res.json({
+      message: 'User role updated successfully',
+      user
+    });
+
+  } catch (error) {
+    console.error('Error updating user role:', error);
+
+    res.status(500).json({
+      message: 'Role update failed'
+    });
+  }
+};

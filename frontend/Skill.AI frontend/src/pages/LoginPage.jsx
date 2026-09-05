@@ -13,6 +13,7 @@ const LoginPage = () => {
     password: '',
   })
   const [loading, setLoading] = useState(false)
+  const [loginError, setLoginError] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [googleLoading, setGoogleLoading] = useState(false)
   const { login } = useAuth()
@@ -29,17 +30,29 @@ const LoginPage = () => {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
+  e.preventDefault()
+  setLoginError('')
+  setLoading(true)
 
+  try {
     const result = await login(formData.email, formData.password)
-    
-    if (result.success) {
-  navigate("/dashboard", { replace: true });
-}
-    
+
+    if (result?.success) {
+      navigate("/dashboard", { replace: true })
+    } else {
+      setLoginError(result?.error || "Invalid email or password")
+    }
+  } catch (error) {
+    console.error("Login error:", error)
+
+    setLoginError(
+      error.response?.data?.message ||
+      "Invalid email or password"
+    )
+  } finally {
     setLoading(false)
   }
+}
 
   const handleGoogleLogin = async () => {
     try {
@@ -63,11 +76,48 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="auth-page">
+    <div className="auth-page auth-login-page">
       <Navbar />
       <main className="auth-main">
         <div className="auth-container">
-          <div className="auth-card">
+  <div className="auth-visual-panel">
+  <div className="auth-brand-mark">S</div>
+
+  <div className="auth-3d-content">
+    <span className="auth-visual-badge">SKILL.AI TRAINING</span>
+
+    <h2>Welcome Back</h2>
+
+    <p>
+      Your learning journey continues here.
+    </p>
+
+    <div className="login-3d-scene">
+      <div className="login-3d-shadow"></div>
+
+      <div className="login-3d-board">
+        <div className="login-3d-board-front">
+          <span className="login-lock">🔐</span>
+          <span className="login-3d-text">LOGIN</span>
+        </div>
+
+        <div className="login-3d-board-side"></div>
+      </div>
+
+      <div className="login-3d-key">
+        <span className="key-ring"></span>
+        <span className="key-shaft"></span>
+        <span className="key-tooth key-tooth-one"></span>
+        <span className="key-tooth key-tooth-two"></span>
+      </div>
+    </div>
+  </div>
+
+  <div className="auth-orbit auth-orbit-one"></div>
+  <div className="auth-orbit auth-orbit-two"></div>
+</div>
+
+  <div className="auth-card">
             <h1>Login</h1>
             <p className="auth-subtitle">Welcome back to Skill.AI Training</p>
             <form onSubmit={handleSubmit} className="auth-form">
@@ -112,6 +162,11 @@ const LoginPage = () => {
               >
                 {loading ? 'Logging in...' : 'Login'}
               </button>
+              {loginError && (
+  <div className="login-error-message">
+    ⚠️ {loginError}
+  </div>
+)}
             </form>
             
             <div className="auth-divider">

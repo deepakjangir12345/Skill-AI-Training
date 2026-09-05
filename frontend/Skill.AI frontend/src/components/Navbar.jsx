@@ -1,8 +1,10 @@
 import { Link, useNavigate } from 'react-router-dom'
+import { useState } from 'react'
 import { useAuth } from '../context/AuthContext'
 import './Navbar.css'
 
 const Navbar = () => {
+   const [menuOpen, setMenuOpen] = useState(false)
   const { isAuthenticated, user, logout } = useAuth()
   const navigate = useNavigate()
 
@@ -17,16 +19,47 @@ const Navbar = () => {
         <Link to="/" className="navbar-logo">
           Skill.AI Training
         </Link>
-        <div className="navbar-menu">
+        <div
+          className={`navbar-menu ${menuOpen ? 'active' : ''}`}
+          onClick={() => setMenuOpen(false)}
+        >
           <Link to="/" className="navbar-link">Home</Link>
           <Link to="/courses" className="navbar-link">Courses</Link>
           <Link to="/contact" className="navbar-link">Contact</Link>
+          <Link to="/my-certificates" className="navbar-link">My Certificates</Link>
+          <Link to="/feedback" className="navbar-link">
+  Feedback
+</Link>
           {isAuthenticated ? (
             <>
               <Link to="/my-courses" className="navbar-link">My Courses</Link>
-              {user?.role === 'admin' && (
-                <Link to="/admin" className="btn btn-primary btn-small">Admin Panel</Link>
-              )}
+              <Link
+  to="/live-classes"
+  className="navbar-link"
+>
+  Live Classes
+</Link>
+
+{user?.role === 'faculty' && (
+  <Link
+    to="/faculty/dashboard"
+    className="btn btn-primary btn-small"
+  >
+    Faculty Panel
+  </Link>
+)}
+
+{user?.role === 'admin' && (
+  <>
+    <Link
+      to="/admin"
+      className="btn btn-primary btn-small"
+    >
+      Admin Panel
+    </Link>
+  </>
+)}
+
               <div className="navbar-user">
                 <span className="navbar-user-name">{user?.name}</span>
                 <button className="btn btn-outline btn-small" onClick={handleLogout}>
@@ -43,9 +76,13 @@ const Navbar = () => {
             </>
           )}
         </div>
-        <button className="navbar-toggle" aria-label="Toggle menu">
-          ☰
-        </button>
+        <button
+  className="navbar-toggle"
+  aria-label="Toggle menu"
+  onClick={() => setMenuOpen(!menuOpen)}
+>
+  ☰
+</button>
       </div>
     </nav>
   )

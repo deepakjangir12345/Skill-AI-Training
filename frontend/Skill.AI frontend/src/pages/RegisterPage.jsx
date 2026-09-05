@@ -13,6 +13,7 @@ const RegisterPage = () => {
     confirmPassword: '',
   })
   const [loading, setLoading] = useState(false)
+  const [registerError, setRegisterError] = useState('')
   const [showPassword, setShowPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const { register } = useAuth()
@@ -26,31 +27,83 @@ const RegisterPage = () => {
   }
 
   const handleSubmit = async (e) => {
-    e.preventDefault()
+  e.preventDefault()
+  setRegisterError('')
 
-    if (formData.password !== formData.confirmPassword) {
-      alert('Passwords do not match')
-      return
-    }
-
-    setLoading(true)
-
-    const { confirmPassword, ...userData } = formData
-    const result = await register(userData)
-    
-    if (result.success) {
-      navigate('/courses')
-    }
-    
-    setLoading(false)
+  if (formData.password !== formData.confirmPassword) {
+    setRegisterError('Passwords do not match')
+    return
   }
 
+  setLoading(true)
+
+  try {
+    const { confirmPassword, ...userData } = formData
+    const result = await register(userData)
+
+    if (result?.success) {
+      navigate('/courses')
+    } else {
+      setRegisterError(
+        result?.error || 'Registration failed'
+      )
+    }
+  } catch (error) {
+    console.error('Registration error:', error)
+
+    setRegisterError(
+      error.response?.data?.message ||
+      'Registration failed'
+    )
+  } finally {
+    setLoading(false)
+  }
+}
+
   return (
-    <div className="auth-page">
+    <div className="auth-page auth-register-page">
       <Navbar />
       <main className="auth-main">
         <div className="auth-container">
-          <div className="auth-card">
+
+  <div className="auth-visual-panel">
+    <div className="auth-brand-mark">S</div>
+
+    <div className="auth-3d-content">
+      <span className="auth-visual-badge">SKILL.AI TRAINING</span>
+
+      <h2>Join Skill.AI</h2>
+
+      <p>
+        Start learning today and build skills for your future.
+      </p>
+
+      <div className="login-3d-scene">
+        <div className="login-3d-shadow"></div>
+
+        <div className="login-3d-board">
+          <div className="login-3d-board-front">
+            <span className="login-lock">🚀</span>
+            <span className="login-3d-text">JOIN</span>
+          </div>
+
+          <div className="login-3d-board-side"></div>
+        </div>
+
+        <div className="login-3d-key">
+          <span className="key-ring"></span>
+          <span className="key-shaft"></span>
+          <span className="key-tooth key-tooth-one"></span>
+          <span className="key-tooth key-tooth-two"></span>
+        </div>
+      </div>
+    </div>
+
+    <div className="auth-orbit auth-orbit-one"></div>
+    <div className="auth-orbit auth-orbit-two"></div>
+  </div>
+
+  <div className="auth-card">
             <h1>Register</h1>
             <p className="auth-subtitle">Join Skill.AI Training today</p>
             <form onSubmit={handleSubmit} className="auth-form">
@@ -130,6 +183,11 @@ const RegisterPage = () => {
               >
                 {loading ? 'Registering...' : 'Register'}
               </button>
+              {registerError && (
+  <div className="login-error-message">
+    ⚠️ {registerError}
+  </div>
+)}
             </form>
             <p className="auth-footer">
               Already have an account? <Link to="/login">Login here</Link>

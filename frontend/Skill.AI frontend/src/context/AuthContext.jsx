@@ -80,8 +80,6 @@ if (token) {
       error.response?.data?.message ||
       "Login failed";
 
-    toast.error(message);
-
     return {
       success: false,
       error: message,
@@ -102,7 +100,6 @@ if (token) {
       return { success: true }
     } catch (error) {
       const message = error.response?.data?.message || 'Registration failed'
-      toast.error(message)
       return { success: false, error: message }
     }
   }

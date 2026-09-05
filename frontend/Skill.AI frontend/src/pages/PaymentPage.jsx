@@ -15,6 +15,7 @@ const PaymentPage = () => {
   const [loading, setLoading] = useState(true)
   const [processing, setProcessing] = useState(false)
   const [paymentMethod, setPaymentMethod] = useState('razorpay')
+  const [paymentError, setPaymentError] = useState('')
 
   useEffect(() => {
     fetchCourseDetails()
@@ -53,6 +54,7 @@ const PaymentPage = () => {
   }
 
   const handlePayment = async () => {
+     setPaymentError('')
     if (!course) {
       toast.error('Course not found')
       return
@@ -144,10 +146,16 @@ const PaymentPage = () => {
       const razorpay = new window.Razorpay(options)
       razorpay.open()
     } catch (error) {
-      console.error('Payment error:', error)
-      toast.error(error.response?.data?.message || 'Failed to initiate payment')
-      setProcessing(false)
-    }
+  console.error('Payment error:', error)
+
+  setPaymentError(
+    error.response?.data?.message ||
+    'Failed to initiate payment'
+  )
+
+  setProcessing(false)
+}
+
   }
 
   const handleUPIPayment = () => {
@@ -428,6 +436,11 @@ const PaymentPage = () => {
                 <span>₹{course.price}</span>
               </div>
             </div>
+            {paymentError && (
+  <div className="payment-error-message">
+    ⚠️ {paymentError}
+  </div>
+)}
 
             <button
               className="btn btn-primary btn-large btn-full payment-button"

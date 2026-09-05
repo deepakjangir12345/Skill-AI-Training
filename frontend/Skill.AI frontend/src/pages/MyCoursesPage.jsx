@@ -60,27 +60,55 @@ const MyCoursesPage = () => {
       const response = await api.get('/enrollments/my')
       const enrollments = response.data.enrollments || []
       console.log(enrollments);
+      console.log("First Enrollment:", enrollments[0]);
       
       // Map enrollment data with course details
-      const coursesWithDetails = enrollments.map(enrollment => {
-        const details = courseDetails[enrollment.course?.name] || {};
+      const coursesWithDetails = await Promise.all(
+  enrollments.map(async (enrollment) => {
+    const courseId = enrollment.course?._id || enrollment.courseId
 
-return {
-  ...enrollment,
-  courseDetails: {
-    name: enrollment.course?.name || "Untitled Course",
-    description:
-      enrollment.course?.description || "Course description available",
-    image:
-      enrollment.course?.thumbnail ||
-      courseImages[enrollment.course?.name] ||
-      courseImages["English & Personality Development"],
-    ...details,
-  },
-};
-      })
-      
-      setEnrolledCourses(coursesWithDetails)
+    let courseProgress = 0
+
+    try {
+      const progressResponse = await api.get(
+        `/lessons/progress/${courseId}`
+      )
+
+      courseProgress = progressResponse?.data?.progress || 0
+    } catch (error) {
+      console.error(
+        `Error fetching progress for course ${courseId}:`,
+        error
+      )
+    }
+
+    const details =
+      courseDetails[enrollment.course?.name] || {}
+
+    return {
+      ...enrollment,
+
+      progress: courseProgress,
+
+      courseDetails: {
+        name: enrollment.course?.name || "Untitled Course",
+
+        description:
+          enrollment.course?.description ||
+          "Course description available",
+
+        image:
+          enrollment.course?.thumbnail ||
+          courseImages[enrollment.course?.name] ||
+          courseImages["English & Personality Development"],
+
+        ...details,
+      },
+    }
+  })
+)
+
+setEnrolledCourses(coursesWithDetails)
     } catch (error) {
       console.error('Error fetching my courses:', error)
       // Show error state
@@ -122,7 +150,10 @@ return {
           ) : (
             <div className="courses-grid">
               {enrolledCourses.map((enrollment) => (
-                <div key={enrollment._id} className="course-card-enrolled">
+                <div
+  key={enrollment._id || enrollment.course?._id || enrollment.courseId}
+  className="course-card-enrolled"
+>
                   <div className="course-image-container">
                     <img 
                       src={enrollment.courseDetails.image} 
@@ -134,6 +165,11 @@ return {
                     </div>
                   </div>
                   <div className="course-card-content">
+                    {enrollment.progress >= 100 && (
+  <div className="completed-badge">
+    ✓ Course Completed
+  </div>
+)}
                     <h3 className="course-name">{enrollment.courseDetails.name}</h3>
                     <p className="course-description">
                       {enrollment.courseDetails.description}
@@ -154,13 +190,15 @@ return {
                       </span>
                     </div>
                     <div className="course-actions">
-                      <Link
-                        to={`/learn/${enrollment.course?._id || enrollment.courseId}`}
-                        className="btn btn-primary btn-small"
-                      >
-                        Continue Learning
-                      </Link>
-                      {enrollment.completed && (
+                     {enrollment.progress < 100 && (
+  <Link
+    to={`/learn/${enrollment.course?._id || enrollment.courseId}`}
+    className="btn btn-primary btn-small"
+  >
+    Continue Learning
+  </Link>
+)}
+                      {enrollment.progress >= 100 && (
                         <Link
                           to={`/certificate/${enrollment.courseId}`}
                           className="btn btn-outline btn-small"

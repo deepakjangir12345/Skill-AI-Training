@@ -67,3 +67,54 @@
 }
 
 
+/* Mobile overflow protection */
+.footer,
+.footer-container {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 100%;
+}
+
+.footer-content,
+.footer-section,
+.footer-bottom {
+  min-width: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    width: 100%;
+    overflow-x: hidden;
+  }
+
+  .footer-container {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .footer-content {
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  .footer-section {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .footer-bottom {
+    width: 100%;
+    overflow-wrap: anywhere;
+  }
+
+  .course-learning-page + .footer {
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    overflow-x: hidden;
+  }
+}

@@ -86,4 +86,18 @@
   border-left: 4px solid #3c3;
 }
 
+@media (max-width: 480px) {
+  .app .btn {
+    max-width: 100%;
+    white-space: normal;
+    overflow-wrap: anywhere;
+  }
+
+  .app input,
+  .app select,
+  .app textarea {
+    max-width: 100%;
+  }
+}
+
 

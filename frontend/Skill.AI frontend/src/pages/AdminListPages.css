@@ -409,10 +409,17 @@
   
   .admin-table-container {
     overflow-x: auto;
+    max-width: 100%;
   }
   
   .admin-table {
     min-width: 600px;
+  }
+
+  .admin-table-container {
+    max-width: 100%;
+    padding-left: 10px;
+    padding-right: 10px;
   }
   
   .course-description {

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import api from '../utils/api'
-import './AdminListPages.css'
+import './FacultyManage.css'
 
 const FacultyManage = () => {
   const [searchParams] = useSearchParams()
@@ -59,6 +59,118 @@ const FacultyManage = () => {
       setVideos([])
     }
   }
+
+  const handleEditVideo = async (video) => {
+  const newTitle = window.prompt('Enter video title:', video.title)
+
+  if (newTitle === null) {
+    return
+  }
+
+  const newDescription = window.prompt(
+    'Enter video description:',
+    video.description || ''
+  )
+
+  if (newDescription === null) {
+    return
+  }
+
+  try {
+    const token = localStorage.getItem('token')
+
+    await api.put(
+      `/faculty/video/${video._id}`,
+      {
+        title: newTitle,
+        description: newDescription
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    )
+
+    alert('Video updated successfully')
+
+    await fetchCourseVideos(selectedCourse)
+  } catch (error) {
+    console.error('Error updating video:', error)
+
+    alert(
+      error.response?.data?.message ||
+      'Failed to update video'
+    )
+  }
+}
+
+const handleDeleteVideo = async (videoId) => {
+  const confirmDelete = window.confirm(
+    'Are you sure you want to delete this video?'
+  )
+
+  if (!confirmDelete) {
+    return
+  }
+
+  try {
+    const token = localStorage.getItem('token')
+
+    await api.delete(
+      `/faculty/video/${videoId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    )
+
+    alert('Video deleted successfully')
+
+    await fetchCourseVideos(selectedCourse)
+  } catch (error) {
+    console.error('Error deleting video:', error)
+
+    alert(
+      error.response?.data?.message ||
+      'Failed to delete video'
+    )
+  }
+}
+
+const handleTogglePublish = async (video) => {
+  try {
+    const token = localStorage.getItem('token')
+
+    await api.put(
+      `/faculty/video/${video._id}`,
+      {
+        isPublished: !video.isPublished
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    )
+
+    alert(
+      video.isPublished
+        ? 'Video moved to draft'
+        : 'Video published successfully'
+    )
+
+    await fetchCourseVideos(selectedCourse)
+  } catch (error) {
+    console.error('Error updating video status:', error)
+
+    alert(
+      error.response?.data?.message ||
+      'Failed to update video status'
+    )
+  }
+}
 
   const formatDate = (dateString) => {
     return new Date(dateString).toLocaleDateString('en-IN', {
@@ -132,17 +244,35 @@ const FacultyManage = () => {
                   <td className="video-size">{formatFileSize(video.size)}</td>
                   <td className="video-date">{formatDate(video.createdAt)}</td>
                   <td className="video-status">
-                    <span className={`status-badge ${video.isPublished ? 'published' : 'draft'}`}>
-                      {video.isPublished ? 'Published' : 'Draft'}
-                    </span>
-                  </td>
+  <span
+    className={`status-badge ${
+      video.isPublished ? 'published' : 'draft'
+    }`}
+  >
+    {video.isPublished ? 'Published' : 'Draft'}
+  </span>
+
+  <button
+    className="btn btn-primary btn-sm"
+    onClick={() => handleTogglePublish(video)}
+    style={{ marginLeft: '8px' }}
+  >
+    {video.isPublished ? 'Unpublish' : 'Publish'}
+  </button>
+</td>
                   <td className="video-actions">
-                    <button className="btn btn-primary btn-sm">
-                      Edit
-                    </button>
-                    <button className="btn btn-danger btn-sm">
-                      Delete
-                    </button>
+                    <button
+  className="btn btn-primary btn-sm"
+  onClick={() => handleEditVideo(video)}
+>
+  Edit
+</button>
+                    <button
+  className="btn btn-danger btn-sm"
+  onClick={() => handleDeleteVideo(video._id)}
+>
+  Delete
+</button>
                   </td>
                 </tr>
               ))}

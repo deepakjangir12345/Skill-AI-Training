@@ -10,3 +10,5 @@ frontend/.env
 dist/
 build/
 .vscode/
+backend/uploads/
+backend/certificates/

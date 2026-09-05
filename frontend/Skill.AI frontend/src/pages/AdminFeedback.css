@@ -1,0 +1,901 @@
+.admin-feedback {
+  padding: 30px;
+}
+
+.admin-feedback-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.admin-feedback-header h2 {
+  margin: 0 0 8px;
+}
+
+.admin-feedback-header p {
+  margin: 0;
+  color: #666;
+}
+
+.feedback-count {
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  background: #f3f4f6;
+}
+
+.admin-feedback-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 20px;
+}
+
+.admin-feedback-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 22px;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+}
+
+.feedback-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+.feedback-card-top h3 {
+  margin: 0 0 5px;
+}
+
+.student-email {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.feedback-status {
+  height: fit-content;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+  background: #fff3cd;
+}
+
+.feedback-info {
+  padding: 15px;
+  border-radius: 8px;
+  background: #f8f9fa;
+}
+
+.feedback-info p {
+  margin: 8px 0;
+}
+
+.feedback-section {
+  margin-top: 18px;
+}
+
+.feedback-section h4 {
+  margin-bottom: 8px;
+}
+
+.feedback-section p {
+  margin: 0;
+  line-height: 1.6;
+  color: #555;
+  white-space: pre-wrap;
+}
+
+/* =========================
+   SESSION REQUEST
+========================= */
+
+.session-request {
+  margin-top: 18px;
+  padding: 12px;
+  border-radius: 8px;
+  font-weight: 600;
+  background: #e8f4ff;
+}
+
+/* =========================
+   STATUS UPDATE
+========================= */
+
+.feedback-status-update {
+  margin-top: 20px;
+  padding: 15px;
+  border-radius: 8px;
+  background: #f8f9fa;
+}
+
+.feedback-status-update label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.feedback-status-update select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #dddddd;
+  border-radius: 6px;
+  outline: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.feedback-status-update select:focus {
+  border-color: #555;
+}
+
+.feedback-status-update select:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.updating-status {
+  margin: 8px 0 0;
+  font-size: 13px;
+  color: #666;
+}
+
+/* =========================
+   SESSION SCHEDULING
+========================= */
+
+.schedule-session-section {
+  margin-top: 20px;
+  padding: 18px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #f8fafc;
+}
+
+.schedule-session-section h4 {
+  margin: 0 0 16px;
+  font-size: 16px;
+}
+
+/* Labels */
+
+.schedule-session-section label {
+  display: block;
+  margin: 12px 0 6px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* Inputs */
+
+.schedule-session-section input,
+.schedule-session-section textarea {
+  width: 100%;
+  box-sizing: border-box;
+  margin-bottom: 6px;
+  padding: 11px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #ffffff;
+  font-size: 14px;
+}
+
+.schedule-session-section textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.schedule-session-section input:focus,
+.schedule-session-section textarea:focus {
+  outline: none;
+  border-color: #555;
+}
+
+/* Schedule Button */
+
+.schedule-session-btn {
+  width: 100%;
+  margin-top: 10px;
+  padding: 12px 15px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.schedule-session-btn:hover {
+  transform: translateY(-1px);
+}
+
+.schedule-session-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none;
+}
+
+/* =========================
+   SCHEDULED SESSION INFO
+========================= */
+
+.scheduled-session-info {
+  margin-top: 20px;
+  padding: 16px;
+  border-radius: 10px;
+  border: 1px solid #cfe8d6;
+  background: #f1f8f4;
+}
+
+.scheduled-session-info h4 {
+  margin: 0 0 12px;
+  font-size: 16px;
+}
+
+.scheduled-session-info p {
+  margin: 8px 0;
+  line-height: 1.5;
+}
+
+.scheduled-session-info a {
+  word-break: break-all;
+}
+
+/* =========================
+   FEEDBACK DATE
+========================= */
+
+.feedback-date {
+  margin-top: 18px;
+  padding-top: 15px;
+  border-top: 1px solid #eeeeee;
+  font-size: 13px;
+  color: #777;
+}
+
+/* =========================
+   EMPTY STATE
+========================= */
+
+.no-feedback {
+  text-align: center;
+  padding: 70px 20px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.06);
+}
+
+.feedback-empty-icon {
+  font-size: 50px;
+  margin-bottom: 15px;
+}
+
+/* =========================
+   MOBILE RESPONSIVE
+========================= */
+
+@media (max-width: 768px) {
+  .admin-feedback {
+    padding: 20px;
+  }
+
+  .admin-feedback-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .admin-feedback-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .feedback-card-top {
+    flex-direction: column;
+  }
+}
+
+/* =========================================
+   ADMIN FEEDBACK - PREMIUM FOUNDATION
+   ========================================= */
+
+.admin-feedback {
+  position: relative;
+  min-height: calc(100vh - 70px);
+  padding: 32px;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 90% 5%,
+      rgba(124, 58, 237, 0.10),
+      transparent 28%
+    ),
+    radial-gradient(
+      circle at 5% 90%,
+      rgba(168, 85, 247, 0.08),
+      transparent 25%
+    ),
+    linear-gradient(
+      135deg,
+      #faf7ff 0%,
+      #ffffff 55%,
+      #f6f1ff 100%
+    );
+}
+
+/* Ambient glow */
+.admin-feedback::before,
+.admin-feedback::after {
+  content: "";
+  position: absolute;
+
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.admin-feedback::before {
+  width: 280px;
+  height: 280px;
+
+  top: -120px;
+  right: -80px;
+
+  background: rgba(124, 58, 237, 0.08);
+  filter: blur(4px);
+}
+
+.admin-feedback::after {
+  width: 220px;
+  height: 220px;
+
+  bottom: -100px;
+  left: -70px;
+
+  background: rgba(168, 85, 247, 0.07);
+  filter: blur(4px);
+}
+
+/* =========================================
+   FEEDBACK HEADER
+   ========================================= */
+
+.admin-feedback-header {
+  position: relative;
+  z-index: 1;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+
+  margin-bottom: 28px;
+}
+
+.admin-feedback-header h2 {
+  margin: 0 0 7px;
+
+  color: #24113f;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.7px;
+}
+
+.admin-feedback-header p {
+  margin: 0;
+
+  color: #756783;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.feedback-count {
+  flex-shrink: 0;
+
+  padding: 10px 16px;
+
+  border: 1px solid rgba(124, 58, 237, 0.15);
+  border-radius: 999px;
+
+  background: rgba(255, 255, 255, 0.85);
+
+  color: #5b21b6;
+
+  font-size: 13px;
+  font-weight: 800;
+
+  box-shadow:
+    0 8px 20px rgba(76, 29, 149, 0.07);
+
+  backdrop-filter: blur(12px);
+}
+
+/* =========================================
+   ADMIN FEEDBACK - CARD GRID
+   ========================================= */
+
+.admin-feedback-grid {
+  position: relative;
+  z-index: 1;
+
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.admin-feedback-card {
+  position: relative;
+
+  padding: 22px;
+
+  border: 1px solid rgba(124, 58, 237, 0.11);
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.90);
+
+  box-shadow:
+    0 14px 32px rgba(76, 29, 149, 0.07),
+    0 4px 12px rgba(76, 29, 149, 0.03),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+
+  backdrop-filter: blur(14px);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.admin-feedback-card:hover {
+  transform: translateY(-4px);
+
+  border-color: rgba(124, 58, 237, 0.20);
+
+  box-shadow:
+    0 20px 40px rgba(76, 29, 149, 0.11),
+    0 6px 16px rgba(76, 29, 149, 0.04);
+}
+
+/* Student header */
+.feedback-card-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+
+  padding-bottom: 16px;
+
+  border-bottom: 1px solid rgba(124, 58, 237, 0.09);
+}
+
+.feedback-card-top h3 {
+  margin: 0 0 5px;
+
+  color: #321653;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.student-email {
+  margin: 0;
+
+  color: #857592;
+  font-size: 12px;
+  font-weight: 500;
+  word-break: break-word;
+}
+
+/* Status */
+.feedback-status {
+  flex-shrink: 0;
+
+  padding: 6px 11px;
+
+  border-radius: 999px;
+
+  background: #f1eaff;
+  color: #6d28d9;
+
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+/* Feedback information */
+.feedback-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 9px;
+
+  margin-top: 17px;
+}
+
+.feedback-info p {
+  margin: 0;
+
+  padding: 10px 11px;
+
+  border-radius: 10px;
+
+  background: #faf8ff;
+
+  color: #685878;
+
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.feedback-info strong {
+  color: #432461;
+}
+
+/* Text sections */
+.feedback-section {
+  margin-top: 16px;
+  padding: 14px;
+
+  border-left: 3px solid #8b5cf6;
+  border-radius: 10px;
+
+  background: #faf8ff;
+}
+
+.feedback-section h4 {
+  margin: 0 0 7px;
+
+  color: #432461;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.feedback-section p {
+  margin: 0;
+
+  color: #756783;
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+/* =========================================
+   ADMIN FEEDBACK - STATUS & SESSION
+   ========================================= */
+
+.feedback-status-update {
+  margin-top: 18px;
+  padding-top: 16px;
+
+  border-top: 1px solid rgba(124, 58, 237, 0.09);
+}
+
+.feedback-status-update label {
+  display: block;
+  margin-bottom: 8px;
+
+  color: #432461;
+  font-size: 12px;
+}
+
+.feedback-status-update select {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 11px 13px;
+
+  border: 1px solid #ddd2f3;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #4c2870;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  outline: none;
+
+  cursor: pointer;
+
+  transition: all 0.25s ease;
+}
+
+.feedback-status-update select:hover {
+  border-color: #b79be8;
+}
+
+.feedback-status-update select:focus {
+  border-color: #7c3aed;
+
+  box-shadow:
+    0 0 0 3px rgba(124, 58, 237, 0.10);
+}
+
+.feedback-status-update select:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.updating-status {
+  margin: 7px 0 0;
+
+  color: #7c3aed;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+/* Session request */
+.session-request {
+  margin-top: 16px;
+  padding: 12px 14px;
+
+  border: 1px solid #e8d9a8;
+  border-radius: 11px;
+
+  background: #fffaf0;
+  color: #795b16;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+/* Schedule section */
+.schedule-session-section {
+  margin-top: 16px;
+  padding: 17px;
+
+  border: 1px solid rgba(124, 58, 237, 0.12);
+  border-radius: 15px;
+
+  background: linear-gradient(
+    135deg,
+    #fbf9ff,
+    #f7f2ff
+  );
+}
+
+.schedule-session-section h4 {
+  margin: 0 0 13px;
+
+  color: #432461;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.schedule-session-section input,
+.schedule-session-section textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  margin-bottom: 10px;
+  padding: 11px 13px;
+
+  border: 1px solid #ddd2f3;
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #3d2454;
+
+  font-family: inherit;
+  font-size: 13px;
+
+  outline: none;
+
+  transition: all 0.25s ease;
+}
+
+.schedule-session-section textarea {
+  min-height: 85px;
+  resize: vertical;
+}
+
+.schedule-session-section input:focus,
+.schedule-session-section textarea:focus {
+  border-color: #7c3aed;
+
+  box-shadow:
+    0 0 0 3px rgba(124, 58, 237, 0.09);
+}
+
+.schedule-session-section input:disabled,
+.schedule-session-section textarea:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.schedule-session-btn {
+  width: 100%;
+
+  padding: 11px 16px;
+
+  border: none;
+  border-radius: 10px;
+
+  background: linear-gradient(
+    135deg,
+    #6d28d9,
+    #9333ea
+  );
+
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 8px 18px rgba(109, 40, 217, 0.20);
+
+  transition: all 0.25s ease;
+}
+
+.schedule-session-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 12px 24px rgba(109, 40, 217, 0.28);
+}
+
+.schedule-session-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+/* Already scheduled session */
+.scheduled-session-info {
+  margin-top: 16px;
+  padding: 16px;
+
+  border: 1px solid #cfe4d5;
+  border-radius: 14px;
+
+  background: #f4fbf6;
+}
+
+.scheduled-session-info h4 {
+  margin: 0 0 10px;
+
+  color: #26703d;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.scheduled-session-info p {
+  margin: 6px 0;
+
+  color: #52705b;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+.scheduled-session-info strong {
+  color: #315b3c;
+}
+
+/* =========================================
+   ADMIN FEEDBACK - EMPTY STATE
+   ========================================= */
+
+.no-feedback {
+  position: relative;
+  z-index: 1;
+
+  max-width: 560px;
+  margin: 50px auto;
+  padding: 42px 28px;
+
+  border: 1px solid rgba(124, 58, 237, 0.12);
+  border-radius: 22px;
+
+  background: rgba(255, 255, 255, 0.90);
+
+  text-align: center;
+
+  box-shadow:
+    0 18px 40px rgba(76, 29, 149, 0.08);
+
+  backdrop-filter: blur(14px);
+}
+
+.feedback-empty-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 62px;
+  height: 62px;
+
+  margin: 0 auto 16px;
+
+  border-radius: 18px;
+
+  background: #f1eaff;
+
+  font-size: 28px;
+
+  box-shadow:
+    0 10px 22px rgba(124, 58, 237, 0.10);
+}
+
+.no-feedback h3 {
+  margin: 0 0 8px;
+
+  color: #321653;
+  font-size: 19px;
+  font-weight: 800;
+}
+
+.no-feedback p {
+  margin: 0;
+
+  color: #756783;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+
+/* =========================================
+   ADMIN FEEDBACK - RESPONSIVE
+   ========================================= */
+
+@media (max-width: 900px) {
+  .admin-feedback-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .admin-feedback {
+    padding: 22px 18px;
+  }
+
+  .admin-feedback-header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .admin-feedback-header h2 {
+    font-size: 27px;
+  }
+
+  .feedback-count {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  .admin-feedback {
+    padding: 18px 14px;
+  }
+
+  .admin-feedback-header h2 {
+    font-size: 24px;
+  }
+
+  .admin-feedback-header p {
+    font-size: 13px;
+  }
+
+  .admin-feedback-card {
+    padding: 17px;
+    border-radius: 17px;
+  }
+
+  .feedback-card-top {
+    flex-direction: column;
+  }
+
+  .feedback-status {
+    align-self: flex-start;
+  }
+
+  .feedback-info {
+    grid-template-columns: 1fr;
+  }
+
+  .no-feedback {
+    margin: 30px auto;
+    padding: 32px 18px;
+  }
+}

@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import api from '../utils/api'
+import './WhatsAppFloating.css'
 
 const WhatsAppFloating = () => {
   const [config, setConfig] = useState(null)
@@ -38,13 +39,7 @@ const WhatsAppFloating = () => {
 
   return (
     <div
-      style={{
-        position: 'fixed',
-        bottom: '20px',
-        right: '20px',
-        zIndex: 1000,
-        cursor: 'pointer'
-      }}
+      className="whatsapp-floating"
       onClick={handleWhatsAppClick}
       onMouseEnter={(e) => {
         e.currentTarget.style.transform = 'scale(1.1)'
@@ -55,17 +50,7 @@ const WhatsAppFloating = () => {
       }}
     >
       <div
-        style={{
-          width: '60px',
-          height: '60px',
-          backgroundColor: '#25D366',
-          borderRadius: '50%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-          transition: 'all 0.2s ease'
-        }}
+        className="whatsapp-floating-button"
       >
         <svg
           width="30"

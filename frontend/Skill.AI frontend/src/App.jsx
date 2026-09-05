@@ -17,6 +17,9 @@ import PaymentPage from './pages/PaymentPage'
 import MyCoursesPage from './pages/MyCoursesPage'
 import CourseLearningPage from './pages/CourseLearningPage'
 import CertificatePage from './pages/CertificatePage'
+import MyCertificatesPage from './pages/MyCertificatesPage'
+import CertificateVerificationPage from './pages/CertificateVerificationPage'
+import AdminCertificateSettings from './pages/AdminCertificateSettings'
 import ContactPage from './pages/ContactPage'
 import AdminSupportPage from './pages/AdminSupportPage'
 import PromotionalPopup from './components/PromotionalPopup'
@@ -27,6 +30,10 @@ import DashboardHome from "./pages/dashboard/DashboardHome";
 import ProfilePage from "./pages/dashboard/ProfilePage";
 import MyCoursesDashboard from "./pages/dashboard/MyCoursesDashboard";
 import SettingsPage from "./pages/dashboard/SettingsPage";
+import LiveClassesPage from "./pages/LiveClassesPage";
+import FeedbackPage from "./pages/FeedbackPage";
+import MyFeedbackPage from "./pages/MyFeedbackPage";
+
 // Admin imports
 import AdminPlaceholder from './pages/AdminPlaceholder'
 import AdminLayout from './components/AdminLayout'
@@ -36,6 +43,9 @@ import AdminUsers from './pages/AdminUsers'
 import AdminEnrollments from './pages/AdminEnrollments'
 import AdminPayments from './pages/AdminPayments'
 import AdminLessons from "./pages/AdminLessons";
+import AdminLiveClasses from "./pages/AdminLiveClasses";
+import AdminFeedback from "./pages/AdminFeedback";
+import AdminFaculty from './pages/AdminFaculty'
 // Faculty imports
 import FacultyLayout from './components/FacultyLayout'
 import FacultyDashboard from './pages/FacultyDashboard'
@@ -66,6 +76,10 @@ function App() {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="*" element={<NotFound />} />
               <Route
+  path="/my-certificates"
+  element={<MyCertificatesPage />}
+/>
+              <Route
   path="/dashboard"
   element={
     <ProtectedRoute>
@@ -85,7 +99,9 @@ function App() {
   path="/admin" 
   element={
     <AdminProtectedRoute>
-      <AdminDashboard />
+      <AdminLayout>
+        <AdminDashboard />
+      </AdminLayout>
     </AdminProtectedRoute>
   } 
 />
@@ -104,6 +120,28 @@ function App() {
     <AdminProtectedRoute>
       <AdminLayout>
         <AdminCourses />
+      </AdminLayout>
+    </AdminProtectedRoute>
+  }
+/>
+
+<Route
+  path="/admin/feedback"
+  element={
+    <AdminProtectedRoute>
+      <AdminLayout>
+        <AdminFeedback />
+      </AdminLayout>
+    </AdminProtectedRoute>
+  }
+/>
+
+<Route
+  path="/admin/faculty"
+  element={
+    <AdminProtectedRoute>
+      <AdminLayout>
+        <AdminFaculty />
       </AdminLayout>
     </AdminProtectedRoute>
   }
@@ -144,11 +182,28 @@ function App() {
               <Route
   path="/admin/lessons"
   element={
-    <ProtectedRoute>
-      <AdminLessons />
-    </ProtectedRoute>
+    <AdminProtectedRoute>
+      <AdminLayout>
+        <AdminLessons />
+      </AdminLayout>
+    </AdminProtectedRoute>
   }
 />
+
+<Route
+  path="/admin/live-classes"
+  element={<AdminLiveClasses />}
+/>
+              <Route
+                path="/admin/certificate-settings"
+                element={
+                  <AdminProtectedRoute>
+                    <AdminLayout>
+                      <AdminCertificateSettings />
+                    </AdminLayout>
+                  </AdminProtectedRoute>
+                }
+              />
               <Route
                 path="/enroll/:courseId"
                 element={
@@ -173,6 +228,31 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+
+              <Route
+  path="/feedback"
+  element={
+    <ProtectedRoute>
+      <FeedbackPage />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/my-feedback"
+  element={
+    <ProtectedRoute>
+      <MyFeedbackPage />
+    </ProtectedRoute>
+  }
+/>
+              <Route
+  path="/live-classes"
+  element={
+    <ProtectedRoute>
+      <LiveClassesPage />
+    </ProtectedRoute>
+  }
+/>
               <Route
                 path="/learn/:courseId"
                 element={
@@ -189,6 +269,7 @@ function App() {
                   </ProtectedRoute>
                 }
               />
+              <Route path="/verify-certificate" element={<CertificateVerificationPage />} />
               
               {/* Faculty Routes */}
               <Route

@@ -199,3 +199,525 @@
     padding: 10px;
   }
 }
+
+/* =========================================
+   FACULTY UPLOAD - PREMIUM FOUNDATION
+   ========================================= */
+
+.faculty-upload {
+  position: relative;
+  min-height: calc(100vh - 80px);
+  padding: 32px;
+  overflow: hidden;
+  background:
+    radial-gradient(
+      circle at 8% 8%,
+      rgba(124, 58, 237, 0.12),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 92% 18%,
+      rgba(168, 85, 247, 0.10),
+      transparent 28%
+    ),
+    linear-gradient(
+      135deg,
+      #faf7ff 0%,
+      #ffffff 55%,
+      #f6f1ff 100%
+    );
+}
+
+/* Ambient 3D glows */
+.faculty-upload::before,
+.faculty-upload::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.faculty-upload::before {
+  width: 280px;
+  height: 280px;
+  top: -120px;
+  right: -90px;
+  background: rgba(124, 58, 237, 0.09);
+  filter: blur(3px);
+}
+
+.faculty-upload::after {
+  width: 230px;
+  height: 230px;
+  bottom: -100px;
+  left: -80px;
+  background: rgba(168, 85, 247, 0.08);
+  filter: blur(3px);
+}
+
+/* Page heading */
+.faculty-upload > h2 {
+  position: relative;
+  z-index: 1;
+  margin: 0 0 28px;
+  color: #24113f;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.7px;
+}
+
+/* Main form workspace */
+.upload-form-container {
+  position: relative;
+  z-index: 1;
+  max-width: 900px;
+  padding: 30px;
+  border: 1px solid rgba(124, 58, 237, 0.12);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow:
+    0 20px 50px rgba(76, 29, 149, 0.10),
+    0 5px 18px rgba(76, 29, 149, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(16px);
+}
+
+.upload-form {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+/* =========================================
+   COURSE & MODULE SELECTORS
+   ========================================= */
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.form-group label {
+  color: #3b2460;
+  font-size: 14px;
+  font-weight: 750;
+  letter-spacing: 0.1px;
+}
+
+.form-group select {
+  width: 100%;
+  padding: 14px 16px;
+  border: 1px solid #ded1f2;
+  border-radius: 12px;
+  outline: none;
+  background: #ffffff;
+  color: #302044;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.form-group select:hover:not(:disabled) {
+  border-color: #bea0e8;
+  box-shadow: 0 5px 15px rgba(124, 58, 237, 0.07);
+}
+
+.form-group select:focus {
+  border-color: #7c3aed;
+  box-shadow:
+    0 0 0 4px rgba(124, 58, 237, 0.10),
+    0 8px 20px rgba(124, 58, 237, 0.08);
+}
+
+.form-group select:disabled {
+  background: #f7f3fb;
+  color: #9b8bab;
+  cursor: not-allowed;
+}
+
+.form-help {
+  margin-top: 1px;
+  color: #806c94;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* =========================================
+   TEXT INPUTS
+   ========================================= */
+
+.form-group input[type="text"],
+.form-group textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px 16px;
+  border: 1px solid #ded1f2;
+  border-radius: 12px;
+  outline: none;
+  background: #ffffff;
+  color: #302044;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  transition:
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+}
+
+.form-group input[type="text"]::placeholder,
+.form-group textarea::placeholder {
+  color: #a293b2;
+}
+
+.form-group input[type="text"]:hover:not(:disabled),
+.form-group textarea:hover:not(:disabled) {
+  border-color: #bea0e8;
+  box-shadow: 0 5px 15px rgba(124, 58, 237, 0.06);
+}
+
+.form-group input[type="text"]:focus,
+.form-group textarea:focus {
+  border-color: #7c3aed;
+  box-shadow:
+    0 0 0 4px rgba(124, 58, 237, 0.10),
+    0 8px 20px rgba(124, 58, 237, 0.07);
+}
+
+.form-group textarea {
+  min-height: 120px;
+  resize: vertical;
+  line-height: 1.6;
+}
+
+.form-group input[type="text"]:disabled,
+.form-group textarea:disabled {
+  background: #f7f3fb;
+  color: #9b8bab;
+  cursor: not-allowed;
+}
+
+/* =========================================
+   VIDEO FILE INPUT
+   ========================================= */
+
+.form-group input[type="file"] {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px;
+  border: 1px dashed #cdb8ea;
+  border-radius: 14px;
+  background: #faf7ff;
+  color: #5d4a70;
+  font-family: inherit;
+  font-size: 13px;
+  cursor: pointer;
+  transition:
+    border-color 0.25s ease,
+    background 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.form-group input[type="file"]:hover:not(:disabled) {
+  border-color: #9b6ee8;
+  background: #f7f1ff;
+  box-shadow: 0 8px 20px rgba(124, 58, 237, 0.08);
+}
+
+.form-group input[type="file"]:focus {
+  outline: none;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 4px rgba(124, 58, 237, 0.10);
+}
+
+.form-group input[type="file"]::file-selector-button {
+  margin-right: 12px;
+  padding: 9px 14px;
+  border: none;
+  border-radius: 9px;
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 12px;
+  font-weight: 750;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.form-group input[type="file"]::file-selector-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 14px rgba(124, 58, 237, 0.22);
+}
+
+.form-group input[type="file"]:disabled {
+  background: #f4f0f8;
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+/* File help text */
+.form-help {
+  color: #806c94;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* =========================================
+   SELECTED FILE PREVIEW
+   ========================================= */
+
+.file-preview {
+  position: relative;
+  padding: 20px 22px;
+  border: 1px solid rgba(124, 58, 237, 0.14);
+  border-radius: 16px;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(250, 247, 255, 0.95),
+      rgba(245, 239, 255, 0.9)
+    );
+  box-shadow:
+    0 10px 25px rgba(76, 29, 149, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+  overflow: hidden;
+}
+
+.file-preview::before {
+  content: "";
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  top: -45px;
+  right: -25px;
+  border-radius: 50%;
+  background: rgba(124, 58, 237, 0.10);
+}
+
+.file-preview h4 {
+  position: relative;
+  margin: 0 0 14px;
+  color: #351653;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.file-preview p {
+  position: relative;
+  margin: 7px 0;
+  color: #685676;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.file-preview strong {
+  color: #432263;
+  font-weight: 750;
+}
+
+/* =========================================
+   UPLOAD PROGRESS
+   ========================================= */
+
+.upload-progress {
+  padding: 18px 20px;
+  border: 1px solid rgba(124, 58, 237, 0.12);
+  border-radius: 15px;
+  background: #faf7ff;
+  box-shadow:
+    0 8px 20px rgba(76, 29, 149, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.progress-bar {
+  width: 100%;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: #e9def7;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #7c3aed, #a855f7);
+  box-shadow: 0 3px 10px rgba(124, 58, 237, 0.25);
+  transition: width 0.25s ease;
+}
+
+.upload-progress p {
+  margin: 10px 0 0;
+  color: #573c70;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: right;
+}
+
+/* =========================================
+   FORM ACTIONS
+   ========================================= */
+
+.form-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 4px;
+  padding-top: 8px;
+}
+
+/* Base buttons */
+.form-actions .btn {
+  min-width: 145px;
+  padding: 13px 20px;
+  border: none;
+  border-radius: 11px;
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+/* Upload button */
+.form-actions .btn-primary {
+  background: linear-gradient(135deg, #7c3aed, #9333ea);
+  color: #ffffff;
+  box-shadow:
+    0 8px 18px rgba(124, 58, 237, 0.22),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20);
+}
+
+.form-actions .btn-primary:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow:
+    0 12px 25px rgba(124, 58, 237, 0.30),
+    inset 0 1px 0 rgba(255, 255, 255, 0.20);
+}
+
+/* Clear button */
+.form-actions .btn-secondary {
+  background: #ffffff;
+  color: #5b3a7b;
+  border: 1px solid #d8c8ed;
+  box-shadow: 0 6px 15px rgba(76, 29, 149, 0.07);
+}
+
+.form-actions .btn-secondary:hover:not(:disabled) {
+  transform: translateY(-3px);
+  border-color: #bda0e5;
+  box-shadow: 0 10px 20px rgba(76, 29, 149, 0.11);
+}
+
+/* Press effect */
+.form-actions .btn:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+/* Disabled state */
+.form-actions .btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+/* =========================================
+   FINAL POLISH
+   ========================================= */
+
+.faculty-upload > h2 {
+  animation: facultyUploadFadeDown 0.55s ease both;
+}
+
+.upload-form-container {
+  animation: facultyUploadFadeUp 0.7s ease both;
+}
+
+/* =========================================
+   RESPONSIVE
+   ========================================= */
+
+@media (max-width: 900px) {
+  .faculty-upload {
+    padding: 24px 18px;
+  }
+
+  .faculty-upload > h2 {
+    font-size: 28px;
+  }
+
+  .upload-form-container {
+    max-width: none;
+    padding: 24px;
+  }
+}
+
+@media (max-width: 600px) {
+  .faculty-upload {
+    padding: 20px 14px;
+  }
+
+  .faculty-upload > h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+  }
+
+  .upload-form-container {
+    padding: 18px;
+    border-radius: 18px;
+  }
+
+  .upload-form {
+    gap: 18px;
+  }
+
+  .form-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-actions .btn {
+    width: 100%;
+  }
+
+  .file-preview {
+    padding: 17px;
+  }
+}
+
+/* =========================================
+   ENTRANCE ANIMATIONS
+   ========================================= */
+
+@keyframes facultyUploadFadeDown {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes facultyUploadFadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

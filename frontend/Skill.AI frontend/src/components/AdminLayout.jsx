@@ -7,11 +7,16 @@ const AdminLayout = ({ children }) => {
   const navigate = useNavigate()
 
   const menuItems = [
-    { path: '/admin/dashboard', label: 'Dashboard', icon: '📊' },
+    { path: '/admin', label: 'Dashboard', icon: '📊' },
     { path: '/admin/courses', label: 'Courses', icon: '📚' },
     { path: '/admin/users', label: 'Users', icon: '👥' },
     { path: '/admin/enrollments', label: 'Enrollments', icon: '📝' },
     { path: '/admin/payments', label: 'Payments', icon: '💳' },
+    { path: '/admin/lessons', label: 'Lessons', icon: '📖' },
+    { path: '/admin/certificate-settings', label: 'Certificate Settings', icon: '🎓' },
+    { path: '/admin/feedback', label: 'Feedback', icon: '💬' },
+    { path: '/admin/faculty', label: 'Faculty Management', icon: '👨‍🏫' },
+    { path: '/admin/support', label: 'Support', icon: '🛟' },
   ]
 
   const handleLogout = () => {
@@ -43,6 +48,7 @@ const AdminLayout = ({ children }) => {
               <span className="admin-nav-icon">{item.icon}</span>
               <span className="admin-nav-label">{item.label}</span>
             </Link>
+            
           ))}
         </nav>
       </div>

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import api from '../utils/api'
-import './AdminListPages.css'
+import './FacultyCourses.css'
 
 const FacultyCourses = () => {
   const [courses, setCourses] = useState([])

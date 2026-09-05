@@ -40,6 +40,8 @@ const AdminDashboard = () => {
     }).format(amount)
   }
 
+  const hasRevenue = stats.totalRevenue !== undefined && stats.totalRevenue !== null
+
   if (loading) {
     return (
       <div className="admin-dashboard-loading">
@@ -54,65 +56,89 @@ const AdminDashboard = () => {
       <h2>Dashboard Overview</h2>
       
       <div className="stats-grid">
-        <div className="stat-card">
+        <Link to="/admin/users" className="stat-card">
           <div className="stat-icon">👥</div>
           <div className="stat-content">
             <h3>{stats.totalUsers}</h3>
             <p>Total Users</p>
           </div>
-        </div>
+        </Link>
 
-        <div className="stat-card">
+        <Link to="/admin/courses" className="stat-card">
           <div className="stat-icon">📚</div>
           <div className="stat-content">
             <h3>{stats.totalCourses}</h3>
             <p>Total Courses</p>
           </div>
-        </div>
+        </Link>
 
-        <div className="stat-card">
+        <Link to="/admin/enrollments" className="stat-card">
           <div className="stat-icon">📝</div>
           <div className="stat-content">
             <h3>{stats.totalEnrollments}</h3>
             <p>Total Enrollments</p>
           </div>
-        </div>
+        </Link>
 
-        <div className="stat-card">
+        <Link to="/admin/payments" className="stat-card">
           <div className="stat-icon">💳</div>
           <div className="stat-content">
             <h3>{stats.totalPayments}</h3>
             <p>Total Payments</p>
           </div>
-        </div>
+        </Link>
 
-        <div className="stat-card revenue-card">
-          <div className="stat-icon">💰</div>
-          <div className="stat-content">
-            <h3>{formatCurrency(stats.totalRevenue)}</h3>
-            <p>Total Revenue</p>
+        {hasRevenue && (
+          <div className="stat-card revenue-card">
+            <div className="stat-icon">💰</div>
+            <div className="stat-content">
+              <h3>{formatCurrency(stats.totalRevenue)}</h3>
+              <p>Total Revenue</p>
+            </div>
           </div>
-        </div>
+        )}
       </div>
+
+      <section className="quick-management">
+        <div className="section-heading">
+          <div>
+            <p className="section-eyebrow">Administration</p>
+            <h3>Quick Management</h3>
+          </div>
+          <p>Jump into the tools you use most.</p>
+        </div>
         <div className="dashboard-actions">
+          <Link to="/admin/courses" className="admin-action-card">
+            <div className="action-icon">📚</div>
+            <div className="action-content">
+              <h3>Course Management</h3>
+              <p>Create and manage courses</p>
+            </div>
+            <span className="action-link">Open <span aria-hidden="true">→</span></span>
+          </Link>
 
-  <Link to="/admin/courses" className="admin-action-card">
-    <div className="action-icon">📚</div>
-    <div>
-      <h3>Course Management</h3>
-      <p>Create and manage courses</p>
-    </div>
-  </Link>
+          <Link to="/admin/lessons" className="admin-action-card">
+            <div className="action-icon">📖</div>
+            <div className="action-content">
+              <h3>Lesson Management</h3>
+              <p>Add and manage course lessons</p>
+            </div>
+            <span className="action-link">Open <span aria-hidden="true">→</span></span>
+          </Link>
+          <Link to="/admin/live-classes" className="admin-action-card">
+  <div className="action-icon">🎥</div>
 
-  <Link to="/admin/lessons" className="admin-action-card">
-    <div className="action-icon">📖</div>
-    <div>
-      <h3>Manage Lessons</h3>
-      <p>Add and manage course lessons</p>
-    </div>
-  </Link>
+  <div className="action-content">
+    <h3>Live Class Management</h3>
+    <p>Create and manage live classes</p>
+  </div>
 
-</div>
+  <span className="action-link">
+    Open <span aria-hidden="true">→</span>
+  </span>
+</Link>
+        </div>
+      </section>
 
       <div className="dashboard-info">
         <h3>Platform Overview</h3>

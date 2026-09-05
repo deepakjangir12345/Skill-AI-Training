@@ -181,12 +181,6 @@
 }
 
 /* Responsive Design */
-@media (max-width: 768px) {
-  .stats-grid {
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 15px;
-  }
-  
   .stat-card {
     padding: 20px;
   }
@@ -243,5 +237,1270 @@
   .dashboard-info,
   .quick-actions {
     padding: 15px;
+  }
+}
+
+@media (max-width: 600px) {
+  .faculty-dashboard .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================================================
+   FACULTY DASHBOARD — PREMIUM FOUNDATION
+========================================================= */
+
+.faculty-dashboard {
+  position: relative;
+
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 0 50px;
+
+  color: #30283a;
+
+  animation: facultyDashboardIn 0.55s ease both;
+}
+
+.faculty-dashboard::before {
+  content: "";
+
+  position: fixed;
+
+  width: 360px;
+  height: 360px;
+
+  top: 90px;
+  right: -170px;
+
+  border-radius: 50%;
+
+  background: rgba(139, 92, 246, 0.07);
+
+  filter: blur(8px);
+
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+.faculty-dashboard::after {
+  content: "";
+
+  position: fixed;
+
+  width: 280px;
+  height: 280px;
+
+  bottom: -100px;
+  left: -130px;
+
+  border-radius: 50%;
+
+  background: rgba(99, 102, 241, 0.055);
+
+  filter: blur(5px);
+
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+
+/* =========================================================
+   DASHBOARD TITLE
+========================================================= */
+
+.faculty-dashboard > h2 {
+  position: relative;
+
+  margin: 0 0 30px !important;
+
+  color: #292334 !important;
+
+  font-size: 34px !important;
+  font-weight: 900 !important;
+
+  letter-spacing: -0.8px;
+
+  line-height: 1.2;
+}
+
+.faculty-dashboard > h2::after {
+  content: "";
+
+  display: block;
+
+  width: 55px;
+  height: 4px;
+
+  margin-top: 12px;
+
+  border-radius: 20px;
+
+  background: linear-gradient(
+    90deg,
+    #6046d8,
+    #8b5cf6
+  );
+
+  box-shadow:
+    0 5px 13px rgba(96, 70, 216, 0.20);
+}
+
+
+/* =========================================================
+   LOADING STATE
+========================================================= */
+
+.faculty-dashboard-loading {
+  min-height: 420px;
+
+  display: flex;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #81788e;
+}
+
+.faculty-dashboard-loading .loading-spinner {
+  width: 44px;
+  height: 44px;
+
+  margin-bottom: 17px;
+
+  border: 4px solid #ece8f4;
+  border-top-color: #7654df;
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 8px 20px rgba(96, 70, 216, 0.10);
+
+  animation: facultySpin 0.85s linear infinite;
+}
+
+.faculty-dashboard-loading p {
+  margin: 0;
+
+  font-size: 13px;
+  font-weight: 650;
+}
+
+
+/* =========================================================
+   FOUNDATION ANIMATIONS
+========================================================= */
+
+@keyframes facultyDashboardIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes facultySpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+  .faculty-dashboard {
+    padding: 5px 0 35px;
+  }
+
+  .faculty-dashboard > h2 {
+    font-size: 29px !important;
+    margin-bottom: 25px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .faculty-dashboard {
+    padding: 0 0 30px;
+  }
+
+  .faculty-dashboard > h2 {
+    font-size: 25px !important;
+    letter-spacing: -0.5px;
+    margin-bottom: 22px !important;
+  }
+
+  .faculty-dashboard > h2::after {
+    width: 45px;
+    height: 3px;
+    margin-top: 9px;
+  }
+}
+
+/* =========================================================
+   FACULTY DASHBOARD — PREMIUM STATS CARDS
+========================================================= */
+
+.faculty-dashboard .stats-grid {
+  position: relative;
+
+  gap: 18px !important;
+
+  margin-bottom: 38px !important;
+}
+
+.faculty-dashboard .stat-card {
+  position: relative;
+
+  min-height: 112px;
+
+  padding: 22px !important;
+
+  border: 1px solid #e9e4f2;
+
+  border-radius: 20px !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.98),
+      rgba(249, 247, 255, 0.96)
+    );
+
+  box-shadow:
+    0 10px 28px rgba(55, 40, 100, 0.07);
+
+  overflow: hidden;
+
+  transform-style: preserve-3d;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.faculty-dashboard .stat-card::before {
+  content: "";
+
+  position: absolute;
+
+  width: 125px;
+  height: 125px;
+
+  top: -72px;
+  right: -52px;
+
+  border-radius: 50%;
+
+  background: rgba(139, 92, 246, 0.09);
+
+  pointer-events: none;
+}
+
+.faculty-dashboard .stat-card::after {
+  content: "";
+
+  position: absolute;
+
+  width: 55%;
+  height: 1px;
+
+  top: 0;
+  left: 22%;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(139, 92, 246, 0.35),
+    transparent
+  );
+
+  pointer-events: none;
+}
+
+.faculty-dashboard .stat-card:hover {
+  transform:
+    translateY(-7px)
+    perspective(700px)
+    rotateX(1deg);
+
+  border-color: #ddd4ee;
+
+  box-shadow:
+    0 20px 38px rgba(55, 40, 100, 0.12);
+}
+
+
+/* =========================================================
+   STAT ICON
+========================================================= */
+
+.faculty-dashboard .stat-icon {
+  position: relative;
+  z-index: 2;
+
+  flex-shrink: 0;
+
+  width: 58px !important;
+  height: 58px !important;
+
+  margin-right: 17px !important;
+
+  border: 1px solid #e5dcf6;
+
+  border-radius: 17px !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      #f4f0ff,
+      #e9e3ff
+    );
+
+  font-size: 25px !important;
+
+  box-shadow:
+    0 8px 18px rgba(96, 70, 216, 0.10);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.faculty-dashboard .stat-card:hover .stat-icon {
+  transform:
+    translateY(-3px)
+    rotate(-3deg);
+
+  box-shadow:
+    0 12px 24px rgba(96, 70, 216, 0.16);
+}
+
+
+/* =========================================================
+   STAT CONTENT
+========================================================= */
+
+.faculty-dashboard .stat-content {
+  position: relative;
+  z-index: 2;
+
+  min-width: 0;
+}
+
+.faculty-dashboard .stat-content h3 {
+  margin: 0 !important;
+
+  color: #2d2737 !important;
+
+  font-size: 27px !important;
+
+  font-weight: 900 !important;
+
+  line-height: 1.1;
+
+  letter-spacing: -0.5px;
+}
+
+.faculty-dashboard .stat-content p {
+  margin: 7px 0 0 !important;
+
+  color: #88808f !important;
+
+  font-size: 11px !important;
+
+  font-weight: 700;
+
+  letter-spacing: 0.2px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+  .faculty-dashboard .stats-grid {
+    gap: 15px !important;
+  }
+
+  .faculty-dashboard .stat-card {
+    min-height: 102px;
+    padding: 19px !important;
+  }
+
+  .faculty-dashboard .stat-icon {
+    width: 53px !important;
+    height: 53px !important;
+
+    margin-right: 14px !important;
+
+    font-size: 23px !important;
+  }
+
+  .faculty-dashboard .stat-content h3 {
+    font-size: 24px !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+  .faculty-dashboard .stats-grid {
+    gap: 13px !important;
+    margin-bottom: 28px !important;
+  }
+
+  .faculty-dashboard .stat-card {
+    min-height: 88px;
+
+    padding: 16px !important;
+
+    border-radius: 17px !important;
+  }
+
+  .faculty-dashboard .stat-icon {
+    width: 48px !important;
+    height: 48px !important;
+
+    margin-right: 13px !important;
+
+    border-radius: 14px !important;
+
+    font-size: 21px !important;
+  }
+
+  .faculty-dashboard .stat-content h3 {
+    font-size: 22px !important;
+  }
+
+  .faculty-dashboard .stat-content p {
+    margin-top: 5px !important;
+
+    font-size: 10px !important;
+  }
+}
+
+/* =========================================================
+   FACULTY DASHBOARD — 3D FACULTY OVERVIEW
+========================================================= */
+
+.faculty-dashboard .dashboard-info {
+  position: relative;
+
+  padding: 32px !important;
+
+  border: 1px solid #e8e2f2;
+
+  border-radius: 24px !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.97),
+      rgba(249, 247, 255, 0.96)
+    ) !important;
+
+  box-shadow:
+    0 16px 38px rgba(55, 40, 100, 0.08) !important;
+
+  overflow: hidden;
+
+  transform-style: preserve-3d;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.faculty-dashboard .dashboard-info::before {
+  content: "";
+
+  position: absolute;
+
+  width: 240px;
+  height: 240px;
+
+  top: -145px;
+  right: -75px;
+
+  border-radius: 50%;
+
+  background: rgba(139, 92, 246, 0.10);
+
+  filter: blur(3px);
+
+  pointer-events: none;
+}
+
+.faculty-dashboard .dashboard-info::after {
+  content: "";
+
+  position: absolute;
+
+  width: 180px;
+  height: 180px;
+
+  bottom: -115px;
+  left: -80px;
+
+  border-radius: 50%;
+
+  background: rgba(99, 102, 241, 0.06);
+
+  pointer-events: none;
+}
+
+.faculty-dashboard .dashboard-info:hover {
+  transform: translateY(-4px);
+
+  box-shadow:
+    0 24px 48px rgba(55, 40, 100, 0.11) !important;
+}
+
+
+/* =========================================================
+   OVERVIEW HEADING
+========================================================= */
+
+.faculty-dashboard .dashboard-info > h3 {
+  position: relative;
+  z-index: 2;
+
+  margin: 0 0 13px !important;
+
+  color: #2c2637 !important;
+
+  font-size: 24px !important;
+
+  font-weight: 850 !important;
+
+  letter-spacing: -0.4px;
+}
+
+.faculty-dashboard .dashboard-info > h3::before {
+  content: "";
+
+  display: inline-block;
+
+  width: 5px;
+  height: 22px;
+
+  margin-right: 10px;
+
+  vertical-align: -4px;
+
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #6046d8,
+      #9b6cff
+    );
+
+  box-shadow:
+    0 5px 12px rgba(96, 70, 216, 0.18);
+}
+
+.faculty-dashboard .dashboard-info > p {
+  position: relative;
+  z-index: 2;
+
+  max-width: 850px;
+
+  margin-bottom: 27px !important;
+
+  color: #81788e !important;
+
+  font-size: 12px !important;
+
+  line-height: 1.75 !important;
+}
+
+
+/* =========================================================
+   3D INFO CARDS
+========================================================= */
+
+.faculty-dashboard .info-cards {
+  position: relative;
+  z-index: 2;
+
+  gap: 17px !important;
+
+  perspective: 1000px;
+}
+
+.faculty-dashboard .info-card {
+  position: relative;
+
+  min-height: 145px;
+
+  padding: 23px !important;
+
+  border: 1px solid #e9e3f2;
+
+  border-left: none !important;
+
+  border-radius: 18px !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff,
+      #faf8ff
+    ) !important;
+
+  box-shadow:
+    0 9px 23px rgba(55, 40, 100, 0.06);
+
+  overflow: hidden;
+
+  transform-style: preserve-3d;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.faculty-dashboard .info-card::before {
+  content: "";
+
+  position: absolute;
+
+  width: 85px;
+  height: 85px;
+
+  top: -45px;
+  right: -30px;
+
+  border-radius: 50%;
+
+  background: rgba(139, 92, 246, 0.08);
+
+  pointer-events: none;
+}
+
+.faculty-dashboard .info-card::after {
+  content: "";
+
+  position: absolute;
+
+  width: 42px;
+  height: 3px;
+
+  left: 23px;
+  bottom: 18px;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #6046d8,
+      #a276ff
+    );
+
+  opacity: 0.65;
+
+  transition:
+    width 0.3s ease,
+    opacity 0.3s ease;
+}
+
+.faculty-dashboard .info-card:hover {
+  transform:
+    translateY(-7px)
+    rotateX(1deg)
+    rotateY(-1deg);
+
+  border-color: #ddd3ef;
+
+  box-shadow:
+    0 19px 35px rgba(55, 40, 100, 0.11);
+}
+
+.faculty-dashboard .info-card:hover::after {
+  width: 70px;
+  opacity: 1;
+}
+
+
+/* =========================================================
+   INFO CARD TEXT
+========================================================= */
+
+.faculty-dashboard .info-card h4 {
+  position: relative;
+  z-index: 2;
+
+  margin: 0 0 11px !important;
+
+  color: #352e40 !important;
+
+  font-size: 14px !important;
+
+  font-weight: 800 !important;
+
+  line-height: 1.4;
+}
+
+.faculty-dashboard .info-card p {
+  position: relative;
+  z-index: 2;
+
+  margin: 0 !important;
+
+  color: #8a8291 !important;
+
+  font-size: 11px !important;
+
+  line-height: 1.7 !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+  .faculty-dashboard .dashboard-info {
+    padding: 25px !important;
+    border-radius: 21px !important;
+  }
+
+  .faculty-dashboard .dashboard-info > h3 {
+    font-size: 21px !important;
+  }
+
+  .faculty-dashboard .info-card {
+    min-height: 125px;
+    padding: 20px !important;
+  }
+}
+
+@media (max-width: 576px) {
+  .faculty-dashboard .dashboard-info {
+    padding: 20px !important;
+    border-radius: 18px !important;
+  }
+
+  .faculty-dashboard .dashboard-info > h3 {
+    font-size: 19px !important;
+  }
+
+  .faculty-dashboard .dashboard-info > p {
+    font-size: 11px !important;
+  }
+
+  .faculty-dashboard .info-card {
+    min-height: auto;
+    padding: 18px !important;
+  }
+
+  .faculty-dashboard .info-card h4 {
+    font-size: 13px !important;
+  }
+
+  .faculty-dashboard .info-card p {
+    font-size: 10.5px !important;
+  }
+}
+
+/* =========================================================
+   FACULTY DASHBOARD — 3D QUICK ACTIONS
+========================================================= */
+
+.faculty-dashboard .quick-actions {
+  position: relative;
+
+  padding: 30px !important;
+
+  border: 1px solid #e8e2f2;
+
+  border-radius: 24px !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.98),
+      rgba(249, 247, 255, 0.96)
+    ) !important;
+
+  box-shadow:
+    0 15px 36px rgba(55, 40, 100, 0.075) !important;
+
+  overflow: hidden;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.faculty-dashboard .quick-actions::before {
+  content: "";
+
+  position: absolute;
+
+  width: 220px;
+  height: 220px;
+
+  top: -140px;
+  right: -70px;
+
+  border-radius: 50%;
+
+  background: rgba(139, 92, 246, 0.09);
+
+  pointer-events: none;
+}
+
+.faculty-dashboard .quick-actions::after {
+  content: "";
+
+  position: absolute;
+
+  width: 55%;
+  height: 1px;
+
+  top: 0;
+  left: 22%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(139, 92, 246, 0.35),
+      transparent
+    );
+
+  pointer-events: none;
+}
+
+
+/* =========================================================
+   SECTION TITLE
+========================================================= */
+
+.faculty-dashboard .quick-actions > h3 {
+  position: relative;
+  z-index: 2;
+
+  margin: 0 0 21px !important;
+
+  color: #2d2737 !important;
+
+  font-size: 23px !important;
+
+  font-weight: 850 !important;
+
+  letter-spacing: -0.4px;
+}
+
+.faculty-dashboard .quick-actions > h3::before {
+  content: "";
+
+  display: inline-block;
+
+  width: 5px;
+  height: 21px;
+
+  margin-right: 10px;
+
+  vertical-align: -4px;
+
+  border-radius: 10px;
+
+  background:
+    linear-gradient(
+      180deg,
+      #6046d8,
+      #9b6cff
+    );
+}
+
+
+/* =========================================================
+   ACTION GRID
+========================================================= */
+
+.faculty-dashboard .action-buttons {
+  position: relative;
+  z-index: 2;
+
+  gap: 15px !important;
+
+  perspective: 1000px;
+}
+
+
+/* =========================================================
+   BASE ACTION TILE
+========================================================= */
+
+.faculty-dashboard .action-btn {
+  position: relative;
+
+  min-height: 58px;
+
+  padding: 14px 18px !important;
+
+  border: 1px solid transparent;
+
+  border-radius: 15px !important;
+
+  font-size: 12px !important;
+
+  font-weight: 800 !important;
+
+  letter-spacing: 0.1px;
+
+  overflow: hidden;
+
+  transform-style: preserve-3d;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+
+/* =========================================================
+   SHINE EFFECT
+========================================================= */
+
+.faculty-dashboard .action-btn::before {
+  content: "";
+
+  position: absolute;
+
+  width: 80px;
+  height: 180%;
+
+  top: -40%;
+
+  left: -120px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.28),
+      transparent
+    );
+
+  transform: rotate(20deg);
+
+  transition: left 0.55s ease;
+
+  pointer-events: none;
+}
+
+.faculty-dashboard .action-btn:hover::before {
+  left: calc(100% + 50px);
+}
+
+
+/* =========================================================
+   PRIMARY ACTION
+========================================================= */
+
+.faculty-dashboard .action-btn.primary {
+  border-color: rgba(96, 70, 216, 0.25);
+
+  background:
+    linear-gradient(
+      135deg,
+      #6046d8,
+      #8b5cf6
+    ) !important;
+
+  box-shadow:
+    0 10px 22px rgba(96, 70, 216, 0.22);
+}
+
+.faculty-dashboard .action-btn.primary:hover {
+  background:
+    linear-gradient(
+      135deg,
+      #694de0,
+      #9566ff
+    ) !important;
+
+  transform:
+    translateY(-5px)
+    rotateX(1deg);
+
+  box-shadow:
+    0 17px 30px rgba(96, 70, 216, 0.29);
+
+}
+
+
+/* =========================================================
+   SECONDARY ACTIONS
+========================================================= */
+
+.faculty-dashboard .action-btn.secondary {
+  border-color: #e4ddec;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff,
+      #f8f5ff
+    ) !important;
+
+  color: #51485c !important;
+
+  box-shadow:
+    0 8px 18px rgba(55, 40, 100, 0.06);
+}
+
+.faculty-dashboard .action-btn.secondary:hover {
+  border-color: #d7ccef;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff,
+      #f3efff
+    ) !important;
+
+  color: #6046d8 !important;
+
+  transform:
+    translateY(-5px)
+    rotateX(1deg);
+
+  box-shadow:
+    0 16px 27px rgba(55, 40, 100, 0.10);
+}
+
+
+/* =========================================================
+   ICON
+========================================================= */
+
+.faculty-dashboard .btn-icon {
+  position: relative;
+  z-index: 2;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 31px;
+  height: 31px;
+
+  margin-right: 10px !important;
+
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.18);
+
+  font-size: 16px !important;
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease;
+}
+
+.faculty-dashboard .action-btn.secondary .btn-icon {
+  background: #f0ebfa;
+}
+
+.faculty-dashboard .action-btn:hover .btn-icon {
+  transform:
+    translateY(-2px)
+    scale(1.08)
+    rotate(-4deg);
+}
+
+.faculty-dashboard .action-btn:active {
+  transform: translateY(1px) scale(0.985) !important;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+  .faculty-dashboard .quick-actions {
+    padding: 25px !important;
+
+    border-radius: 21px !important;
+  }
+
+  .faculty-dashboard .quick-actions > h3 {
+    font-size: 21px !important;
+  }
+
+  .faculty-dashboard .action-btn {
+    min-height: 54px;
+  }
+}
+
+@media (max-width: 576px) {
+  .faculty-dashboard .quick-actions {
+    padding: 20px !important;
+
+    border-radius: 18px !important;
+  }
+
+  .faculty-dashboard .quick-actions > h3 {
+    font-size: 19px !important;
+  }
+
+  .faculty-dashboard .action-btn {
+    min-height: 52px;
+
+    padding: 12px 15px !important;
+
+    font-size: 11px !important;
+  }
+}
+
+/* =========================================================
+   FACULTY DASHBOARD — FINAL AMBIENT 3D LAYER
+========================================================= */
+
+.faculty-dashboard {
+  perspective: 1200px;
+}
+
+/* Floating depth on major sections */
+
+.faculty-dashboard .stats-grid,
+.faculty-dashboard .dashboard-info,
+.faculty-dashboard .quick-actions {
+  animation: facultySectionReveal 0.65s ease both;
+}
+
+.faculty-dashboard .stats-grid {
+  animation-delay: 0.05s;
+}
+
+.faculty-dashboard .dashboard-info {
+  animation-delay: 0.12s;
+}
+
+.faculty-dashboard .quick-actions {
+  animation-delay: 0.19s;
+}
+
+
+/* Soft floating particles */
+
+.faculty-dashboard .stats-grid::before {
+  content: "✦";
+
+  position: absolute;
+
+  top: -18px;
+  right: 12%;
+
+  color: rgba(123, 88, 220, 0.18);
+
+  font-size: 18px;
+
+  pointer-events: none;
+
+  animation: facultyFloatOne 4s ease-in-out infinite;
+}
+
+.faculty-dashboard .dashboard-info::before {
+  animation:
+    facultyGlowPulse 4s ease-in-out infinite;
+}
+
+.faculty-dashboard .quick-actions::before {
+  animation:
+    facultyGlowPulse 5s ease-in-out infinite reverse;
+}
+
+
+/* =========================================================
+   SECTION ENTRANCE
+========================================================= */
+
+@keyframes facultySectionReveal {
+  from {
+    opacity: 0;
+    transform:
+      translateY(16px)
+      scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* =========================================================
+   FLOATING DECORATION
+========================================================= */
+
+@keyframes facultyFloatOne {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-7px) rotate(8deg);
+  }
+}
+
+
+/* =========================================================
+   SOFT GLOW MOTION
+========================================================= */
+
+@keyframes facultyGlowPulse {
+  0%,
+  100% {
+    opacity: 0.75;
+  }
+
+  50% {
+    opacity: 1;
+  }
+}
+
+
+/* =========================================================
+   ACCESSIBILITY
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .faculty-dashboard *,
+  .faculty-dashboard *::before,
+  .faculty-dashboard *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }

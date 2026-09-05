@@ -16,40 +16,69 @@ const FacultyDashboard = () => {
   }, [])
 
   const fetchDashboardStats = async () => {
-    try {
-      const token = localStorage.getItem('token')
-      const response = await api.get('/faculty/my-courses', {
-        headers: {
-          'Authorization': `Bearer ${token}`
+  try {
+    const token = localStorage.getItem('token')
+
+    // Get faculty's assigned courses
+    const courseResponse = await api.get('/faculty/my-courses', {
+      headers: {
+        'Authorization': `Bearer ${token}`
+      }
+    })
+
+    const courses = courseResponse.data
+
+    // Get videos from all assigned courses
+    const videoResponses = await Promise.all(
+      courses.map(course =>
+        api.get(`/faculty/course/${course._id}/videos`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        })
+      )
+    )
+
+    let totalVideos = 0
+    let totalSize = 0
+    let recentUploads = 0
+
+    const sevenDaysAgo = new Date()
+    sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
+
+    videoResponses.forEach(response => {
+      const videos = response.data
+
+      totalVideos += videos.length
+
+      videos.forEach(video => {
+        // Add actual video file size
+        totalSize += video.size || 0
+
+        // Count videos uploaded in the last 7 days
+        if (video.createdAt) {
+          const uploadDate = new Date(video.createdAt)
+
+          if (uploadDate >= sevenDaysAgo) {
+            recentUploads++
+          }
         }
       })
-      
-      const courses = response.data
-      let totalVideos = 0
-      let totalSize = 0
-      let recentUploads = 0
+    })
 
-      // Calculate stats from courses (simplified for now)
-      courses.forEach(course => {
-        // These would come from video data in a real implementation
-        totalVideos += Math.floor(Math.random() * 10) // Mock data
-        totalSize += Math.floor(Math.random() * 1000000) // Mock data in bytes
-      })
+    setStats({
+      totalCourses: courses.length,
+      totalVideos,
+      totalSize,
+      recentUploads
+    })
 
-      recentUploads = Math.floor(Math.random() * 5) // Mock recent uploads
-
-      setStats({
-        totalCourses: courses.length,
-        totalVideos,
-        totalSize,
-        recentUploads
-      })
-    } catch (error) {
-      console.error('Error fetching dashboard stats:', error)
-    } finally {
-      setLoading(false)
-    }
+  } catch (error) {
+    console.error('Error fetching dashboard stats:', error)
+  } finally {
+    setLoading(false)
   }
+}
 
   const formatFileSize = (bytes) => {
     if (bytes === 0) return '0 Bytes'

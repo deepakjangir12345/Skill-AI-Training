@@ -16,6 +16,10 @@ const uploadRoutes = require("./routes/upload.routes");
 const profileRoutes = require("./routes/profile.routes");
 const passwordRoutes = require("./routes/password.routes");
 const lessonRoutes = require("./routes/lessonroutes");
+const moduleRoutes = require("./routes/module.routes");
+const certificateRoutes = require("./routes/certificateroutes");
+const liveClassRoutes = require("./routes/liveClassRoutes");
+const feedbackRoutes = require("./routes/feedbackRoutes");
 const app = express();
 app.use(
   cors({
@@ -30,6 +34,7 @@ app.use(
 );
 
 app.use(express.json());
+app.use("/uploads", express.static("uploads"));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/courses", courseRoutes);
@@ -49,6 +54,10 @@ app.use("/api/upload", uploadRoutes);
 app.use("/api/profile", profileRoutes);
 app.use("/api/password", passwordRoutes);
 app.use("/api/lessons", lessonRoutes);
+app.use("/api/modules", moduleRoutes);
+app.use("/api/certificates", certificateRoutes);
+app.use("/api/live-classes", liveClassRoutes);
+app.use("/api/feedback", feedbackRoutes);
 const net = require("net");
 
 app.get("/api/test-smtp", (req, res) => {
@@ -71,16 +80,20 @@ app.get("/api/test-smtp", (req, res) => {
   });
 });
 
+const PORT = process.env.PORT || 5000;
+
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
     console.log("✅ MongoDB connected");
-    
-    app.listen(process.env.PORT, () =>
-      console.log(`🚀 Server running on ${process.env.PORT}`)
-    );
+
+    app.listen(PORT, "0.0.0.0", () => {
+      console.log(`🚀 Server running on port ${PORT}`);
+    });
   })
-  .catch((err) => console.log(err));
+  .catch((err) => {
+    console.error("❌ MongoDB connection error:", err.message);
+  });
 
 
 

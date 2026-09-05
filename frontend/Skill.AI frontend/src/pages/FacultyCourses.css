@@ -1,0 +1,1346 @@
+/* =========================================================
+   FACULTY COURSES — PREMIUM FOUNDATION
+========================================================= */
+
+.admin-list-page {
+  position: relative;
+
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 10px 0 55px;
+
+  color: #30283a;
+
+  animation: facultyCoursesIn 0.55s ease both;
+}
+
+
+/* =========================================================
+   BACKGROUND AMBIENT GLOW
+========================================================= */
+
+.admin-list-page::before {
+  content: "";
+
+  position: fixed;
+
+  width: 360px;
+  height: 360px;
+
+  top: 100px;
+  right: -170px;
+
+  border-radius: 50%;
+
+  background: rgba(139, 92, 246, 0.07);
+
+  filter: blur(8px);
+
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+.admin-list-page::after {
+  content: "";
+
+  position: fixed;
+
+  width: 280px;
+  height: 280px;
+
+  bottom: -100px;
+  left: -130px;
+
+  border-radius: 50%;
+
+  background: rgba(99, 102, 241, 0.055);
+
+  filter: blur(6px);
+
+  pointer-events: none;
+
+  z-index: -1;
+}
+
+
+/* =========================================================
+   PAGE HEADING
+========================================================= */
+
+.admin-list-page > h2 {
+  position: relative;
+
+  margin: 0 0 30px !important;
+
+  color: #292334 !important;
+
+  font-size: 34px !important;
+
+  font-weight: 900 !important;
+
+  letter-spacing: -0.8px;
+
+  line-height: 1.2;
+}
+
+.admin-list-page > h2::after {
+  content: "";
+
+  display: block;
+
+  width: 55px;
+  height: 4px;
+
+  margin-top: 12px;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #6046d8,
+      #8b5cf6
+    );
+
+  box-shadow:
+    0 5px 13px rgba(96, 70, 216, 0.20);
+}
+
+
+/* =========================================================
+   COURSES GRID
+========================================================= */
+
+.courses-grid {
+  position: relative;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(auto-fill, minmax(330px, 1fr));
+
+  gap: 22px;
+
+  margin-top: 0 !important;
+
+  perspective: 1200px;
+}
+
+
+/* =========================================================
+   COURSE CARD
+========================================================= */
+
+.course-card {
+  position: relative;
+
+  min-height: 260px;
+
+  border: 1px solid #e8e2f2 !important;
+
+  border-radius: 22px !important;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.98),
+      rgba(249, 247, 255, 0.96)
+    ) !important;
+
+  box-shadow:
+    0 12px 30px rgba(55, 40, 100, 0.075) !important;
+
+  overflow: hidden;
+
+  transform-style: preserve-3d;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.course-card::before {
+  content: "";
+
+  position: absolute;
+
+  width: 180px;
+  height: 180px;
+
+  top: -105px;
+  right: -65px;
+
+  border-radius: 50%;
+
+  background: rgba(139, 92, 246, 0.10);
+
+  pointer-events: none;
+}
+
+.course-card::after {
+  content: "";
+
+  position: absolute;
+
+  width: 60%;
+  height: 1px;
+
+  top: 0;
+  left: 20%;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(139, 92, 246, 0.35),
+      transparent
+    );
+
+  pointer-events: none;
+}
+
+.course-card:hover {
+  transform:
+    translateY(-8px)
+    rotateX(1deg)
+    rotateY(-1deg);
+
+  border-color: #ddd3ef !important;
+
+  box-shadow:
+    0 22px 42px rgba(55, 40, 100, 0.13) !important;
+}
+
+
+/* =========================================================
+   CARD CONTENT
+========================================================= */
+
+.course-card-content {
+  position: relative;
+  z-index: 2;
+
+  padding: 27px !important;
+}
+
+
+/* =========================================================
+   COURSE NAME
+========================================================= */
+
+.course-card .course-name {
+  margin: 0 0 12px !important;
+
+  color: #30293b !important;
+
+  font-size: 21px !important;
+
+  font-weight: 850 !important;
+
+  line-height: 1.35;
+
+  letter-spacing: -0.35px;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.course-card .course-description {
+  max-width: none !important;
+
+  margin: 0 0 22px !important;
+
+  color: #847c8d !important;
+
+  font-size: 12px !important;
+
+  line-height: 1.75 !important;
+}
+
+
+/* =========================================================
+   COURSE META
+========================================================= */
+
+.course-meta {
+  position: relative;
+
+  margin-bottom: 20px !important;
+
+  padding-top: 17px;
+
+  border-top: 1px solid #eeeaf3;
+}
+
+.course-card .course-price {
+  color: #6046d8 !important;
+
+  font-size: 17px !important;
+
+  font-weight: 850 !important;
+}
+
+.course-status {
+  padding: 7px 13px !important;
+
+  border: 1px solid #d8f0e1;
+
+  border-radius: 20px !important;
+
+  background: #effbf3 !important;
+
+  color: #19864a !important;
+
+  font-size: 10px !important;
+
+  font-weight: 800 !important;
+
+  letter-spacing: 0.3px;
+}
+
+
+/* =========================================================
+   COURSE NOTICE
+========================================================= */
+
+.course-notice {
+  position: relative;
+
+  padding: 12px 15px !important;
+
+  border: 1px solid #e5ddf3;
+
+  border-left: 4px solid #7654df !important;
+
+  border-radius: 11px !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      #f8f5ff,
+      #f3efff
+    ) !important;
+
+  box-shadow:
+    0 6px 14px rgba(96, 70, 216, 0.055);
+
+  overflow: hidden;
+}
+
+.course-notice::after {
+  content: "";
+
+  position: absolute;
+
+  width: 55px;
+  height: 55px;
+
+  top: -28px;
+  right: -18px;
+
+  border-radius: 50%;
+
+  background: rgba(139, 92, 246, 0.08);
+
+  pointer-events: none;
+}
+
+.course-notice p {
+  position: relative;
+  z-index: 2;
+
+  margin: 0 !important;
+
+  color: #6952a5 !important;
+
+  font-size: 11px !important;
+
+  font-weight: 700 !important;
+}
+
+
+/* =========================================================
+   EMPTY STATE
+========================================================= */
+
+.no-data {
+  position: relative;
+
+  padding: 60px 25px !important;
+
+  border: 1px solid #e8e2f2;
+
+  border-radius: 22px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ffffff,
+      #faf8ff
+    );
+
+  box-shadow:
+    0 14px 32px rgba(55, 40, 100, 0.07);
+
+  text-align: center;
+
+  overflow: hidden;
+
+  animation: facultyCoursesIn 0.5s ease both;
+}
+
+.no-data::before {
+  content: "📚";
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  width: 68px;
+  height: 68px;
+
+  margin: 0 auto 20px;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #f3efff,
+      #e8e1ff
+    );
+
+  border: 1px solid #e1d7f4;
+
+  font-size: 28px;
+
+  box-shadow:
+    0 10px 22px rgba(96, 70, 216, 0.10);
+}
+
+.no-data p {
+  position: relative;
+  z-index: 2;
+
+  margin: 5px 0 !important;
+
+  color: #847c8d !important;
+
+  font-size: 12px !important;
+
+  line-height: 1.7;
+}
+
+.no-data p:first-of-type {
+  color: #352e40 !important;
+
+  font-size: 17px !important;
+
+  font-weight: 800 !important;
+}
+
+
+/* =========================================================
+   ANIMATION
+========================================================= */
+
+@keyframes facultyCoursesIn {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(14px)
+      scale(0.985);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+  .admin-list-page {
+    padding-bottom: 40px;
+  }
+
+  .admin-list-page > h2 {
+    font-size: 30px !important;
+  }
+
+  .courses-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 17px;
+  }
+
+  .course-card-content {
+    padding: 22px !important;
+  }
+
+  .course-card .course-name {
+    font-size: 18px !important;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — MOBILE
+========================================================= */
+
+@media (max-width: 768px) {
+  .admin-list-page {
+    padding: 5px 0 35px;
+  }
+
+  .admin-list-page > h2 {
+    font-size: 27px !important;
+
+    margin-bottom: 24px !important;
+  }
+
+  .courses-grid {
+    grid-template-columns: 1fr;
+
+    gap: 15px;
+  }
+
+  .course-card {
+    border-radius: 19px !important;
+  }
+
+  .course-card-content {
+    padding: 20px !important;
+  }
+
+  .course-meta {
+    align-items: center !important;
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVE — SMALL PHONE
+========================================================= */
+
+@media (max-width: 576px) {
+  .admin-list-page {
+    padding-bottom: 28px;
+  }
+
+  .admin-list-page > h2 {
+    font-size: 24px !important;
+  }
+
+  .admin-list-page > h2::after {
+    width: 45px;
+    height: 3px;
+    margin-top: 9px;
+  }
+
+  .course-card {
+    border-radius: 17px !important;
+  }
+
+  .course-card-content {
+    padding: 18px !important;
+  }
+
+  .course-card .course-name {
+    font-size: 17px !important;
+  }
+
+  .course-card .course-description {
+    font-size: 11px !important;
+  }
+
+  .course-meta {
+    flex-direction: row !important;
+
+    align-items: center !important;
+  }
+
+  .course-card .course-price {
+    font-size: 16px !important;
+  }
+
+  .course-status {
+    font-size: 9px !important;
+  }
+}
+
+/* =========================================================
+   FACULTY COURSES — ADVANCED 3D CARD INTERACTION
+========================================================= */
+
+.course-card {
+  perspective: 1000px;
+}
+
+/* Moving shine across the card */
+
+.course-card .course-card-content::before {
+  content: "";
+
+  position: absolute;
+
+  width: 90px;
+  height: 170%;
+
+  top: -35%;
+  left: -140px;
+
+  background:
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.42),
+      transparent
+    );
+
+  transform: rotate(20deg);
+
+  pointer-events: none;
+
+  transition: left 0.65s ease;
+
+  z-index: 4;
+}
+
+.course-card:hover .course-card-content::before {
+  left: calc(100% + 70px);
+}
+
+
+/* Content gets a tiny depth movement */
+
+.course-card-content {
+  transform: translateZ(0);
+
+  transition:
+    transform 0.3s ease;
+}
+
+.course-card:hover .course-card-content {
+  transform: translateZ(8px);
+}
+
+
+/* Course title becomes slightly elevated */
+
+.course-card:hover .course-name {
+  transform: translateY(-1px);
+
+  transition:
+    transform 0.25s ease,
+    color 0.25s ease;
+}
+
+.course-card:hover .course-name {
+  color: #6046d8 !important;
+}
+
+
+/* Price emphasis */
+
+.course-card .course-price {
+  transition:
+    transform 0.25s ease;
+}
+
+.course-card:hover .course-price {
+  transform: translateY(-2px);
+}
+
+
+/* Status badge depth */
+
+.course-card .course-status {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.course-card:hover .course-status {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 6px 14px rgba(25, 134, 74, 0.10);
+}
+
+
+/* Notice gets a subtle floating effect */
+
+.course-card .course-notice {
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.course-card:hover .course-notice {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 9px 18px rgba(96, 70, 216, 0.09);
+}
+
+
+/* =========================================================
+   CARD ENTRANCE STAGGER
+========================================================= */
+
+.courses-grid .course-card {
+  animation: facultyCourseCardIn 0.55s ease both;
+}
+
+.courses-grid .course-card:nth-child(1) {
+  animation-delay: 0.05s;
+}
+
+.courses-grid .course-card:nth-child(2) {
+  animation-delay: 0.10s;
+}
+
+.courses-grid .course-card:nth-child(3) {
+  animation-delay: 0.15s;
+}
+
+.courses-grid .course-card:nth-child(4) {
+  animation-delay: 0.20s;
+}
+
+.courses-grid .course-card:nth-child(5) {
+  animation-delay: 0.25s;
+}
+
+.courses-grid .course-card:nth-child(6) {
+  animation-delay: 0.30s;
+}
+
+@keyframes facultyCourseCardIn {
+  from {
+    opacity: 0;
+
+    transform:
+      translateY(18px)
+      scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  .admin-list-page *,
+  .admin-list-page *::before,
+  .admin-list-page *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* =========================================================
+   FACULTY COURSES — PREMIUM COURSE IDENTITY
+========================================================= */
+
+.course-card {
+  isolation: isolate;
+}
+
+/* Premium top accent */
+
+.course-card .course-card-content::after {
+  content: "";
+
+  position: absolute;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+  height: 4px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #6046d8,
+      #8b5cf6,
+      #b794ff
+    );
+
+  opacity: 0.9;
+
+  pointer-events: none;
+}
+
+
+/* Course title */
+
+.course-card .course-name {
+  position: relative;
+
+  padding-right: 20px;
+
+  transition:
+    transform 0.25s ease,
+    color 0.25s ease;
+}
+
+.course-card .course-name::after {
+  content: "";
+
+  display: block;
+
+  width: 32px;
+  height: 3px;
+
+  margin-top: 9px;
+
+  border-radius: 20px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #6046d8,
+      #9b6cff
+    );
+
+  opacity: 0.55;
+
+  transition:
+    width 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.course-card:hover .course-name::after {
+  width: 50px;
+  opacity: 0.9;
+}
+
+
+/* =========================================================
+   PREMIUM PRICE
+========================================================= */
+
+.course-card .course-price {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 7px 11px;
+
+  border-radius: 10px;
+
+  background: #f5f1ff;
+
+  border: 1px solid #e5dcf6;
+
+  box-shadow:
+    0 5px 12px rgba(96, 70, 216, 0.06);
+}
+
+
+/* =========================================================
+   ACTIVE BADGE
+========================================================= */
+
+.course-card .course-status {
+  position: relative;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+}
+
+.course-card .course-status::before {
+  content: "";
+
+  width: 6px;
+  height: 6px;
+
+  border-radius: 50%;
+
+  background: #28a866;
+
+  box-shadow:
+    0 0 0 3px rgba(40, 168, 102, 0.10);
+}
+
+
+/* =========================================================
+   META DEPTH
+========================================================= */
+
+.course-card .course-meta {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 12px;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+  .course-card .course-name {
+    padding-right: 5px;
+  }
+
+  .course-card .course-price {
+    padding: 6px 9px;
+
+    font-size: 15px !important;
+  }
+
+  .course-card .course-status {
+    padding: 6px 10px !important;
+  }
+}
+
+/* =========================================================
+   FACULTY COURSES — PREMIUM CONTENT WORKSPACE
+========================================================= */
+
+.course-card .course-notice {
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+
+  min-height: 48px;
+
+  padding: 11px 14px !important;
+
+  border: 1px solid #e4dcf3 !important;
+  border-left: 4px solid #7654df !important;
+
+  border-radius: 13px !important;
+
+  background:
+    linear-gradient(
+      135deg,
+      rgba(248, 245, 255, 0.98),
+      rgba(242, 237, 255, 0.94)
+    ) !important;
+
+  box-shadow:
+    0 7px 16px rgba(96, 70, 216, 0.07);
+
+  overflow: hidden;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
+}
+
+.course-card .course-notice::before {
+  content: "📹";
+
+  position: relative;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  flex-shrink: 0;
+
+  width: 32px;
+  height: 32px;
+
+  margin-right: 10px;
+
+  border: 1px solid #ddd3f1;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+
+  font-size: 14px;
+
+  box-shadow:
+    0 5px 12px rgba(55, 40, 100, 0.07);
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.course-card .course-notice::after {
+  content: "";
+
+  position: absolute;
+
+  width: 90px;
+  height: 90px;
+
+  top: -48px;
+  right: -30px;
+
+  border-radius: 50%;
+
+  background: rgba(139, 92, 246, 0.08);
+
+  pointer-events: none;
+}
+
+.course-card .course-notice:hover {
+  transform: translateY(-2px);
+
+  border-color: #d7ccef !important;
+
+  box-shadow:
+    0 11px 22px rgba(96, 70, 216, 0.10);
+}
+
+.course-card .course-notice:hover::before {
+  transform:
+    translateY(-2px)
+    rotate(-4deg);
+
+  box-shadow:
+    0 8px 16px rgba(55, 40, 100, 0.10);
+}
+
+.course-card .course-notice p {
+  position: relative;
+
+  z-index: 2;
+
+  margin: 0 !important;
+
+  color: #6952a5 !important;
+
+  font-size: 10.5px !important;
+
+  font-weight: 750 !important;
+
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+  .course-card .course-notice {
+    min-height: 45px;
+
+    padding: 9px 11px !important;
+  }
+
+  .course-card .course-notice::before {
+    width: 29px;
+    height: 29px;
+
+    margin-right: 8px;
+
+    font-size: 13px;
+  }
+
+  .course-card .course-notice p {
+    font-size: 10px !important;
+  }
+}
+
+/* =========================================================
+   FACULTY COURSES — PREMIUM LOADING STATE
+========================================================= */
+
+.admin-list-loading {
+  position: relative;
+
+  min-height: 420px !important;
+  height: auto !important;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid #e8e2f2;
+
+  border-radius: 24px;
+
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.98),
+      rgba(249, 247, 255, 0.96)
+    );
+
+  box-shadow:
+    0 15px 35px rgba(55, 40, 100, 0.07);
+
+  overflow: hidden;
+
+  animation: facultyCoursesIn 0.5s ease both;
+}
+
+.admin-list-loading::before {
+  content: "";
+
+  position: absolute;
+
+  width: 220px;
+  height: 220px;
+
+  top: -130px;
+  right: -75px;
+
+  border-radius: 50%;
+
+  background: rgba(139, 92, 246, 0.09);
+
+  pointer-events: none;
+}
+
+.admin-list-loading .loading-spinner {
+  position: relative;
+  z-index: 2;
+
+  width: 48px !important;
+  height: 48px !important;
+
+  margin-bottom: 18px !important;
+
+  border: 4px solid #ece7f5 !important;
+
+  border-top-color: #7654df !important;
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 8px 20px rgba(96, 70, 216, 0.10);
+
+  animation: facultyCoursesSpin 0.85s linear infinite;
+}
+
+.admin-list-loading p {
+  position: relative;
+  z-index: 2;
+
+  margin: 0;
+
+  color: #81788e;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+@keyframes facultyCoursesSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+
+/* =========================================================
+   EMPTY STATE — PREMIUM
+========================================================= */
+
+.admin-list-page > .no-data {
+  min-height: 260px;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
+}
+
+.admin-list-page > .no-data::before {
+  animation: facultyEmptyFloat 3.5s ease-in-out infinite;
+}
+
+@keyframes facultyEmptyFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.admin-list-page > .no-data p:first-of-type {
+  margin-bottom: 5px !important;
+}
+
+.admin-list-page > .no-data p:last-of-type {
+  color: #9a92a2 !important;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 768px) {
+  .admin-list-loading {
+    min-height: 350px !important;
+
+    border-radius: 21px;
+  }
+
+  .admin-list-page > .no-data {
+    min-height: 230px;
+  }
+}
+
+@media (max-width: 576px) {
+  .admin-list-loading {
+    min-height: 300px !important;
+
+    border-radius: 18px;
+  }
+
+  .admin-list-loading .loading-spinner {
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  .admin-list-page > .no-data {
+    min-height: 210px;
+
+    padding: 40px 18px !important;
+  }
+
+  .admin-list-page > .no-data::before {
+    width: 58px;
+    height: 58px;
+
+    margin-bottom: 17px;
+
+    font-size: 24px;
+  }
+}
+
+/* =========================================================
+   FACULTY COURSES — FINAL GRID POLISH
+========================================================= */
+
+.courses-grid {
+  align-items: stretch;
+}
+
+.courses-grid .course-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.courses-grid .course-card-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.courses-grid .course-description {
+  flex: 1;
+}
+
+
+/* =========================================================
+   LARGE DESKTOP
+========================================================= */
+
+@media (min-width: 1200px) {
+  .courses-grid {
+    grid-template-columns:
+      repeat(3, minmax(0, 1fr));
+  }
+}
+
+
+/* =========================================================
+   LAPTOP
+========================================================= */
+
+@media (min-width: 901px) and (max-width: 1199px) {
+  .courses-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
+  }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (min-width: 577px) and (max-width: 900px) {
+  .courses-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+
+    gap: 15px;
+  }
+
+  .course-card-content {
+    padding: 20px !important;
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 576px) {
+  .courses-grid {
+    grid-template-columns: 1fr;
+
+    gap: 14px;
+  }
+
+  .course-card {
+    min-height: 0;
+  }
+
+  .course-card-content {
+    min-height: 0;
+  }
+}

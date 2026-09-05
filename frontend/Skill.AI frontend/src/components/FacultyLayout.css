@@ -57,6 +57,7 @@
 .faculty-main {
   flex: 1;
   margin-left: 250px;
+  min-width: 0;
 }
 
 .faculty-header {
@@ -66,6 +67,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  min-width: 0;
 }
 
 .faculty-header h1 {
@@ -112,6 +114,7 @@
   
   .faculty-main {
     margin-left: 200px;
+    min-width: 0;
   }
   
   .faculty-header {
@@ -120,6 +123,7 @@
   
   .faculty-content {
     padding: 20px;
+    min-width: 0;
   }
   
   .faculty-nav-label {
@@ -139,6 +143,7 @@
   
   .faculty-main {
     margin-left: 60px;
+    min-width: 0;
   }
   
   .faculty-logo h2 {
@@ -151,5 +156,386 @@
   
   .faculty-user-name {
     display: none;
+  }
+}
+
+@media (max-width: 430px) {
+  .faculty-header {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 12px;
+  }
+
+  .faculty-header-left,
+  .faculty-header-right {
+    min-width: 0;
+  }
+
+  .faculty-header h1 {
+    font-size: 1.15rem;
+  }
+
+  .faculty-header-right {
+    gap: 8px;
+  }
+
+  .faculty-content {
+    padding: 12px;
+  }
+}
+
+/* =========================================
+   PREMIUM FACULTY SIDEBAR
+   ========================================= */
+
+.faculty-sidebar {
+  background:
+    radial-gradient(
+      circle at 20% 10%,
+      rgba(168, 85, 247, 0.22),
+      transparent 30%
+    ),
+    linear-gradient(
+      180deg,
+      #24113f 0%,
+      #321653 50%,
+      #211037 100%
+    );
+
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+
+  box-shadow:
+    10px 0 35px rgba(36, 17, 63, 0.18);
+
+  z-index: 20;
+}
+
+/* Logo area */
+.faculty-logo {
+  padding: 25px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+}
+
+.faculty-logo h2 {
+  color: #ffffff;
+  font-size: 1.35rem;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+/* Navigation */
+.faculty-nav {
+  padding: 20px 12px;
+}
+
+.faculty-nav-item {
+  position: relative;
+  margin-bottom: 7px;
+  padding: 13px 14px;
+  border-radius: 12px;
+
+  color: rgba(255, 255, 255, 0.72);
+
+  transition:
+    transform 0.25s ease,
+    background 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.faculty-nav-item:hover {
+  background: rgba(255, 255, 255, 0.09);
+  color: #ffffff;
+  transform: translateX(4px);
+}
+
+.faculty-nav-item.active {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(124, 58, 237, 0.95),
+      rgba(147, 51, 234, 0.88)
+    );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 8px 20px rgba(124, 58, 237, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.16);
+
+  transform: translateX(4px);
+}
+
+/* Active indicator */
+.faculty-nav-item.active::before {
+  content: "";
+  position: absolute;
+  left: -12px;
+  top: 50%;
+  width: 4px;
+  height: 26px;
+  border-radius: 0 6px 6px 0;
+  background: #ffffff;
+  transform: translateY(-50%);
+}
+
+/* Icons */
+.faculty-nav-icon {
+  margin-right: 12px;
+  font-size: 1.15rem;
+  transition: transform 0.25s ease;
+}
+
+.faculty-nav-item:hover .faculty-nav-icon,
+.faculty-nav-item.active .faculty-nav-icon {
+  transform: scale(1.08);
+}
+
+.faculty-nav-label {
+  font-size: 0.9rem;
+  font-weight: 650;
+}
+
+/* =========================================
+   PREMIUM FACULTY HEADER
+   ========================================= */
+
+.faculty-header {
+  position: sticky;
+  top: 0;
+  z-index: 15;
+
+  padding: 17px 30px;
+
+  background: rgba(255, 255, 255, 0.90);
+  border-bottom: 1px solid rgba(124, 58, 237, 0.10);
+
+  box-shadow:
+    0 8px 25px rgba(76, 29, 149, 0.06);
+
+  backdrop-filter: blur(14px);
+}
+
+/* Header title */
+.faculty-header h1 {
+  color: #2d174b;
+  font-size: 1.45rem;
+  font-weight: 800;
+  letter-spacing: -0.4px;
+}
+
+/* User area */
+.faculty-header-right {
+  gap: 12px;
+}
+
+.faculty-user-name {
+  padding: 9px 13px;
+  border: 1px solid #e4d8f3;
+  border-radius: 10px;
+
+  background: #faf7ff;
+  color: #4b3263;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+/* Logout */
+.faculty-logout-btn {
+  padding: 10px 16px;
+  border-radius: 10px;
+
+  background: linear-gradient(
+    135deg,
+    #7c3aed,
+    #9333ea
+  );
+
+  color: #ffffff;
+  font-size: 13px;
+  font-weight: 750;
+
+  box-shadow:
+    0 6px 16px rgba(124, 58, 237, 0.20);
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.faculty-logout-btn:hover {
+  background: linear-gradient(
+    135deg,
+    #6d28d9,
+    #7e22ce
+  );
+
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 9px 20px rgba(124, 58, 237, 0.28);
+}
+
+.faculty-logout-btn:active {
+  transform: translateY(0);
+}
+
+/* =========================================
+   PREMIUM FACULTY CONTENT AREA
+   ========================================= */
+
+.faculty-main {
+  min-width: 0;
+  background: #faf8fd;
+}
+
+.faculty-content {
+  position: relative;
+  min-height: calc(100vh - 70px);
+  padding: 0;
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 90% 5%,
+      rgba(124, 58, 237, 0.07),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 5% 90%,
+      rgba(168, 85, 247, 0.06),
+      transparent 25%
+    ),
+    #faf8fd;
+}
+
+/* Soft ambient layer */
+.faculty-content::before {
+  content: "";
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  top: 20%;
+  right: -170px;
+  border-radius: 50%;
+  background: rgba(124, 58, 237, 0.045);
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+/* Keep page content above ambient layer */
+.faculty-content > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* =========================================
+   RESPONSIVE FACULTY LAYOUT
+   ========================================= */
+
+@media (max-width: 768px) {
+  .faculty-sidebar {
+    width: 76px;
+  }
+
+  .faculty-main {
+    margin-left: 76px;
+  }
+
+  .faculty-logo {
+    padding: 22px 10px;
+    text-align: center;
+  }
+
+  .faculty-logo h2 {
+    font-size: 0.9rem;
+    line-height: 1.3;
+  }
+
+  .faculty-nav {
+    padding: 18px 8px;
+  }
+
+  .faculty-nav-item {
+    justify-content: center;
+    padding: 13px 8px;
+  }
+
+  .faculty-nav-label {
+    display: none;
+  }
+
+  .faculty-nav-icon {
+    margin-right: 0;
+    font-size: 1.35rem;
+  }
+
+  .faculty-nav-item.active::before {
+    left: -8px;
+  }
+
+  .faculty-header {
+    padding: 15px 20px;
+  }
+
+  .faculty-header h1 {
+    font-size: 1.25rem;
+  }
+
+  .faculty-content {
+    min-height: calc(100vh - 64px);
+  }
+}
+
+@media (max-width: 576px) {
+  .faculty-sidebar {
+    width: 62px;
+  }
+
+  .faculty-main {
+    margin-left: 62px;
+  }
+
+  .faculty-logo {
+    padding: 18px 5px;
+  }
+
+  .faculty-logo h2 {
+    font-size: 0.72rem;
+  }
+
+  .faculty-nav {
+    padding: 14px 6px;
+  }
+
+  .faculty-nav-item {
+    padding: 12px 5px;
+    border-radius: 10px;
+  }
+
+  .faculty-nav-icon {
+    font-size: 1.2rem;
+  }
+
+  .faculty-header {
+    padding: 13px 14px;
+  }
+
+  .faculty-header h1 {
+    font-size: 1rem;
+  }
+
+  .faculty-header-right {
+    gap: 7px;
+  }
+
+  .faculty-user-name {
+    display: none;
+  }
+
+  .faculty-logout-btn {
+    padding: 8px 11px;
+    font-size: 11px;
   }
 }
