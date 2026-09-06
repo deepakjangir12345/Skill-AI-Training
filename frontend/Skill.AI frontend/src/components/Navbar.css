@@ -83,7 +83,6 @@
 }
 
 @media (max-width: 768px) {
-
   .navbar-container {
     padding: 1rem;
     gap: 1rem;
@@ -91,29 +90,90 @@
   }
 
   .navbar-menu {
-    display: none;
-    position: absolute;
-    top: 100%;
+    display: flex;
+    position: fixed;
+    top: 0;
     left: 0;
-    right: 0;
-    max-width: 100vw;
-    max-height: calc(100vh - 72px);
+    width: 82%;
+    max-width: 340px;
+    height: 100vh;
+    max-height: 100vh;
     overflow-y: auto;
-    background: white;
+
+    background: linear-gradient(
+      160deg,
+      #5b21b6 0%,
+      #6d28d9 45%,
+      #4f46e5 100%
+    );
+
     flex-direction: column;
     align-items: stretch;
-    gap: 0;
-    padding: 16px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-    border-top: 1px solid #eee;
+    gap: 8px;
+    padding: 90px 22px 30px;
+
+    box-shadow: 12px 0 35px rgba(50, 20, 100, 0.28);
+
+    z-index: 1000;
+
+    transform: translateX(-105%);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+
+    transition:
+      transform 0.35s ease,
+      opacity 0.3s ease,
+      visibility 0.35s ease;
   }
 
   .navbar-menu.active {
-    display: flex;
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+
+  .navbar-menu::before {
+    content: "Skill.AI";
+    position: absolute;
+    top: 28px;
+    left: 24px;
+
+    color: white;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
   }
 
   .navbar-link {
-    padding: 12px 10px;
+    width: 100%;
+    padding: 14px 16px;
+
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+
+    border-radius: 12px;
+
+    transition:
+      background 0.25s ease,
+      transform 0.25s ease;
+  }
+
+  .navbar-link:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.14);
+    transform: translateX(5px);
+  }
+
+  .navbar-menu .btn {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .navbar-menu .btn-primary {
+    margin-top: 4px;
   }
 
   .navbar-user {
@@ -121,27 +181,46 @@
     align-items: stretch;
     gap: 10px;
     padding-top: 10px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .navbar-user-name {
+    color: white;
+    overflow-wrap: anywhere;
+    padding: 10px 4px;
+  }
+
+  .navbar-user .btn-outline {
+    color: white;
+    border-color: rgba(255, 255, 255, 0.5);
   }
 
   .navbar-toggle {
     display: block;
+    position: relative;
+    z-index: 1100;
+
+    background: none;
+    border: none;
+
+    font-size: 30px;
+    line-height: 1;
+
+    cursor: pointer;
+    color: #333;
+
+    transition: transform 0.25s ease;
+  }
+
+  .navbar-toggle:hover {
+    transform: scale(1.08);
   }
 
   .navbar-logo {
     font-size: 20px;
     min-width: 0;
     line-height: 1.2;
-  }
-
-  .navbar-menu .btn,
-  .navbar-menu .navbar-link {
-    width: 100%;
-    min-width: 0;
-    overflow-wrap: anywhere;
-  }
-
-  .navbar-user-name {
-    overflow-wrap: anywhere;
   }
 }
 
