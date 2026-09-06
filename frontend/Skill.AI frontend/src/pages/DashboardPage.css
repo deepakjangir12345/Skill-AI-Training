@@ -2626,3 +2626,120 @@ padding:20px;
     filter: none;
   }
 }
+
+
+/* =========================================
+   MOBILE DASHBOARD SIDEBAR DRAWER
+   ========================================= */
+
+.dashboard-menu-toggle {
+  display: none;
+}
+
+.dashboard-sidebar-overlay {
+  display: none;
+}
+
+@media (max-width: 900px) {
+
+  .dashboard {
+    flex-direction: row;
+    min-height: 100vh;
+  }
+
+  /* Mobile hamburger */
+  .dashboard-menu-toggle {
+    display: flex;
+    position: fixed;
+    top: 18px;
+    right: 18px;
+    width: 46px;
+    height: 46px;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    border-radius: 14px;
+    background: linear-gradient(135deg, #6d28d9, #4f46e5);
+    color: white;
+    font-size: 22px;
+    cursor: pointer;
+    z-index: 1200;
+    box-shadow: 0 10px 25px rgba(79, 70, 229, 0.28);
+  }
+
+  /* Sidebar becomes left drawer */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 280px;
+    height: 100vh;
+    min-height: 100vh;
+
+    padding: 28px 18px;
+
+    z-index: 1100;
+
+    transform: translateX(-105%);
+    transition: transform 0.35s ease;
+
+    overflow-y: auto;
+
+    box-shadow: 14px 0 40px rgba(40, 20, 90, 0.28);
+  }
+
+  .sidebar.sidebar-open {
+    transform: translateX(0);
+  }
+
+  /* Sidebar content */
+  .sidebar h2 {
+    margin-bottom: 32px;
+  }
+
+  .sidebar ul {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    gap: 10px;
+  }
+
+  .sidebar li {
+    width: 100%;
+    min-width: 0;
+    flex: none;
+    justify-content: flex-start;
+  }
+
+  .sidebar li a {
+    width: 100%;
+    display: flex;
+    align-items: center;
+  }
+
+  /* Dark background behind drawer */
+  .dashboard-sidebar-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+
+    background: rgba(20, 10, 45, 0.45);
+    backdrop-filter: blur(4px);
+
+    z-index: 1050;
+  }
+
+  .main-content {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+/* Desktop: hamburger completely hidden */
+@media (min-width: 901px) {
+  .dashboard-menu-toggle,
+  .dashboard-sidebar-overlay {
+    display: none;
+  }
+}
