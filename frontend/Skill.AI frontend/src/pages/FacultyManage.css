@@ -522,3 +522,231 @@
     transform: translateY(0);
   }
 }
+
+/* ================================
+   FACULTY VIDEO EDIT MODAL
+================================ */
+
+.faculty-edit-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+
+  background: rgba(28, 16, 55, 0.55);
+  backdrop-filter: blur(8px);
+
+  animation: facultyEditOverlayIn 0.25s ease;
+}
+
+.faculty-edit-modal {
+  width: min(520px, 100%);
+  padding: 30px;
+
+  background: linear-gradient(
+    145deg,
+    #ffffff 0%,
+    #fbf8ff 100%
+  );
+
+  border: 1px solid rgba(124, 58, 237, 0.18);
+  border-radius: 24px;
+
+  box-shadow:
+    0 30px 80px rgba(48, 24, 95, 0.28),
+    0 10px 30px rgba(124, 58, 237, 0.12);
+
+  animation: facultyEditModalIn 0.3s ease;
+}
+
+.faculty-edit-icon {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 18px;
+
+  background: linear-gradient(
+    135deg,
+    #ede9fe,
+    #ddd6fe
+  );
+
+  font-size: 26px;
+
+  box-shadow:
+    0 10px 25px rgba(124, 58, 237, 0.15);
+}
+
+.faculty-edit-modal h3 {
+  margin: 0;
+  text-align: center;
+
+  color: #32165f;
+  font-size: 24px;
+  font-weight: 800;
+}
+
+.faculty-edit-subtitle {
+  margin: 7px 0 24px;
+
+  text-align: center;
+  color: #7c6b91;
+  font-size: 14px;
+}
+
+.faculty-edit-field {
+  margin-bottom: 18px;
+}
+
+.faculty-edit-field label {
+  display: block;
+  margin-bottom: 8px;
+
+  color: #45236d;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.faculty-edit-field input,
+.faculty-edit-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+
+  padding: 13px 15px;
+
+  border: 1px solid #ddd0f5;
+  border-radius: 12px;
+
+  background: #ffffff;
+  color: #302044;
+
+  font-family: inherit;
+  font-size: 14px;
+
+  outline: none;
+
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    transform 0.2s ease;
+}
+
+.faculty-edit-field textarea {
+  resize: vertical;
+  min-height: 110px;
+}
+
+.faculty-edit-field input:focus,
+.faculty-edit-field textarea:focus {
+  border-color: #7c3aed;
+
+  box-shadow:
+    0 0 0 4px rgba(124, 58, 237, 0.1);
+
+  transform: translateY(-1px);
+}
+
+.faculty-edit-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+
+  margin-top: 25px;
+}
+
+.faculty-edit-actions button {
+  min-width: 120px;
+  padding: 12px 18px;
+
+  border: none;
+  border-radius: 11px;
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.faculty-edit-cancel {
+  background: #f3eff9;
+  color: #5b4672;
+  border: 1px solid #ddd0ed !important;
+}
+
+.faculty-edit-save {
+  color: white;
+
+  background: linear-gradient(
+    135deg,
+    #7c3aed,
+    #6d28d9
+  );
+
+  box-shadow:
+    0 8px 20px rgba(124, 58, 237, 0.22);
+}
+
+.faculty-edit-actions button:hover:not(:disabled) {
+  transform: translateY(-2px);
+}
+
+.faculty-edit-save:hover:not(:disabled) {
+  box-shadow:
+    0 12px 28px rgba(124, 58, 237, 0.3);
+}
+
+.faculty-edit-actions button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+@keyframes facultyEditOverlayIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes facultyEditModalIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px) scale(0.96);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 600px) {
+  .faculty-edit-modal {
+    padding: 24px 18px;
+    border-radius: 20px;
+  }
+
+  .faculty-edit-actions {
+    flex-direction: column-reverse;
+  }
+
+  .faculty-edit-actions button {
+    width: 100%;
+  }
+}

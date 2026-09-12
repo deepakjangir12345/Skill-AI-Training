@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import api from '../utils/api'
 import './AdminFaculty.css'
+import ConfirmDialog from "../components/ConfirmDialog";
 
 const AdminFaculty = () => {
   const [faculty, setFaculty] = useState([])
@@ -10,6 +11,14 @@ const AdminFaculty = () => {
   const [selectedFaculty, setSelectedFaculty] = useState('')
   const [selectedCourse, setSelectedCourse] = useState('')
   const [assigning, setAssigning] = useState(false)
+  const [confirmDialog, setConfirmDialog] = useState({
+  open: false,
+  title: "",
+  message: "",
+  confirmText: "Okay",
+  cancelText: "Cancel",
+  action: null,
+});
 
   useEffect(() => {
     fetchFaculty()
@@ -51,80 +60,157 @@ const AdminFaculty = () => {
   }
 
   const handleAssignCourse = async () => {
-    if (!selectedFaculty || !selectedCourse) {
-      alert('Please select faculty and course')
-      return
-    }
-
-    try {
-      setAssigning(true)
-
-      const token = localStorage.getItem('token')
-
-      await api.post(
-        '/admin/faculty/assign-course',
-        {
-          facultyId: selectedFaculty,
-          courseId: selectedCourse
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      )
-
-      alert('Course assigned to faculty successfully')
-
-      setSelectedFaculty('')
-      setSelectedCourse('')
-
-      await fetchFaculty()
-    } catch (error) {
-      console.error('Error assigning course:', error)
-
-      alert(
-        error.response?.data?.message ||
-        'Failed to assign course'
-      )
-    } finally {
-      setAssigning(false)
-    }
+  if (!selectedFaculty || !selectedCourse) {
+    setConfirmDialog({
+      open: true,
+      title: "Missing Selection",
+      message: "Please select both faculty and course before assigning.",
+      confirmText: "Okay",
+      cancelText: "",
+      action: () => {
+        setConfirmDialog({
+          open: false,
+          title: "",
+          message: "",
+          action: null,
+        });
+      },
+    });
+    return;
   }
+
+  try {
+    setAssigning(true);
+
+    const token = localStorage.getItem("token");
+
+    await api.post(
+      "/admin/faculty/assign-course",
+      {
+        facultyId: selectedFaculty,
+        courseId: selectedCourse,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    setSelectedFaculty("");
+    setSelectedCourse("");
+
+    await fetchFaculty();
+
+    setConfirmDialog({
+      open: true,
+      title: "Course Assigned",
+      message: "Course assigned to faculty successfully.",
+      confirmText: "Done",
+      cancelText: "",
+      action: () => {
+        setConfirmDialog({
+          open: false,
+          title: "",
+          message: "",
+          action: null,
+        });
+      },
+    });
+  } catch (error) {
+    console.error("Error assigning course:", error);
+
+    setConfirmDialog({
+      open: true,
+      title: "Assignment Failed",
+      message:
+        error.response?.data?.message ||
+        "Failed to assign course.",
+      confirmText: "Okay",
+      cancelText: "",
+      action: () => {
+        setConfirmDialog({
+          open: false,
+          title: "",
+          message: "",
+          action: null,
+        });
+      },
+    });
+  } finally {
+    setAssigning(false);
+  }
+};
 
   const handleRemoveCourse = async (courseId) => {
-    const confirmRemove = window.confirm(
-      'Are you sure you want to remove this faculty assignment?'
-    )
+  setConfirmDialog({
+    open: true,
+    title: "Remove Faculty Assignment?",
+    message:
+      "Are you sure you want to remove this faculty assignment?",
+    confirmText: "Remove",
+    cancelText: "Cancel",
+    action: async () => {
+      setConfirmDialog({
+        open: false,
+        title: "",
+        message: "",
+        action: null,
+      });
 
-    if (!confirmRemove) {
-      return
-    }
+      try {
+        const token = localStorage.getItem("token");
 
-    try {
-      const token = localStorage.getItem('token')
-
-      await api.delete(
-        `/admin/faculty/remove-from-course/${courseId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
+        await api.delete(
+          `/admin/faculty/remove-from-course/${courseId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
           }
-        }
-      )
+        );
 
-      alert('Faculty removed from course successfully')
+        await fetchFaculty();
 
-      await fetchFaculty()
-    } catch (error) {
-      console.error('Error removing faculty:', error)
+        setConfirmDialog({
+          open: true,
+          title: "Assignment Removed",
+          message: "Faculty removed from course successfully.",
+          confirmText: "Done",
+          cancelText: "",
+          action: () => {
+            setConfirmDialog({
+              open: false,
+              title: "",
+              message: "",
+              action: null,
+            });
+          },
+        });
+      } catch (error) {
+        console.error("Error removing faculty:", error);
 
-      alert(
-        error.response?.data?.message ||
-        'Failed to remove faculty'
-      )
-    }
-  }
+        setConfirmDialog({
+          open: true,
+          title: "Removal Failed",
+          message:
+            error.response?.data?.message ||
+            "Failed to remove faculty.",
+          confirmText: "Okay",
+          cancelText: "",
+          action: () => {
+            setConfirmDialog({
+              open: false,
+              title: "",
+              message: "",
+              action: null,
+            });
+          },
+        });
+      }
+    },
+  });
+};
 
   if (loading) {
     return (
@@ -218,6 +304,23 @@ const AdminFaculty = () => {
             {assigning ? 'Assigning...' : 'Assign Course'}
           </button>
 
+          <ConfirmDialog
+  open={confirmDialog.open}
+  title={confirmDialog.title}
+  message={confirmDialog.message}
+  confirmText={confirmDialog.confirmText}
+  cancelText={confirmDialog.cancelText}
+  onConfirm={confirmDialog.action}
+  onCancel={() =>
+    setConfirmDialog({
+      open: false,
+      title: "",
+      message: "",
+      action: null,
+    })
+  }
+/>
+
         </div>
       </div>
 
@@ -249,8 +352,29 @@ const AdminFaculty = () => {
                 </td>
 
                 <td>
-                  {member.courseCount || 0}
-                </td>
+  {member.assignedCourses && member.assignedCourses.length > 0 ? (
+    <div className="faculty-assigned-courses">
+      {member.assignedCourses.map((course) => (
+        <div
+          key={course._id}
+          className="faculty-course-item"
+        >
+          <span>{course.name}</span>
+
+          <button
+            type="button"
+            className="faculty-remove-course-btn"
+            onClick={() => handleRemoveCourse(course._id)}
+          >
+            Remove
+          </button>
+        </div>
+      ))}
+    </div>
+  ) : (
+    <span>0</span>
+  )}
+</td>
 
               </tr>
 

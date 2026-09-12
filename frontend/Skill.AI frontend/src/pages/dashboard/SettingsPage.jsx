@@ -1,10 +1,12 @@
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../../context/AuthContext";
 import api from "../../utils/api";
+import ConfirmDialog from "../../components/ConfirmDialog";
 import "./SettingsPage.css";
 
 const SettingsPage = () => {
   const { setUser } = useAuth();
+
   const [profile, setProfile] = useState({
     name: "",
     email: "",
@@ -20,7 +22,38 @@ const SettingsPage = () => {
   });
 
   const fileInputRef = useRef(null);
-const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState(null);
+
+  const [dialog, setDialog] = useState({
+    open: false,
+    title: "",
+    message: "",
+    confirmText: "Okay",
+    cancelText: "",
+    action: null,
+  });
+
+  const showMessage = (title, message) => {
+    setDialog({
+      open: true,
+      title,
+      message,
+      confirmText: "Okay",
+      cancelText: "",
+      action: () => closeDialog(),
+    });
+  };
+
+  const closeDialog = () => {
+    setDialog({
+      open: false,
+      title: "",
+      message: "",
+      confirmText: "Okay",
+      cancelText: "",
+      action: null,
+    });
+  };
 
   const handleProfileChange = (e) => {
     setProfile({
@@ -37,144 +70,165 @@ const [selectedFile, setSelectedFile] = useState(null);
   };
 
   const handleFileChange = (e) => {
-  setSelectedFile(e.target.files[0]);
-};
+    setSelectedFile(e.target.files?.[0] || null);
+  };
 
-const handleUploadPhoto = async () => {
-  if (!selectedFile) {
-    alert("Please select an image.");
-    return;
-  }
+  const handleUploadPhoto = async () => {
+    if (!selectedFile) {
+      showMessage("Image Required", "Please select an image.");
+      return;
+    }
 
-  try {
-    const formData = new FormData();
-    formData.append("image", selectedFile);
+    try {
+      const formData = new FormData();
+      formData.append("image", selectedFile);
 
-    const res = await api.post(
-      "/upload/profile-image",
-      formData,
-      {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
+      const res = await api.post(
+        "/upload/profile-image",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      setUser(res.data.user);
+
+      localStorage.setItem(
+        "user",
+        JSON.stringify(res.data.user)
+      );
+
+      setProfile({
+        name: res.data.user.name || "",
+        email: res.data.user.email || "",
+        phone: res.data.user.phone || "",
+        college: res.data.user.college || "",
+        bio: res.data.user.bio || "",
+      });
+
+      showMessage(
+        "Photo Updated",
+        res.data.message || "Profile photo uploaded successfully."
+      );
+
+      setSelectedFile(null);
+
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
       }
-    );
 
-    // ✅ AuthContext update
-    setUser(res.data.user);
+      await loadProfile();
+    } catch (err) {
+      console.error(err);
 
-    // ✅ LocalStorage update
-    localStorage.setItem(
-      "user",
-      JSON.stringify(res.data.user)
-    );
-
-    // ✅ Settings form update
-    setProfile({
-      name: res.data.user.name || "",
-      email: res.data.user.email || "",
-      phone: res.data.user.phone || "",
-      college: res.data.user.college || "",
-      bio: res.data.user.bio || "",
-    });
-
-    alert(res.data.message);
-
-    loadProfile();
-
-  } catch (err) {
-    console.error(err);
-
-    alert(
-      err.response?.data?.message ||
-      "Upload failed."
-    );
-  }
-};
+      showMessage(
+        "Upload Failed",
+        err.response?.data?.message || "Upload failed."
+      );
+    }
+  };
 
   useEffect(() => {
-  loadProfile();
-}, []);
+    loadProfile();
+  }, []);
 
-const loadProfile = async () => {
-  try {
-    const res = await api.get("/profile");
-    console.log("API Response:", res.data);
-console.log("User:", res.data.user);
+  const loadProfile = async () => {
+    try {
+      const res = await api.get("/profile");
 
-    setProfile({
-      name: res.data.user.name || "",
-      email: res.data.user.email || "",
-      phone: res.data.user.phone || "",
-      college: res.data.user.college || "",
-      bio: res.data.user.bio || "",
-    });
+      console.log("API Response:", res.data);
+      console.log("User:", res.data.user);
 
-  } catch (err) {
-    console.error(err);
-  }
-};
+      setProfile({
+        name: res.data.user.name || "",
+        email: res.data.user.email || "",
+        phone: res.data.user.phone || "",
+        college: res.data.user.college || "",
+        bio: res.data.user.bio || "",
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
-  
   const handleSaveProfile = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  try {
-    const res = await api.put("/profile", profile);
+    try {
+      const res = await api.put("/profile", profile);
 
-    setUser(res.data.user);
-    localStorage.setItem("user", JSON.stringify(res.data.user));
+      setUser(res.data.user);
 
-    setProfile({
-      name: res.data.user.name || "",
-      email: res.data.user.email || "",
-      phone: res.data.user.phone || "",
-      college: res.data.user.college || "",
-      bio: res.data.user.bio || "",
-    });
+      localStorage.setItem(
+        "user",
+        JSON.stringify(res.data.user)
+      );
 
-    alert(res.data.message);
+      setProfile({
+        name: res.data.user.name || "",
+        email: res.data.user.email || "",
+        phone: res.data.user.phone || "",
+        college: res.data.user.college || "",
+        bio: res.data.user.bio || "",
+      });
 
-  } catch (err) {
-    console.error(err);
+      showMessage(
+        "Profile Updated",
+        res.data.message || "Profile updated successfully."
+      );
+    } catch (err) {
+      console.error(err);
 
-    alert(
-      err.response?.data?.message ||
-      "Failed to update profile."
-    );
-  }
-};
+      showMessage(
+        "Update Failed",
+        err.response?.data?.message ||
+          "Failed to update profile."
+      );
+    }
+  };
+
   const handleChangePassword = async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  if (password.newPassword !== password.confirmPassword) {
-    alert("New Password and Confirm Password do not match.");
-    return;
-  }
+    if (
+      password.newPassword !==
+      password.confirmPassword
+    ) {
+      showMessage(
+        "Password Mismatch",
+        "New Password and Confirm Password do not match."
+      );
+      return;
+    }
 
-  try {
-    const res = await api.put("/password/change", {
-      currentPassword: password.currentPassword,
-      newPassword: password.newPassword,
-    });
+    try {
+      const res = await api.put("/password/change", {
+        currentPassword: password.currentPassword,
+        newPassword: password.newPassword,
+      });
 
-    alert(res.data.message);
+      setPassword({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+      });
 
-    setPassword({
-      currentPassword: "",
-      newPassword: "",
-      confirmPassword: "",
-    });
+      showMessage(
+        "Password Updated",
+        res.data.message || "Password changed successfully."
+      );
+    } catch (err) {
+      console.error(err);
 
-  } catch (err) {
-    console.error(err);
-
-    alert(
-      err.response?.data?.message ||
-      "Failed to change password."
-    );
-  }
-};
+      showMessage(
+        "Password Update Failed",
+        err.response?.data?.message ||
+          "Failed to change password."
+      );
+    }
+  };
 
   return (
     <div className="settings-page">
@@ -184,18 +238,14 @@ console.log("User:", res.data.user);
       </h2>
 
       {/* Profile */}
-
       <div className="settings-section">
-
         <h3>👤 Profile Information</h3>
 
         <form onSubmit={handleSaveProfile}>
-
           <div className="settings-grid">
 
             <div className="form-group">
               <label>Full Name</label>
-
               <input
                 type="text"
                 name="name"
@@ -207,7 +257,6 @@ console.log("User:", res.data.user);
 
             <div className="form-group">
               <label>Phone</label>
-
               <input
                 type="text"
                 name="phone"
@@ -219,7 +268,6 @@ console.log("User:", res.data.user);
 
             <div className="form-group">
               <label>College</label>
-
               <input
                 type="text"
                 name="college"
@@ -231,17 +279,15 @@ console.log("User:", res.data.user);
 
             <div className="form-group">
               <label>Email</label>
-
-            <input
-            type="email"
-            value={profile.email || ""}
-            disabled
-            />
+              <input
+                type="email"
+                value={profile.email || ""}
+                disabled
+              />
             </div>
 
             <div className="form-group full">
               <label>Bio</label>
-
               <textarea
                 rows="5"
                 name="bio"
@@ -256,24 +302,18 @@ console.log("User:", res.data.user);
           <button className="settings-btn">
             Save Profile
           </button>
-
         </form>
-
       </div>
 
       {/* Password */}
-
       <div className="settings-section">
-
         <h3>🔒 Change Password</h3>
 
         <form onSubmit={handleChangePassword}>
-
           <div className="settings-grid">
 
             <div className="form-group">
               <label>Current Password</label>
-
               <input
                 type="password"
                 name="currentPassword"
@@ -284,7 +324,6 @@ console.log("User:", res.data.user);
 
             <div className="form-group">
               <label>New Password</label>
-
               <input
                 type="password"
                 name="newPassword"
@@ -295,7 +334,6 @@ console.log("User:", res.data.user);
 
             <div className="form-group full">
               <label>Confirm Password</label>
-
               <input
                 type="password"
                 name="confirmPassword"
@@ -309,15 +347,11 @@ console.log("User:", res.data.user);
           <button className="settings-btn">
             Update Password
           </button>
-
         </form>
-
       </div>
 
       {/* Photo */}
-
       <div className="settings-section">
-
         <h3>🖼 Profile Photo</h3>
 
         <div className="photo-preview">
@@ -325,21 +359,31 @@ console.log("User:", res.data.user);
         </div>
 
         <input
-  type="file"
-  ref={fileInputRef}
-  accept="image/*"
-  onChange={handleFileChange}
-/>
+          type="file"
+          ref={fileInputRef}
+          accept="image/*"
+          onChange={handleFileChange}
+        />
 
-<button
-  type="button"
-  className="settings-btn"
-  onClick={handleUploadPhoto}
->
-  Upload Photo
-</button>
-
+        <button
+          type="button"
+          className="settings-btn"
+          onClick={handleUploadPhoto}
+        >
+          Upload Photo
+        </button>
       </div>
+
+      {/* Premium Message Dialog */}
+      <ConfirmDialog
+        open={dialog.open}
+        title={dialog.title}
+        message={dialog.message}
+        confirmText={dialog.confirmText}
+        cancelText={dialog.cancelText}
+        onConfirm={dialog.action}
+        onCancel={closeDialog}
+      />
 
     </div>
   );

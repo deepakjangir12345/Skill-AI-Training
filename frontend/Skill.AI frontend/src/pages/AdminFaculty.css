@@ -352,3 +352,76 @@
     padding: 13px 14px;
   }
 }
+
+/* =========================================
+   FACULTY ASSIGNED COURSES
+   ========================================= */
+
+.faculty-assigned-courses {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.faculty-course-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 7px 9px 7px 13px;
+
+  border-radius: 10px;
+
+  background: linear-gradient(
+    135deg,
+    #f5f3ff,
+    #ede9fe
+  );
+
+  border: 1px solid rgba(124, 58, 237, 0.15);
+
+  color: #4c1d95;
+  font-size: 13px;
+  font-weight: 600;
+
+  box-shadow: 0 4px 12px rgba(109, 40, 217, 0.06);
+}
+
+.faculty-remove-course-btn {
+  padding: 5px 9px;
+
+  border: 1px solid rgba(239, 68, 68, 0.15);
+  border-radius: 7px;
+
+  background: rgba(254, 242, 242, 0.95);
+  color: #dc2626;
+
+  font-size: 11px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.faculty-remove-course-btn:hover {
+  transform: translateY(-1px);
+
+  background: #fee2e2;
+
+  box-shadow: 0 5px 12px rgba(239, 68, 68, 0.12);
+}
+
+@media (max-width: 600px) {
+  .faculty-assigned-courses {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .faculty-course-item {
+    justify-content: space-between;
+  }
+}

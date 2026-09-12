@@ -899,3 +899,27 @@
     padding: 32px 18px;
   }
 }
+
+.feedback-actions {
+  margin-top: 16px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.delete-feedback-btn {
+  border: none;
+  padding: 10px 16px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.25s ease;
+  box-shadow: 0 6px 16px rgba(220, 38, 38, 0.18);
+}
+
+.delete-feedback-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 9px 22px rgba(220, 38, 38, 0.25);
+}

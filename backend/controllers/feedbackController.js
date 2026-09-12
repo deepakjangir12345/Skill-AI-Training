@@ -192,6 +192,7 @@ exports.scheduleFeedbackSession = async (req, res) => {
       sessionNote,
     } = req.body;
 
+
     // Required validation
     if (!sessionScheduledAt || !sessionMeetingLink) {
       return res.status(400).json({
@@ -230,6 +231,39 @@ exports.scheduleFeedbackSession = async (req, res) => {
     return res.status(500).json({
       success: false,
       message: "Failed to schedule discussion session",
+    });
+  }
+};
+
+// ==========================
+// DELETE FEEDBACK (ADMIN)
+// ==========================
+
+exports.deleteFeedback = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const feedback = await Feedback.findById(id);
+
+    if (!feedback) {
+      return res.status(404).json({
+        success: false,
+        message: "Feedback not found",
+      });
+    }
+
+    await Feedback.findByIdAndDelete(id);
+
+    return res.status(200).json({
+      success: true,
+      message: "Feedback deleted successfully",
+    });
+  } catch (error) {
+    console.error("Delete feedback error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: "Failed to delete feedback",
     });
   }
 };

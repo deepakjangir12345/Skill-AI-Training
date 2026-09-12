@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import api from "../utils/api";
 import "./AdminLessons.css";
+import ConfirmDialog from "../components/ConfirmDialog";
 
 const emptyForm = {
   title: "",
@@ -25,6 +26,14 @@ const AdminLessons = () => {
   const [pdfFile, setPdfFile] = useState(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [savingLesson, setSavingLesson] = useState(false);
+  const [confirmDialog, setConfirmDialog] = useState({
+  open: false,
+  title: "",
+  message: "",
+  confirmText: "Confirm",
+  cancelText: "Cancel",
+  action: null,
+});
 
   const [formData, setFormData] = useState(emptyForm);
 
@@ -117,7 +126,21 @@ const AdminLessons = () => {
       await fetchModules(selectedCourse);
       resetModuleForm();
     } catch (err) {
-      alert(err.response?.data?.message || err.message);
+      setConfirmDialog({
+  open: true,
+  title: "Module Save Failed",
+  message: err.response?.data?.message || err.message,
+  confirmText: "Okay",
+  cancelText: "",
+  action: () => {
+    setConfirmDialog({
+      open: false,
+      title: "",
+      message: "",
+      action: null,
+    });
+  },
+});
     }
   };
 
@@ -131,39 +154,126 @@ const AdminLessons = () => {
   };
 
   const handleDeleteModule = async (moduleId) => {
-    if (!window.confirm("Delete this module? Modules with lessons cannot be deleted.")) return;
+  setConfirmDialog({
+    open: true,
+    title: "Delete Module?",
+    message: "Modules with lessons cannot be deleted.",
+    confirmText: "Delete",
+    cancelText: "Cancel",
+    action: async () => {
+      setConfirmDialog({
+        open: false,
+        title: "",
+        message: "",
+        action: null,
+      });
 
-    try {
-      await api.delete(`/modules/${moduleId}`);
-      await fetchModules(selectedCourse);
-    } catch (err) {
-      alert(err.response?.data?.message || err.message);
-    }
-  };
+      try {
+        await api.delete(`/modules/${moduleId}`);
+        await fetchModules(selectedCourse);
+
+        setConfirmDialog({
+          open: true,
+          title: "Module Deleted",
+          message: "Module deleted successfully.",
+          confirmText: "Done",
+          cancelText: "",
+          action: () => {
+            setConfirmDialog({
+              open: false,
+              title: "",
+              message: "",
+              action: null,
+            });
+          },
+        });
+      } catch (err) {
+        setConfirmDialog({
+          open: true,
+          title: "Unable to Delete Module",
+          message:
+            err.response?.data?.message ||
+            err.message ||
+            "Failed to delete module.",
+          confirmText: "Okay",
+          cancelText: "",
+          action: () => {
+            setConfirmDialog({
+              open: false,
+              title: "",
+              message: "",
+              action: null,
+            });
+          },
+        });
+      }
+    },
+  });
+};
 
   const handleDelete = async (lessonId) => {
-    const confirmed = window.confirm("Are you sure you want to delete this lesson?");
+  setConfirmDialog({
+    open: true,
+    title: "Delete Lesson?",
+    message: "Are you sure you want to delete this lesson?",
+    confirmText: "Delete",
+    cancelText: "Cancel",
+    action: async () => {
+      setConfirmDialog({
+        open: false,
+        title: "",
+        message: "",
+        action: null,
+      });
 
-    if (!confirmed) return;
+      try {
+        await api.delete(`/lessons/${lessonId}`);
 
-    try {
-      await api.delete(`/lessons/${lessonId}`);
+        if (editingLessonId === lessonId) {
+          resetForm();
+        }
 
-      if (editingLessonId === lessonId) {
-        resetForm();
+        await fetchLessons(selectedCourse);
+
+        setConfirmDialog({
+          open: true,
+          title: "Lesson Deleted",
+          message: "Lesson deleted successfully.",
+          confirmText: "Done",
+          cancelText: "",
+          action: () => {
+            setConfirmDialog({
+              open: false,
+              title: "",
+              message: "",
+              action: null,
+            });
+          },
+        });
+      } catch (err) {
+        setConfirmDialog({
+          open: true,
+          title: "Unable to Delete Lesson",
+          message:
+            err.response?.data?.message ||
+            JSON.stringify(err.response?.data) ||
+            err.message ||
+            "Failed to delete lesson.",
+          confirmText: "Okay",
+          cancelText: "",
+          action: () => {
+            setConfirmDialog({
+              open: false,
+              title: "",
+              message: "",
+              action: null,
+            });
+          },
+        });
       }
-
-      await fetchLessons(selectedCourse);
-      alert("Lesson Deleted Successfully ✅");
-    } catch (err) {
-      console.log(err);
-      alert(
-        err.response?.data?.message ||
-          JSON.stringify(err.response?.data) ||
-          err.message
-      );
-    }
-  };
+    },
+  });
+};
 
   const uploadLessonFiles = async () => {
     if (!videoFile && !pdfFile) return {};
@@ -185,54 +295,102 @@ const AdminLessons = () => {
   };
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
+  e.preventDefault();
 
-    if (!selectedCourse) {
-      alert("Please select a course first.");
-      return;
-    }
-
-    try {
-      setSavingLesson(true);
-      setUploadProgress(videoFile || pdfFile ? 0 : 100);
-      const uploadedResources = await uploadLessonFiles();
-      const lessonPayload = {
-        title: formData.title,
-        description: formData.description,
-        videoUrl: uploadedResources.videoUrl || formData.videoUrl,
-        pdfUrl: uploadedResources.pdfUrl || formData.pdfUrl,
-        duration: Number(formData.duration) || 0,
-        order: Number(formData.order),
-        isPreview: formData.isPreview,
-        module: formData.module || null,
-      };
-
-      if (editingLessonId) {
-        await api.put(`/lessons/${editingLessonId}`, lessonPayload);
-        alert("Lesson Updated Successfully ✅");
-      } else {
-        await api.post("/lessons", {
-          ...lessonPayload,
-          course: selectedCourse,
+  if (!selectedCourse) {
+    setConfirmDialog({
+      open: true,
+      title: "Course Required",
+      message: "Please select a course first.",
+      confirmText: "Okay",
+      cancelText: "",
+      action: () => {
+        setConfirmDialog({
+          open: false,
+          title: "",
+          message: "",
+          action: null,
         });
-        alert("Lesson Added Successfully ✅");
-      }
+      },
+    });
+    return;
+  }
 
-      await fetchLessons(selectedCourse);
-      resetForm();
-    } catch (err) {
-      console.log(err);
-      console.log("Response =>", err.response);
+  try {
+    setSavingLesson(true);
+    setUploadProgress(videoFile || pdfFile ? 0 : 100);
 
-      alert(
-        err.response?.data?.message ||
-          JSON.stringify(err.response?.data) ||
-          err.message
-      );
-    } finally {
-      setSavingLesson(false);
+    const uploadedResources = await uploadLessonFiles();
+
+    const lessonPayload = {
+      title: formData.title,
+      description: formData.description,
+      videoUrl: uploadedResources.videoUrl || formData.videoUrl,
+      pdfUrl: uploadedResources.pdfUrl || formData.pdfUrl,
+      duration: Number(formData.duration) || 0,
+      order: Number(formData.order),
+      isPreview: formData.isPreview,
+      module: formData.module || null,
+    };
+
+    const wasEditing = Boolean(editingLessonId);
+
+    if (wasEditing) {
+      await api.put(`/lessons/${editingLessonId}`, lessonPayload);
+    } else {
+      await api.post("/lessons", {
+        ...lessonPayload,
+        course: selectedCourse,
+      });
     }
-  };
+
+    await fetchLessons(selectedCourse);
+    resetForm();
+
+    setConfirmDialog({
+      open: true,
+      title: wasEditing ? "Lesson Updated" : "Lesson Added",
+      message: wasEditing
+        ? "Lesson updated successfully."
+        : "Lesson added successfully.",
+      confirmText: "Done",
+      cancelText: "",
+      action: () => {
+        setConfirmDialog({
+          open: false,
+          title: "",
+          message: "",
+          action: null,
+        });
+      },
+    });
+  } catch (err) {
+    console.log(err);
+    console.log("Response =>", err.response);
+
+    setConfirmDialog({
+      open: true,
+      title: "Unable to Save Lesson",
+      message:
+        err.response?.data?.message ||
+        JSON.stringify(err.response?.data) ||
+        err.message ||
+        "Failed to save lesson.",
+      confirmText: "Okay",
+      cancelText: "",
+      action: () => {
+        setConfirmDialog({
+          open: false,
+          title: "",
+          message: "",
+          action: null,
+        });
+      },
+    });
+  } finally {
+    setSavingLesson(false);
+  }
+};
 
   return (
     <div className="admin-lessons-page">
@@ -295,6 +453,22 @@ const AdminLessons = () => {
               <div>
                 <button type="button" onClick={() => handleEditModule(module)}>Edit</button>
                 <button type="button" onClick={() => handleDeleteModule(module._id)}>Delete</button>
+                <ConfirmDialog
+  open={confirmDialog.open}
+  title={confirmDialog.title}
+  message={confirmDialog.message}
+  confirmText={confirmDialog.confirmText}
+  cancelText={confirmDialog.cancelText}
+  onConfirm={confirmDialog.action}
+  onCancel={() =>
+    setConfirmDialog({
+      open: false,
+      title: "",
+      message: "",
+      action: null,
+    })
+  }
+/>
               </div>
             </div>
           ))}

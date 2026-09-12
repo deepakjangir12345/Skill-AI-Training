@@ -8,6 +8,7 @@ const {
   getAllFeedback,
   updateFeedbackStatus,
   scheduleFeedbackSession,
+   deleteFeedback,
 } = require("../controllers/feedbackController");
 
 const authMiddleware = require("../middleware/auth.Middleware");
@@ -38,3 +39,5 @@ router.put(
 );
 
 module.exports = router;
+// DELETE FEEDBACK (ADMIN)
+router.delete("/:id", authMiddleware, deleteFeedback);

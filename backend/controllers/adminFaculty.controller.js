@@ -59,14 +59,18 @@ exports.getAllFaculty = async (req, res) => {
 
     // Get course counts for each faculty
     const facultyWithCourseCount = await Promise.all(
-      faculty.map(async (f) => {
-        const courseCount = await Course.countDocuments({ instructorId: f._id });
-        return {
-          ...f.toObject(),
-          courseCount
-        };
-      })
-    );
+  faculty.map(async (f) => {
+    const assignedCourses = await Course.find({
+      instructorId: f._id
+    }).select("_id name");
+
+    return {
+      ...f.toObject(),
+      courseCount: assignedCourses.length,
+      assignedCourses
+    };
+  })
+);
 
     res.json(facultyWithCourseCount);
   } catch (error) {

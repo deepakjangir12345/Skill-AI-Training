@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import api from "../utils/api";
 import "./AdminLiveClasses.css";
+import ConfirmDialog from "../components/ConfirmDialog";
 
 const AdminLiveClasses = () => {
   const [liveClasses, setLiveClasses] = useState([]);
@@ -9,6 +10,7 @@ const AdminLiveClasses = () => {
   const [editingId, setEditingId] = useState(null);
 
   const [formData, setFormData] = useState({
+    
     title: "",
     description: "",
     courseId: "",
@@ -22,6 +24,15 @@ const AdminLiveClasses = () => {
     fetchLiveClasses();
     fetchCourses();
   }, []);
+
+  const [confirmDialog, setConfirmDialog] = useState({
+  open: false,
+  title: "",
+  message: "",
+  confirmText: "Okay",
+  cancelText: "",
+  action: null,
+});
 
   const fetchLiveClasses = async () => {
     try {
@@ -51,61 +62,129 @@ const AdminLiveClasses = () => {
   };
 
   const handleSubmit = async (event) => {
-    event.preventDefault();
+  event.preventDefault();
 
-    try {
-      if (editingId) {
-        await api.put(`/live-classes/${editingId}`, formData);
-        alert("Live class updated successfully!");
-      } else {
-        await api.post("/live-classes", formData);
-        alert("Live class created successfully!");
-      }
+  try {
+    const wasEditing = Boolean(editingId);
 
-      setFormData({
-        title: "",
-        description: "",
-        courseId: "",
-        meetingLink: "",
-        scheduledAt: "",
-        duration: "",
-        sessionType: "regular",
-      });
-
-      setEditingId(null);
-      fetchLiveClasses();
-    } catch (error) {
-      console.error("Error saving live class:", error);
-
-      alert(
-        error.response?.data?.message ||
-          "Failed to save live class"
-      );
+    if (wasEditing) {
+      await api.put(`/live-classes/${editingId}`, formData);
+    } else {
+      await api.post("/live-classes", formData);
     }
-  };
+
+    setFormData({
+      title: "",
+      description: "",
+      courseId: "",
+      meetingLink: "",
+      scheduledAt: "",
+      duration: "",
+      sessionType: "regular",
+    });
+
+    setEditingId(null);
+
+    await fetchLiveClasses();
+
+    setConfirmDialog({
+      open: true,
+      title: wasEditing
+        ? "Live Class Updated"
+        : "Live Class Created",
+      message: wasEditing
+        ? "Live class updated successfully."
+        : "Live class created successfully.",
+      confirmText: "Done",
+      cancelText: "",
+      action: () => {
+        setConfirmDialog({
+          open: false,
+          title: "",
+          message: "",
+          action: null,
+        });
+      },
+    });
+  } catch (error) {
+    console.error("Error saving live class:", error);
+
+    setConfirmDialog({
+      open: true,
+      title: "Unable to Save",
+      message:
+        error.response?.data?.message ||
+        "Failed to save live class.",
+      confirmText: "Okay",
+      cancelText: "",
+      action: () => {
+        setConfirmDialog({
+          open: false,
+          title: "",
+          message: "",
+          action: null,
+        });
+      },
+    });
+  }
+};
 
   const handleDelete = async (id) => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this live class?"
-    );
+  setConfirmDialog({
+    open: true,
+    title: "Delete Live Class?",
+    message: "Are you sure you want to delete this live class?",
+    confirmText: "Delete",
+    cancelText: "Cancel",
+    action: async () => {
+      setConfirmDialog({
+        open: false,
+        title: "",
+        message: "",
+        action: null,
+      });
 
-    if (!confirmDelete) return;
+      try {
+        await api.delete(`/live-classes/${id}`);
+        await fetchLiveClasses();
 
-    try {
-      await api.delete(`/live-classes/${id}`);
-
-      alert("Live class deleted successfully!");
-
-      fetchLiveClasses();
-    } catch (error) {
-      console.error("Error deleting live class:", error);
-
-      alert(
-        error.response?.data?.message ||
-          "Failed to delete live class"
-      );
-    }
-  };
+        setConfirmDialog({
+          open: true,
+          title: "Live Class Deleted",
+          message: "Live class deleted successfully.",
+          confirmText: "Done",
+          cancelText: "",
+          action: () => {
+            setConfirmDialog({
+              open: false,
+              title: "",
+              message: "",
+              action: null,
+            });
+          },
+        });
+      } catch (error) {
+        setConfirmDialog({
+          open: true,
+          title: "Delete Failed",
+          message:
+            error.response?.data?.message ||
+            "Failed to delete live class.",
+          confirmText: "Okay",
+          cancelText: "",
+          action: () => {
+            setConfirmDialog({
+              open: false,
+              title: "",
+              message: "",
+              action: null,
+            });
+          },
+        });
+      }
+    },
+  });
+};
 
   const handleEdit = (liveClass) => {
     setEditingId(liveClass._id);
@@ -254,6 +333,22 @@ const AdminLiveClasses = () => {
               : "Create Live Class"}
           </button>
         </form>
+        <ConfirmDialog
+  open={confirmDialog.open}
+  title={confirmDialog.title}
+  message={confirmDialog.message}
+  confirmText={confirmDialog.confirmText}
+  cancelText={confirmDialog.cancelText}
+  onConfirm={confirmDialog.action}
+  onCancel={() =>
+    setConfirmDialog({
+      open: false,
+      title: "",
+      message: "",
+      action: null,
+    })
+  }
+/>
       </div>
 
       {/* LIVE CLASSES LIST */}
